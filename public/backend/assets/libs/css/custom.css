@@ -1,0 +1,31 @@
+.action_list{
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+.action_list li{
+    list-style: none;
+    margin: 0 4px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+}
+.action_list li a{
+    color: #FFF !important;
+}
+
+.badge-text-primary{
+   background-color: #0d6efda3;
+   color: #FFF;
+   padding: 6px 15px;
+   border-radius: 20px;
+}
+.badge-text-Danger{
+    background-color: #dc3546c9;
+    color: #FFF;
+    padding: 6px 15px;
+    border-radius: 20px;
+}
