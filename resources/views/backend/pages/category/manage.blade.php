@@ -62,16 +62,39 @@
                                             @endif
                                         </td>
                                         <td>
-                                        <ul class="action_list">
-                                            <li style="background: #157347;">
-                                                <a href="{{ route('category.edit', $category->id) }}"><i class="far fa-edit"></i></a> 
-                                            </li>
-                                            <li style="background: #BB2D3B;">
-                                                <a href="{{ route('category.destroy', $category->id) }}" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-trash"></i></a> 
-                                            </li>
-                                        </ul>
+                                            <ul class="action_list">
+                                                <li style="background: #157347;">
+                                                    <a href="{{ route('category.edit', $category->id) }}"><i class="far fa-edit"></i></a> 
+                                                </li>
+                                                <li style="background: #BB2D3B;">
+                                                    <span data-toggle="modal" data-target="#category{{ $category->id }}"><i class="fas fa-trash"></i></span> 
+                                                </li>
+                                            </ul>
                                         </td>
                                     </tr>
+
+
+                                    <!-- Modal start -->
+                                    <div class="modal fade" id="category{{ $category->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Do you want to delete this data!</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+
+                                                <div class="modal-body text-center">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    
+                                                    <a href="{{ route('category.destroy', $category->id) }}" class="btn btn-primary">Confirm</a>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Modal end -->
                                 @endforeach
                             </tbody>
                         </table>

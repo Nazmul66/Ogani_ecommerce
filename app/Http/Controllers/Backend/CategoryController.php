@@ -32,7 +32,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        // raw query system laravel
+        // raw query system laravel ( 1st method )
         // $data = array();
         // $data['category_name'] = $request->cat_name;
         // $data['category_slug'] = Str::slug($request->cat_name);
@@ -40,7 +40,15 @@ class CategoryController extends Controller
         // DB::table('categories')->insert($data);
 
 
-        // eloquent relation system 
+        // eloquent relation system
+        //( 2nd method )
+        // Category::insert([
+        //     "category_name"   => $request->cat_name,
+        //     "category_slug"   => Str::slug($request->cat_name),
+        //     "status"          => $request->status
+        // ]);
+
+        //( 3rd method )
         $category = new Category();
 
         if( !is_null($category) ){
@@ -153,6 +161,6 @@ class CategoryController extends Controller
             'alert-type' => "error"
         ];
 
-        return redirect()->route('category.manage')->with($notifications);
+        return redirect()->back()->with($notifications);
     }
 }

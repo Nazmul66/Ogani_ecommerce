@@ -42,10 +42,10 @@
                                 <div id="submenu-2" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="">Add SubCategory</a>
+                                            <a class="nav-link" href="{{ route('subCategory.create') }}">Add SubCategory</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="">Manage SubCategory</a>
+                                            <a class="nav-link" href="{{ route('subCategory.manage') }}">Manage SubCategory</a>
                                         </li>
                                     </ul>
                                 </div>

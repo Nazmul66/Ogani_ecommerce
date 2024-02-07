@@ -29,3 +29,19 @@
     padding: 6px 15px;
     border-radius: 20px;
 }
+
+@media ( min-width: 360px ) and ( max-width: 576px ) {
+    .card-body {
+        overflow-x: scroll !important;
+    }
+}
+@media ( min-width: 577px ) and ( max-width: 786px ) {
+    .card-body {
+        overflow-x: scroll !important;
+    }
+}
+
+.fa-trash{
+    color: #FFF;
+    cursor: pointer;
+}
