@@ -108,7 +108,7 @@ class SubCategoryController extends Controller
         }
     }
 
-        /**
+    /**
      * Display the specified resource.
      */
     public function trashManage()

@@ -33,7 +33,7 @@
                                 </div>
                             </li>
 
-                             <!-- SubCategory list  -->
+                            <!-- SubCategory list  -->
                             <li class="nav-item">
                                 <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2">
                                     <i class="fas fa-fw fa-table"></i>SubCategory
@@ -46,6 +46,24 @@
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{ route('subCategory.manage') }}">Manage SubCategory</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                             <!-- ChildCategory list  -->
+                             <li class="nav-item">
+                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-3" aria-controls="submenu-3">
+                                    <i class="fas fa-fw fa-table"></i>ChildCategory
+                                </a>
+
+                                <div id="submenu-3" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ route('childCategory.create') }}">Add ChildCategory</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ route('childCategory.manage') }}">Manage ChildCategory</a>
                                         </li>
                                     </ul>
                                 </div>

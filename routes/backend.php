@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\AdminPageController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\SubCategoryController;
+use App\Http\Controllers\Backend\ChildCategoryController;
 /*
 |--------------------------------------------------------------------------
 | Backend Routes
@@ -40,6 +41,19 @@ Route::group(['middleware' => ['auth','isAdmin'], 'prefix' => '/admin'], functio
       Route::post('/update/{id}', [SubCategoryController::class, 'update'])->name('subCategory.update');
       Route::get('/destroy/{id}', [SubCategoryController::class, 'destroy'])->name('subCategory.destroy');
       Route::get('/trash-destroy/{id}', [SubCategoryController::class, 'trashDestroy'])->name('subCategory.trash-destroy');
+   });
+
+
+   // childCategory
+   Route::group(['prefix' => '/childCategory'], function () {
+      Route::get('/manage', [ChildCategoryController::class, 'manage'])->name('childCategory.manage');
+      Route::get('/trash-manage', [ChildCategoryController::class, 'trashManage'])->name('childCategory.trash-manage');
+      Route::get('/create', [ChildCategoryController::class, 'create'])->name('childCategory.create');
+      Route::post('/store', [ChildCategoryController::class, 'store'])->name('childCategory.store');
+      Route::get('/edit/{id}', [ChildCategoryController::class, 'edit'])->name('childCategory.edit');
+      Route::post('/update/{id}', [ChildCategoryController::class, 'update'])->name('childCategory.update');
+      Route::get('/destroy/{id}', [ChildCategoryController::class, 'destroy'])->name('childCategory.destroy');
+      Route::get('/trash-destroy/{id}', [ChildCategoryController::class, 'trashDestroy'])->name('childCategory.trash-destroy');
    });
    
 });
