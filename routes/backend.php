@@ -5,6 +5,7 @@ use App\Http\Controllers\Backend\AdminPageController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\ChildCategoryController;
+use App\Http\Controllers\Backend\BrandController;
 /*
 |--------------------------------------------------------------------------
 | Backend Routes
@@ -18,7 +19,7 @@ use App\Http\Controllers\Backend\ChildCategoryController;
 Route::group(['middleware' => ['auth','isAdmin'], 'prefix' => '/admin'], function () {
    Route::get('/dashboard', [AdminPageController::class, 'index'])->name('admin.dashboard');
     
-   // category
+   // Category
    Route::group(['prefix' => '/category'], function () {
       Route::get('/manage', [CategoryController::class, 'manage'])->name('category.manage');
       Route::get('/trash-manage', [CategoryController::class, 'trashManage'])->name('category.trash-manage');
@@ -31,7 +32,7 @@ Route::group(['middleware' => ['auth','isAdmin'], 'prefix' => '/admin'], functio
    });
 
 
-   // subCategory
+   // SubCategory
    Route::group(['prefix' => '/subCategory'], function () {
       Route::get('/manage', [SubCategoryController::class, 'manage'])->name('subCategory.manage');
       Route::get('/trash-manage', [SubCategoryController::class, 'trashManage'])->name('subCategory.trash-manage');
@@ -44,7 +45,7 @@ Route::group(['middleware' => ['auth','isAdmin'], 'prefix' => '/admin'], functio
    });
 
 
-   // childCategory
+   // ChildCategory
    Route::group(['prefix' => '/childCategory'], function () {
       Route::get('/manage', [ChildCategoryController::class, 'manage'])->name('childCategory.manage');
       Route::get('/trash-manage', [ChildCategoryController::class, 'trashManage'])->name('childCategory.trash-manage');
@@ -54,6 +55,19 @@ Route::group(['middleware' => ['auth','isAdmin'], 'prefix' => '/admin'], functio
       Route::post('/update/{id}', [ChildCategoryController::class, 'update'])->name('childCategory.update');
       Route::get('/destroy/{id}', [ChildCategoryController::class, 'destroy'])->name('childCategory.destroy');
       Route::get('/trash-destroy/{id}', [ChildCategoryController::class, 'trashDestroy'])->name('childCategory.trash-destroy');
+   });
+
+
+   // Brand
+   Route::group(['prefix' => '/brand'], function () {
+      Route::get('/manage', [BrandController::class, 'manage'])->name('brand.manage');
+      Route::get('/trash-manage', [BrandController::class, 'trashManage'])->name('brand.trash-manage');
+      Route::get('/create', [BrandController::class, 'create'])->name('brand.create');
+      Route::post('/store', [BrandController::class, 'store'])->name('brand.store');
+      Route::get('/edit/{id}', [BrandController::class, 'edit'])->name('brand.edit');
+      Route::post('/update/{id}', [BrandController::class, 'update'])->name('brand.update');
+      Route::get('/destroy/{id}', [BrandController::class, 'destroy'])->name('brand.destroy');
+      Route::get('/trash-destroy/{id}', [BrandController::class, 'trashDestroy'])->name('brand.trash-destroy');
    });
    
 });

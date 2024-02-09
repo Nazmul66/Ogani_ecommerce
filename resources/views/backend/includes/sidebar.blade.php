@@ -69,6 +69,25 @@
                                 </div>
                             </li>
 
+                            <!-- Brand list  -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-4" aria-controls="submenu-4">
+                                    <i class="fas fa-fw fa-table"></i>Brand
+                                </a>
+
+                                <div id="submenu-4" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ route('brand.create') }}">Add Brand</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ route('brand.manage') }}">Manage Brand</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+
                             <li class="nav-divider">
                                 Features
                             </li>
