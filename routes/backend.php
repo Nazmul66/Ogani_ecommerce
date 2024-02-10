@@ -6,6 +6,9 @@ use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\ChildCategoryController;
 use App\Http\Controllers\Backend\BrandController;
+use App\Http\Controllers\Backend\SettingController;
+use App\Http\Controllers\Backend\PageController;
+
 /*
 |--------------------------------------------------------------------------
 | Backend Routes
@@ -68,6 +71,27 @@ Route::group(['middleware' => ['auth','isAdmin'], 'prefix' => '/admin'], functio
       Route::post('/update/{id}', [BrandController::class, 'update'])->name('brand.update');
       Route::get('/destroy/{id}', [BrandController::class, 'destroy'])->name('brand.destroy');
       Route::get('/trash-destroy/{id}', [BrandController::class, 'trashDestroy'])->name('brand.trash-destroy');
+   });
+
+   // Setting
+   Route::group(['prefix' => '/setting'], function () {
+         // SEO setting
+         Route::group(['prefix' => '/seo'], function () {
+            Route::get('/', [SettingController::class, 'seo_setting'])->name('seo.setting');
+            Route::post('/update/{id}', [SettingController::class, 'seo_update'])->name('seo.update');
+         });
+
+         // SMTP setting
+         Route::group(['prefix' => '/smtp'], function () {
+            Route::get('/', [SettingController::class, 'smtp_setting'])->name('smtp.setting');
+            Route::post('/update/{id}', [SettingController::class, 'smtp_update'])->name('smtp.update');
+         });
+
+         // Pages setting
+         Route::group(['prefix' => '/page'], function () {
+            Route::get('/', [PageController::class, 'manage'])->name('page.manage');
+            // Route::post('/update/{id}', [SettingController::class, 'smtp_update'])->name('smtp.update');
+         });
    });
    
 });
