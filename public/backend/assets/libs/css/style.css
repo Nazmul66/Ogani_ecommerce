@@ -1685,6 +1685,7 @@ Left Navigation Sidebar
 .nav-left-sidebar .navbar {
     position: relative;
     padding: 14px;
+    margin-bottom: 120px;
 }
 
 .nav-left-sidebar .navbar-nav .nav-item {}

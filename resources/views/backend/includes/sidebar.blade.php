@@ -1,6 +1,6 @@
         <!-- left sidebar -->
         <div class="nav-left-sidebar sidebar-dark">
-            <div class="menu-list">
+            <div class="">
                 <nav class="navbar navbar-expand-lg navbar-light">
                     <a class="d-xl-none d-lg-none" href="#">Dashboard</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -9,7 +9,7 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav flex-column">
 
-                            <li class="nav-divider"> Menu</li>
+                            <li class="nav-divider">Menu</li>
 
                             <li class="nav-item ">
                                 <a class="nav-link active" href="#">Dashboard <span class="badge badge-success">6</span></a>
@@ -93,7 +93,7 @@
                             </li>
                              <!-- setting list  -->
                             <li class="nav-item">
-                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-100" aria-controls="submenu-100">
+                                <a class="nav-link" data-toggle="collapse" aria-expanded="false" data-target="#submenu-100" aria-controls="submenu-100">
                                     <i class="fas fa-fw fa-table"></i>Setting
                                 </a>
 
@@ -106,7 +106,7 @@
                                             <a class="nav-link" href="">Website Setting</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="">Page Create</a>
+                                            <a class="nav-link" href="{{ route('page.manage') }}">Page Manage</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{ route('smtp.setting') }}">SMTP Setting</a>

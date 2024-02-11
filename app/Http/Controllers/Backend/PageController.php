@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Page;
 
 class PageController extends Controller
 {
@@ -12,7 +13,8 @@ class PageController extends Controller
      */
     public function manage()
     {
-        //
+        $pages = Page::orderBy('id', 'asc')->get();
+        return view('backend.pages.setting.pages.manage', compact('pages'));
     }
 
     /**
@@ -20,7 +22,7 @@ class PageController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.pages.setting.pages.create');
     }
 
     /**
@@ -28,15 +30,23 @@ class PageController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $pages = new Page();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+        if( !is_null($pages) ){
+            $pages->page_position      = $request->page_position;
+            $pages->page_name          = $request->page_name;
+            $pages->page_title         = $request->page_title;
+            $pages->page_description   = $request->page_description;
+
+            $pages->save();
+            
+            $notifications = [
+                "message"    => "New page inserted successfully",
+                'alert-type' => "success",
+            ];
+
+            return redirect()->route('page.manage')->with($notifications);
+        }
     }
 
     /**
@@ -44,7 +54,8 @@ class PageController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $pages = Page::where('id', $id)->first();
+        return view('backend.pages.setting.pages.edit', compact('pages'));
     }
 
     /**
@@ -52,7 +63,23 @@ class PageController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $pages = Page::find($id);
+
+        if( !is_null($pages) ){
+            $pages->page_position      = $request->page_position;
+            $pages->page_name          = $request->page_name;
+            $pages->page_title         = $request->page_title;
+            $pages->page_description   = $request->page_description;
+
+            $pages->save();
+            
+            $notifications = [
+                "message"    => "Page updated successfully",
+                'alert-type' => "success",
+            ];
+
+            return redirect()->route('page.manage')->with($notifications);
+        }
     }
 
     /**
@@ -60,6 +87,17 @@ class PageController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $pages = Page::find($id);
+
+        if( !is_null($pages) ){
+            $pages->delete();
+
+            $notifications = [
+                "message"    => "Page deleted successfully",
+                'alert-type' => "error",
+            ];
+
+            return redirect()->route('page.manage')->with($notifications);
+        }
     }
 }

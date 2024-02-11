@@ -89,8 +89,12 @@ Route::group(['middleware' => ['auth','isAdmin'], 'prefix' => '/admin'], functio
 
          // Pages setting
          Route::group(['prefix' => '/page'], function () {
-            Route::get('/', [PageController::class, 'manage'])->name('page.manage');
-            // Route::post('/update/{id}', [SettingController::class, 'smtp_update'])->name('smtp.update');
+            Route::get('/manage', [PageController::class, 'manage'])->name('page.manage');
+            Route::get('/create', [PageController::class, 'create'])->name('page.create');
+            Route::post('/store', [PageController::class, 'store'])->name('page.store');
+            Route::get('/edit/{id}', [PageController::class, 'edit'])->name('page.edit');
+            Route::post('/update/{id}', [PageController::class, 'update'])->name('page.update');
+            Route::get('/destroy/{id}', [PageController::class, 'destroy'])->name('page.destroy');
          });
    });
    

@@ -21,3 +21,5 @@
   <!-- Custom css -->
  <link rel="stylesheet" href="{{ asset('backend/assets/libs/css/custom.css') }}">
 
+ @yield('style-css')
+
