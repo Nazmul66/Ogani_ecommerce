@@ -103,13 +103,16 @@
                                             <a class="nav-link" href="{{ route('seo.setting') }}">SEO Setting</a>
                                         </li> 
                                         <li class="nav-item">
-                                            <a class="nav-link" href="">Website Setting</a>
+                                            <a class="nav-link" href="{{ route('website.setting') }}">Website Setting</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{ route('page.manage') }}">Page Manage</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{ route('smtp.setting') }}">SMTP Setting</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="">Warehouse</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="">Payment Gateway</a>

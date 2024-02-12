@@ -87,6 +87,12 @@ Route::group(['middleware' => ['auth','isAdmin'], 'prefix' => '/admin'], functio
             Route::post('/update/{id}', [SettingController::class, 'smtp_update'])->name('smtp.update');
          });
 
+         // Website setting
+         Route::group(['prefix' => '/website'], function () {
+            Route::get('/', [SettingController::class, 'website_setting'])->name('website.setting');
+            Route::post('/update/{id}', [SettingController::class, 'website_update'])->name('website.update');
+         });
+
          // Pages setting
          Route::group(['prefix' => '/page'], function () {
             Route::get('/manage', [PageController::class, 'manage'])->name('page.manage');
