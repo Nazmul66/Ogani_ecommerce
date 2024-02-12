@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Backend\PageController;
 use App\Http\Controllers\Backend\WarehouseController;
+use App\Http\Controllers\Backend\CouponController;
 
 /*
 |--------------------------------------------------------------------------
@@ -85,6 +86,19 @@ Route::group(['middleware' => ['auth','isAdmin'], 'prefix' => '/admin'], functio
       Route::post('/update/{id}', [WarehouseController::class, 'update'])->name('warehouse.update');
       Route::get('/destroy/{id}', [WarehouseController::class, 'destroy'])->name('warehouse.destroy');
       Route::get('/trash-destroy/{id}', [WarehouseController::class, 'trashDestroy'])->name('warehouse.trash-destroy');
+   });
+
+
+   // Coupons
+   Route::group(['prefix' => '/coupon'], function () {
+      Route::get('/manage', [CouponController::class, 'manage'])->name('coupon.manage');
+      Route::get('/trash-manage', [CouponController::class, 'trashManage'])->name('coupon.trash-manage');
+      Route::get('/create', [CouponController::class, 'create'])->name('coupon.create');
+      Route::post('/store', [CouponController::class, 'store'])->name('coupon.store');
+      Route::get('/edit/{id}', [CouponController::class, 'edit'])->name('coupon.edit');
+      Route::post('/update/{id}', [CouponController::class, 'update'])->name('coupon.update');
+      Route::get('/destroy/{id}', [CouponController::class, 'destroy'])->name('coupon.destroy');
+      Route::get('/trash-destroy/{id}', [CouponController::class, 'trashDestroy'])->name('coupon.trash-destroy');
    });
 
    // Setting

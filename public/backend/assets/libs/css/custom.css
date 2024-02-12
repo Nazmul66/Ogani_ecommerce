@@ -88,8 +88,15 @@
    border: 2px dashed rgba(56, 78, 183, 0.30);
    padding: 10px 0px;
 }
-/* .menu_list{
-    overflow-x: hidden;
-    width: auto;
-    height: 100%;
-} */
+.badge_pumkin{
+    background: #7952B3;
+    color: #FFF;
+    padding: 6px 20px;
+    border-radius: 20px;
+}
+.badge_yellow{
+    background: #FFA442;
+    color: #FFF;
+    padding: 6px 20px;
+    border-radius: 20px;
+}

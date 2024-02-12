@@ -109,13 +109,31 @@
                             <li class="nav-divider">
                                 Option
                             </li>
-                             <!-- setting list  -->
-                            <li class="nav-item">
+                            <!-- offer list  -->
+                            <li class="nav-item" style="cursor: pointer;">
                                 <a class="nav-link" data-toggle="collapse" aria-expanded="false" data-target="#submenu-100" aria-controls="submenu-100">
-                                    <i class="fas fa-fw fa-table"></i>Setting
+                                    <i class="fas fa-fw fa-table"></i>Offer
                                 </a>
 
                                 <div id="submenu-100" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ route('coupon.create') }}">Coupon</a>
+                                        </li> 
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="">E Campaign</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                             <!-- setting list  -->
+                            <li class="nav-item" style="cursor: pointer;">
+                                <a class="nav-link" data-toggle="collapse" aria-expanded="false" data-target="#submenu-101" aria-controls="submenu-101">
+                                    <i class="fas fa-fw fa-table"></i>Setting
+                                </a>
+
+                                <div id="submenu-101" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{ route('seo.setting') }}">SEO Setting</a>
