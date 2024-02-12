@@ -87,6 +87,24 @@
                                 </div>
                             </li>
 
+                             <!-- Warehouse list  -->
+                             <li class="nav-item">
+                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-5" aria-controls="submenu-5">
+                                    <i class="fas fa-fw fa-table"></i>Warehouse
+                                </a>
+
+                                <div id="submenu-5" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ route('warehouse.create') }}">Add Warehouse</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ route('warehouse.manage') }}">Manage Warehouse</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
 
                             <li class="nav-divider">
                                 Option
@@ -110,9 +128,6 @@
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{ route('smtp.setting') }}">SMTP Setting</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="">Warehouse</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="">Payment Gateway</a>

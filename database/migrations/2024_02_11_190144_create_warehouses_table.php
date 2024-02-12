@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('warehouse_name')->nullable();
             $table->string('warehouse_address')->nullable();
             $table->string('warehouse_phone')->nullable();
+            $table->integer('status')->default(1)->comment('1=active, 2=inactive');
             $table->timestamps();
         });
     }

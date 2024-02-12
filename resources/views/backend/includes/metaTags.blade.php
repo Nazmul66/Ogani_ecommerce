@@ -5,6 +5,8 @@
  @yield('page-titles')
 
  <!-- Bootstrap CSS -->
+ @php $setting = App\Models\Setting::first(); @endphp
+ <link rel="icon" type="image/x-icon" href="{{ asset('backend/uploads/website_setting/' . $setting->favicon) }}">
  <link rel="stylesheet" href="{{ asset('backend/assets/vendor/bootstrap/css/bootstrap.min.css') }}">
  <link href="{{ asset('backend/assets/vendor/fonts/circular-std/style.css') }}" rel="stylesheet">
  <link rel="stylesheet" href="{{ asset('backend/assets/libs/css/style.css') }}">
@@ -22,4 +24,3 @@
  <link rel="stylesheet" href="{{ asset('backend/assets/libs/css/custom.css') }}">
 
  @yield('style-css')
-

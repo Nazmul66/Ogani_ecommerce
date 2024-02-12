@@ -8,6 +8,7 @@ use App\Http\Controllers\Backend\ChildCategoryController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Backend\PageController;
+use App\Http\Controllers\Backend\WarehouseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,6 +72,19 @@ Route::group(['middleware' => ['auth','isAdmin'], 'prefix' => '/admin'], functio
       Route::post('/update/{id}', [BrandController::class, 'update'])->name('brand.update');
       Route::get('/destroy/{id}', [BrandController::class, 'destroy'])->name('brand.destroy');
       Route::get('/trash-destroy/{id}', [BrandController::class, 'trashDestroy'])->name('brand.trash-destroy');
+   });
+
+
+   // Warehouse
+   Route::group(['prefix' => '/warehouse'], function () {
+      Route::get('/manage', [WarehouseController::class, 'manage'])->name('warehouse.manage');
+      Route::get('/trash-manage', [WarehouseController::class, 'trashManage'])->name('warehouse.trash-manage');
+      Route::get('/create', [WarehouseController::class, 'create'])->name('warehouse.create');
+      Route::post('/store', [WarehouseController::class, 'store'])->name('warehouse.store');
+      Route::get('/edit/{id}', [WarehouseController::class, 'edit'])->name('warehouse.edit');
+      Route::post('/update/{id}', [WarehouseController::class, 'update'])->name('warehouse.update');
+      Route::get('/destroy/{id}', [WarehouseController::class, 'destroy'])->name('warehouse.destroy');
+      Route::get('/trash-destroy/{id}', [WarehouseController::class, 'trashDestroy'])->name('warehouse.trash-destroy');
    });
 
    // Setting

@@ -1,8 +1,11 @@
-        <!-- navbar -->
+      
+@php $setting = App\Models\Setting::first(); @endphp
+
+      <!-- navbar -->
         <div class="dashboard-header">
             <nav class="navbar navbar-expand-lg bg-white fixed-top">
                 <a class="navbar-brand" href="{{ route('admin.dashboard') }}">
-                    <img src="{{ asset('frontend/img/logo.png') }}" alt="">
+                    <img src="{{ asset('backend/uploads/website_setting/' . $setting->logo) }}" alt="" style="width: 110px; height: 50px;">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
