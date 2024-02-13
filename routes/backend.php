@@ -10,6 +10,7 @@ use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Backend\PageController;
 use App\Http\Controllers\Backend\WarehouseController;
 use App\Http\Controllers\Backend\CouponController;
+use App\Http\Controllers\Backend\PickupController;
 
 /*
 |--------------------------------------------------------------------------
@@ -99,6 +100,18 @@ Route::group(['middleware' => ['auth','isAdmin'], 'prefix' => '/admin'], functio
       Route::post('/update/{id}', [CouponController::class, 'update'])->name('coupon.update');
       Route::get('/destroy/{id}', [CouponController::class, 'destroy'])->name('coupon.destroy');
       Route::get('/trash-destroy/{id}', [CouponController::class, 'trashDestroy'])->name('coupon.trash-destroy');
+   });
+
+   // Pickup Point
+   Route::group(['prefix' => '/pickup'], function () {
+      Route::get('/manage', [PickupController::class, 'manage'])->name('pickup.manage');
+      Route::get('/trash-manage', [PickupController::class, 'trashManage'])->name('pickup.trash-manage');
+      Route::get('/create', [PickupController::class, 'create'])->name('pickup.create');
+      Route::post('/store', [PickupController::class, 'store'])->name('pickup.store');
+      Route::get('/edit/{id}', [PickupController::class, 'edit'])->name('pickup.edit');
+      Route::post('/update/{id}', [PickupController::class, 'update'])->name('pickup.update');
+      Route::get('/destroy/{id}', [PickupController::class, 'destroy'])->name('pickup.destroy');
+      Route::get('/trash-destroy/{id}', [PickupController::class, 'trashDestroy'])->name('pickup.trash-destroy');
    });
 
    // Setting

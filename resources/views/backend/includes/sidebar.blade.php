@@ -105,6 +105,24 @@
                                 </div>
                             </li>
 
+                            <!-- Pickup Point list  -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-6" aria-controls="submenu-6">
+                                    <i class="fas fa-fw fa-table"></i>Pickup Point
+                                </a>
+
+                                <div id="submenu-6" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ route('pickup.create') }}">Add Pickup Point</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ route('pickup.manage') }}">Manage Pickup Point</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
 
                             <li class="nav-divider">
                                 Option
@@ -118,7 +136,7 @@
                                 <div id="submenu-100" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{ route('coupon.create') }}">Coupon</a>
+                                            <a class="nav-link" href="{{ route('coupon.manage') }}">Coupon</a>
                                         </li> 
                                         <li class="nav-item">
                                             <a class="nav-link" href="">E Campaign</a>

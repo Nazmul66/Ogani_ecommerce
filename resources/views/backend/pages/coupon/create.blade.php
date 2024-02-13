@@ -10,9 +10,15 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="page-header">
                 <nav aria-label="breadcrumb" style="background: #FFF">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}" class="breadcrumb-link">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Create Coupon</li>
+                    <ol class="breadcrumb justify-content-between align-items-center">
+                        <div class="d-flex">
+                            <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}" class="breadcrumb-link">Dashboard</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Create Coupon</li>
+                        </div>
+
+                        <a href="{{ route('coupon.manage') }}">
+                            <button class="btn btn-dark ">Manage Coupon</button>
+                        </a>
                     </ol>
                 </nav>
             </div>

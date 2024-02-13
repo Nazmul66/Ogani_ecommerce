@@ -1,7 +1,7 @@
 @extends('backend.layout.template')
 
 @section('page-titles')
-    <title>Manage Coupon | Admin Dashboard </title>
+    <title>Manage Pickup Point | Admin Dashboard </title>
 @endsection
 
 @section('body-content')
@@ -13,11 +13,11 @@
                     <ol class="breadcrumb justify-content-between align-items-center">
                         <div class="d-flex">
                             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}" class="breadcrumb-link">Dashboard</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Manage Coupon</li>
+                            <li class="breadcrumb-item active" aria-current="page">Manage Pickup Point</li>
                         </div>
 
-                        <a href="{{ route('coupon.create') }}">
-                            <button class="btn btn-dark ">Create Coupon</button>
+                        <a href="{{ route('pickup.create') }}">
+                            <button class="btn btn-dark ">Create Pickup Point</button>
                         </a>
                     </ol>
                 </nav>
@@ -31,59 +31,53 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="d-flex justify-content-between align-items-center card-header ">
-                    <h5 class="mb-0">Manage Coupon</h5>
-                    <a href="{{ route('coupon.trash-manage') }}">
+                    <h5 class="mb-0">Manage Pickup Point</h5>
+                    <a href="{{ route('pickup.trash-manage') }}">
                         <button class="btn btn-dark ">Manage Trash Folder</button>
                     </a>
                 </div>
                   <div class="card-body">
 
-                    @if ( $coupons->count() == 0 )
+                    @if ( $pickup_points->count() == 0 )
                         <div class="alert alert-danger" role="alert">
-                           Oops! there is no coupons data here.
+                           Oops! there is no pickup points data here.
                         </div>
                     @else
                         <table class="table">
                             <thead>
                             <tr>
                                 <th scope="col">#Sl.</th>
-                                <th scope="col">Coupon Code</th>
-                                <th scope="col">Coupon Type</th>
-                                <th scope="col">Coupon Amount</th>
-                                <th scope="col">Coupon Date</th>
+                                <th scope="col">Pickup Point</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col">Another Phone</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Action</th>
                             </tr>
                             </thead>
                             
                             <tbody>
-                                @foreach ( $coupons as $key=>$coupon )
+                                @foreach ( $pickup_points as $key=>$pickup_point )
                                     <tr>
                                         <th scope="row">{{ $key + 1 }}</th>
-                                        <td>{{ $coupon->coupon_code }}</td>
+                                        <td>{{ $pickup_point->pickup_point_name }}</td>
+                                        <td>{{ $pickup_point->pickup_point_address }}</td>
+                                        <td>{{ $pickup_point->pickup_point_phone }}</td>
+                                        <td>{{ $pickup_point->pickup_point_phone_two }}</td>
                                         <td>
-                                            @if ( $coupon->type == 1 )
-                                            <span class="badge_pumkin">Fixed</span>
-                                            @elseif( $coupon->type == 2 )
-                                            <span class="badge_yellow">Percentage</span>
-                                            @endif
-                                        </td>
-                                        <td>{{ $coupon->coupon_amount }} Tk</td>
-                                        <td>{{ $coupon->valid_date }}</td>
-                                        <td>
-                                            @if ( $coupon->status == 1 )
+                                            @if ( $pickup_point->status == 1 )
                                             <span class="badge-text-primary">Active</span>
-                                            @elseif ( $coupon->status == 2 ) 
+                                            @elseif ( $pickup_point->status == 2 ) 
                                             <span class="badge-text-Danger">Inactive</span>
                                             @endif
                                         </td>
                                         <td>
                                             <ul class="action_list">
                                                 <li style="background: #157347;">
-                                                    <a href="{{ route('coupon.edit', $coupon->id) }}"><i class="far fa-edit"></i></a> 
+                                                    <a href="{{ route('pickup.edit', $pickup_point->id) }}"><i class="far fa-edit"></i></a> 
                                                 </li>
                                                 <li style="background: #BB2D3B;">
-                                                    <span data-toggle="modal" data-target="#coupon{{ $coupon->id }}"><i class="fas fa-trash"></i></span> 
+                                                    <span data-toggle="modal" data-target="#pickup_point{{ $pickup_point->id }}"><i class="fas fa-trash"></i></span> 
                                                 </li>
                                             </ul>
                                         </td>
@@ -91,7 +85,7 @@
 
 
                                     <!-- Modal start -->
-                                    <div class="modal fade" id="coupon{{ $coupon->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="pickup_point{{ $pickup_point->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -104,7 +98,7 @@
                                                 <div class="modal-body text-center">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                     
-                                                    <a href="{{ route('coupon.destroy', $coupon->id) }}" class="btn btn-primary">Confirm</a>
+                                                    <a href="{{ route('pickup.destroy', $pickup_point->id) }}" class="btn btn-primary">Confirm</a>
                                                 </div>
 
                                             </div>
