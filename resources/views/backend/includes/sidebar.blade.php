@@ -12,7 +12,7 @@
                             <li class="nav-divider">Menu</li>
 
                             <li class="nav-item ">
-                                <a class="nav-link active" href="#">Dashboard <span class="badge badge-success">6</span></a>
+                                <a class="nav-link active" href="{{ route('admin.dashboard') }}">Dashboard <span class="badge badge-success">6</span></a>
                             </li>
                             
                             <!-- Category list  -->
@@ -82,6 +82,24 @@
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{ route('brand.manage') }}">Manage Brand</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <!-- Products list  -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-7" aria-controls="submenu-7">
+                                    <i class="fas fa-fw fa-table"></i>Products
+                                </a>
+
+                                <div id="submenu-7" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ route('product.create') }}">New Products</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ route('product.manage') }}">Manage Products</a>
                                         </li>
                                     </ul>
                                 </div>

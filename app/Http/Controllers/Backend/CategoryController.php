@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\ChildCategory;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 
@@ -162,5 +163,11 @@ class CategoryController extends Controller
         ];
 
         return redirect()->back()->with($notifications);
+    }
+
+    public function getChildCategory($id)
+    {
+       $data = ChildCategory::where('subcategory_id', $id)->get();
+       return response()->json($data);
     }
 }

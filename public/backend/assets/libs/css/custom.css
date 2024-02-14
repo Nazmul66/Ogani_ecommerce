@@ -100,3 +100,24 @@
     padding: 6px 20px;
     border-radius: 20px;
 }
+.remove_btn{
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+}
+.card-body {
+    overflow-x: scroll;
+}
+/* .badge-text-featured {
+    background-color: #0DCAF0;
+    color: #FFF;
+    padding: 6px 15px;
+    border-radius: 20px;
+}
+.badge-text-featured-danger {
+    background-color: #ff000059;
+    color: #FFF;
+    padding: 6px 15px;
+    border-radius: 20px;
+} */

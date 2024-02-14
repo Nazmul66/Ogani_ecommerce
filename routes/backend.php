@@ -11,6 +11,22 @@ use App\Http\Controllers\Backend\PageController;
 use App\Http\Controllers\Backend\WarehouseController;
 use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\PickupController;
+use App\Http\Controllers\Backend\ProductController;
+
+
+/*
+|--------------------------------------------------------------------------
+| Global API Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
+|
+*/
+
+Route::get('/get-child-category/{id}', [CategoryController::class, 'getChildCategory']);
+
 
 /*
 |--------------------------------------------------------------------------
@@ -74,6 +90,18 @@ Route::group(['middleware' => ['auth','isAdmin'], 'prefix' => '/admin'], functio
       Route::post('/update/{id}', [BrandController::class, 'update'])->name('brand.update');
       Route::get('/destroy/{id}', [BrandController::class, 'destroy'])->name('brand.destroy');
       Route::get('/trash-destroy/{id}', [BrandController::class, 'trashDestroy'])->name('brand.trash-destroy');
+   });
+
+   // Products
+   Route::group(['prefix' => '/product'], function () {
+      Route::get('/manage', [ProductController::class, 'manage'])->name('product.manage');
+      Route::get('/trash-manage', [ProductController::class, 'trashManage'])->name('product.trash-manage');
+      Route::get('/create', [ProductController::class, 'create'])->name('product.create');
+      Route::post('/store', [ProductController::class, 'store'])->name('product.store');
+      Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
+      Route::post('/update/{id}', [ProductController::class, 'update'])->name('product.update');
+      Route::get('/destroy/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
+      Route::get('/trash-destroy/{id}', [ProductController::class, 'trashDestroy'])->name('product.trash-destroy');
    });
 
 
