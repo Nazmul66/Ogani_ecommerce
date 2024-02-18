@@ -32,6 +32,7 @@ class Product extends Model
         'status',
         'flash_deal_id',
         'cash_on_delivery',
+        'product_slide',
         'admin_id',
         'pickup_point_id'
     ];

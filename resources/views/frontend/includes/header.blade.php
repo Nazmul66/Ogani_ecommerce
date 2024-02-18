@@ -3,7 +3,7 @@
         <div class="loader"></div>
     </div> --}}
 
-    <!-- Humberger Begin -->
+    <!-- Res Humberger Begin -->
     <div class="humberger__menu__overlay"></div>
     <div class="humberger__menu__wrapper">
         <div class="humberger__menu__logo">
@@ -40,22 +40,22 @@
                     <a href="{{ route('homePage') }}">Home</a>
                 </li>
                 <li>
-                    <a href="./shop-grid.html">Shop</a>
+                    <a href="">Shop</a>
                 </li>
                 <li>
                     <a href="#">Pages</a>
                     <ul class="header__menu__dropdown">
-                        <li><a href="./shop-details.html">Shop Details</a></li>
-                        <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                        <li><a href="./checkout.html">Check Out</a></li>
-                        <li><a href="./blog-details.html">Blog Details</a></li>
+                        <li><a href="">Shop Details</a></li>
+                        <li><a href="">Shoping Cart</a></li>
+                        <li><a href="">Check Out</a></li>
+                        <li><a href="">Blog Details</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="./blog.html">Blog</a>
+                    <a href="">Blog</a>
                 </li>
                 <li>
-                    <a href="./contact.html">Contact</a>
+                    <a href="">Contact</a>
                 </li>
             </ul>
         </nav>
@@ -74,7 +74,7 @@
             </ul>
         </div>
     </div>
-    <!-- Humberger End -->
+    <!-- Res Humberger End -->
 
     <!-- Header Section Begin -->
     <header class="header">
@@ -104,6 +104,14 @@
                                 <ul>
                                     <li><a href="#">Spanis</a></li>
                                     <li><a href="#">English</a></li>
+                                </ul>
+                            </div>
+                            <div class="header__top__right__language">
+                                <div>Currency</div>
+                                <span class="arrow_carrot-down"></span>
+                                <ul>
+                                    <li><a href="#">$ Dollar</a></li>
+                                    <li><a href="#">৳ BDT</a></li>
                                 </ul>
                             </div>
                             <div class="header__top__right__auth">
@@ -159,3 +167,5 @@
         </div>
     </header>
     <!-- Header Section End -->
+
+    @include('frontend.includes.category-nav')

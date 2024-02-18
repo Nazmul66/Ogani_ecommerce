@@ -99,8 +99,8 @@
                                             <label for="childCategory_id" class="col-form-label">Child Category*</label>
                                             <select class="form-control" id="childCategory_id" name="childCategory_id" required>
                                                 <option value="" selected disabled>Select the child category</option>
-                                                @foreach ($child_cats as $child_cat)
-                                                    <option value="{{ $child_cat->id }}">{{ $child_cat->id }} rdefgh</option>
+                                                @foreach ($childCats as $childCat)
+                                                    <option value="{{ $childCat->id }}">{{ $childCat->childCategory_name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -228,6 +228,15 @@
                                     <label for="input-select">Today Deal</label>
                                     <select class="form-control" id="input-select" name="today_deal">
                                         <option value="" selected disabled>Select the today deal</option>
+                                        <option value="1">Active</option>
+                                        <option value="2">Inactive</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="input-select">Product Slide</label>
+                                    <select class="form-control" id="input-select" name="product_slide">
+                                        <option value="" selected disabled>Select the product slide</option>
                                         <option value="1">Active</option>
                                         <option value="2">Inactive</option>
                                     </select>

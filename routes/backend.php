@@ -92,6 +92,7 @@ Route::group(['middleware' => ['auth','isAdmin'], 'prefix' => '/admin'], functio
       Route::get('/trash-destroy/{id}', [BrandController::class, 'trashDestroy'])->name('brand.trash-destroy');
    });
 
+
    // Products
    Route::group(['prefix' => '/product'], function () {
       Route::get('/manage', [ProductController::class, 'manage'])->name('product.manage');
@@ -100,6 +101,7 @@ Route::group(['middleware' => ['auth','isAdmin'], 'prefix' => '/admin'], functio
       Route::post('/store', [ProductController::class, 'store'])->name('product.store');
       Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
       Route::post('/update/{id}', [ProductController::class, 'update'])->name('product.update');
+      Route::post('/imageUpdate/{id}', [ProductController::class, 'imageUpdate'])->name('product.imageUpdate');
       Route::get('/destroy/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
       Route::get('/trash-destroy/{id}', [ProductController::class, 'trashDestroy'])->name('product.trash-destroy');
    });
@@ -130,6 +132,7 @@ Route::group(['middleware' => ['auth','isAdmin'], 'prefix' => '/admin'], functio
       Route::get('/trash-destroy/{id}', [CouponController::class, 'trashDestroy'])->name('coupon.trash-destroy');
    });
 
+
    // Pickup Point
    Route::group(['prefix' => '/pickup'], function () {
       Route::get('/manage', [PickupController::class, 'manage'])->name('pickup.manage');
@@ -141,6 +144,7 @@ Route::group(['middleware' => ['auth','isAdmin'], 'prefix' => '/admin'], functio
       Route::get('/destroy/{id}', [PickupController::class, 'destroy'])->name('pickup.destroy');
       Route::get('/trash-destroy/{id}', [PickupController::class, 'trashDestroy'])->name('pickup.trash-destroy');
    });
+
 
    // Setting
    Route::group(['prefix' => '/setting'], function () {

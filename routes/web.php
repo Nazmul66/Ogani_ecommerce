@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Frontend\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +43,6 @@ require __DIR__.'/auth.php';
 */
 
 // static pages
-Route::get('/', function () {
-    return view('frontend.home');
-})->name('homePage');
+Route::get('/', [HomeController::class, 'home'] )->name('homePage');
+
+

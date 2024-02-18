@@ -99,8 +99,8 @@
                                             <label for="childCategory_id" class="col-form-label">Child Category*</label>
                                             <select class="form-control" id="childCategory_id" required name="childCategory_id">
                                                 <option value="" selected disabled>Select the child category</option>
-                                                @foreach ($child_cats as $child_cat)
-                                                   <option value="{{ $child_cat->id }}">{{ $child_cat->childCategory_name }}</option>
+                                                @foreach ($childCats as $childCat)
+                                                   <option value="{{ $childCat->id }}" @if($childCat->id == $product->childCategory_id) selected @endif>{{ $childCat->childCategory_name }}</option>
                                                 @endforeach
                                                 
                                             </select>
@@ -207,23 +207,21 @@
                                     <input type="file" name="thumbnail" accept=".jpg, .png, .jpeg" class="d-none" id="fileUploader">
                                 </div>
 
-                                <div class="mb-3">
-                                    <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <label for="formFile" class="form-label mb-0">More Images</label>
-                                        <button type="button" id="addMore" class="btn btn-primary">Add More Images</button>
-                                    </div>
-
-                                    <input class="form-control mb-3" type="file" name="images[]" id="formFile">
-                                    
-                                    <div id="imageInputs"></div>
-                                </div>
-
                                 <div class="form-group">
                                     <label for="input-select">Featured Product</label>
                                     <select class="form-control" id="input-select" name="featured">
                                         <option value="" selected disabled>Select the featured product</option>
                                         <option value="1" @if( $product->featured == 1 ) selected @endif>Yes</option>
                                         <option value="2" @if( $product->featured == 2 ) selected @endif>No</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="input-select">Product Slide</label>
+                                    <select class="form-control" id="input-select" name="product_slide">
+                                        <option value="" selected disabled>Select the product slide</option>
+                                        <option value="1" @if( $product->product_slide == 1 ) selected @endif>Active</option>
+                                        <option value="2" @if( $product->product_slide == 2 ) selected @endif>Inactive</option>
                                     </select>
                                 </div>
 
@@ -253,6 +251,49 @@
             </div>
         </div>
     </div>
+
+    <div class="row border border-3 p-4 rounded mt-3">
+        <div class="col-lg-12">
+              <div class="alert alert-info mb-3" role="alert">
+                Update Images
+              </div>
+              <table class="table mb-0">
+                  <thead>
+                      <tr>
+                          <th scope="col">Sl.</th>
+                          <th scope="col">Product Image</th> 
+                          <th scope="col">Image Form</th> 
+                          <th>Action</th>
+                      </tr>
+                  </thead>
+
+
+                  <tbody>
+                    @php $sl = 1; @endphp
+                    @foreach ( App\Models\productImage::where('product_id', $product->id)->get() as $prdImg )
+                        <tr>
+                          <form method="post" action="{{ route('product.imageUpdate', $prdImg->id) }}" enctype="multipart/form-data">
+
+                            @csrf
+
+                            <td>{{ $sl }}</td>
+                            <td>
+                                <img src="{{ asset('backend/uploads/products/' . $prdImg->product_image_name ) }}" alt="" style="width: 100px; height: 75px;">
+                            </td>
+                            <td>
+                                <input type="file" name="images" value="{{ $prdImg->product_image_name }}" class="form-control">
+                            </td>
+                            <td>
+                               <input type="submit" class="btn btn-primary" value="Update" />
+                            </td>
+                          </form>
+                          </tr>
+                      @php $sl++; @endphp
+                    @endforeach
+                  </tbody>
+              </table>
+        </div>
+     </div>
     <!-- body content end here  -->
 
 @endsection
@@ -272,22 +313,6 @@
         console.log(e.target.files[0]);
         fileNameElement.textContent = fileName;
         fileNameElement.classList.remove('d-none');
-    });
-
-    // multiple image upload function
-    document.getElementById('addMore').addEventListener('click', function() {
-        let imageInputs = document.getElementById('imageInputs');
-        let newInput = document.createElement('div');
-        newInput.setAttribute('class', 'd-flex justify-content-between align-items-center position-relative mb-3');
-        newInput.innerHTML = `<input type="file" class="form-control" name="images[]">
-                              <button type="button" class="remove_btn btn btn-danger"><i class="fas fa-times"></i></button>`;
-        imageInputs.appendChild(newInput);
-        
-        // Attach event listener to the remove button
-        let removeButton = newInput.querySelector('.remove_btn');
-            removeButton.addEventListener('click', function() {
-            imageInputs.removeChild(newInput);
-        });
     });
 
     // SummerNote plugin js 

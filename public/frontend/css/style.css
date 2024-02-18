@@ -561,7 +561,7 @@ ol {
 -----------------------*/
 
 .hero {
-	padding-bottom: 50px;
+	padding-bottom: 0px;
 }
 
 .hero.hero-normal {
@@ -617,13 +617,32 @@ ol {
 
 .hero__categories ul {
 	border: 1px solid #ebebeb;
-	padding-left: 40px;
 	padding-top: 10px;
-	padding-bottom: 12px;
+	position: absolute;
+	top: 47px;
+    left: 50%;
+    width: 90%;
+    background: #FFF;
+    z-index: 10;
+    transform: translateX(-50%);
+}
+@media (min-width: 360px) and (max-width: 768px) {
+	.hero__categories ul {
+		left: 50%;
+		width: 92%;
+		transform: translateX(-50%);
+	}
 }
 
 .hero__categories ul li {
 	list-style: none;
+	position: relative;
+	padding-left: 40px;
+    border-bottom: 1px solid #e6e6e6;
+	transition: all 0.5s ease-in;
+}
+.hero__categories ul li:last-child{
+	border-bottom: none;
 }
 
 .hero__categories ul li a {
@@ -631,6 +650,26 @@ ol {
 	color: #1c1c1c;
 	line-height: 39px;
 	display: block;
+}
+.hero__categories ul li .sub_cat_list_nav{
+	position: absolute;
+	display: none;
+    top: 0%;
+    left: 50%;
+    transform: translateX(50%);
+}
+.hero__categories ul li:hover .sub_cat_list_nav{
+	display: block;
+}
+.sub_cat_list_nav li .child_cat{
+	position: absolute;
+    display: none;
+    top: 0%;
+    left: 50%;
+    transform: translateX(50%);
+}
+.sub_cat_list_nav li:hover .child_cat{
+    display: block;
 }
 
 .hero__search {
@@ -756,7 +795,9 @@ ol {
 /*---------------------
   Categories
 -----------------------*/
-
+.categories{
+	padding-top: 75px;
+}
 .categories__item {
 	height: 270px;
 	position: relative;
