@@ -1,0 +1,18 @@
+.brand_div{
+    background: #EDBB0E;
+    padding: 0px 14px;
+    font-weight: 600;
+    border-radius: 30px;
+    color: #FFF;
+}
+.custom_select_form{
+    width: 100%;
+}
+del{
+    margin-right: 12px;
+    color: #dd0000;
+}
+.cart_btn:disabled {
+    background: #d7c2c2;
+    cursor: no-drop;
+}

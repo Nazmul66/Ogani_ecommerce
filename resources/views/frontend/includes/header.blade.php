@@ -28,8 +28,24 @@
                     <li><a href="#">English</a></li>
                 </ul>
             </div>
-            <div class="header__top__right__auth">
-                <a href="#"><i class="fa fa-user"></i> Login</a>
+
+            <div class="header__top__right__language">
+                <div>Currency</div>
+                <span class="arrow_carrot-down"></span>
+                <ul>
+                    <li><a href="#">$ Dollar</a></li>
+                    <li><a href="#">৳ BDT</a></li>
+                </ul>
+            </div>
+
+            <div class="header__top__right__language">
+                <i class="fa fa-user"></i>
+                <div>Users Account</div>
+                <span class="arrow_carrot-down"></span>
+                <ul>
+                    <li><a href="#"><i class="fa fa-user"></i> Login</a></li>
+                    <li><a href="#"><i class="fa fa-user"></i> Register</a></li>
+                </ul>
             </div>
         </div>
 
@@ -81,7 +97,7 @@
         <div class="header__top">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-6 col-md-6">
+                    <div class="col-lg-5 col-md-5">
                         <div class="header__top__left">
                             <ul>
                                 <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
@@ -89,7 +105,8 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-6">
+
+                    <div class="col-lg-7 col-md-7">
                         <div class="header__top__right">
                             <div class="header__top__right__social">
                                 <a href="#"><i class="fa fa-facebook"></i></a>
@@ -106,6 +123,7 @@
                                     <li><a href="#">English</a></li>
                                 </ul>
                             </div>
+
                             <div class="header__top__right__language">
                                 <div>Currency</div>
                                 <span class="arrow_carrot-down"></span>
@@ -114,9 +132,28 @@
                                     <li><a href="#">৳ BDT</a></li>
                                 </ul>
                             </div>
-                            <div class="header__top__right__auth">
-                                <a href="#"><i class="fa fa-user"></i> Login</a>
-                            </div>
+
+                            @if ( !Auth::check() )
+                                <div class="header__top__right__language">
+                                    <div>Accounts</div>
+                                    <span class="arrow_carrot-down"></span>
+                                    <ul>
+                                        <li><a href="{{ route('login') }}"><i class="fa fa-user"></i> Login</a></li>
+                                        <li><a href="#"><i class="fa fa-user"></i> Register</a></li>
+                                    </ul>
+                                </div>
+                            @else
+                                <div class="header__top__right__language">
+                                    <div>{{ Auth::user()->name }}</div>
+                                    <span class="arrow_carrot-down"></span>
+                                    <ul>
+                                        <li><a href="#">Profile</a></li>
+                                        <li><a href="#">Setting</a></li>
+                                        <li><a href="#">Order List</a></li>
+                                        <li><a href="#">Logout</a></li>
+                                    </ul>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -167,5 +204,3 @@
         </div>
     </header>
     <!-- Header Section End -->
-
-    @include('frontend.includes.category-nav')

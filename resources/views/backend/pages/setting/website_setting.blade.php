@@ -37,8 +37,8 @@
                                         <label for="currency">Currency</label>
                                         <select class="form-control" id="currency" name="currency">
                                             <option value="" selected disabled="">Select the currency</option>
-                                            <option value="৳">BDT</option>
-                                            <option value="$">Dollar</option>
+                                            <option value="৳" @if($web_setting->currency == '৳') selected @endif>BDT</option>
+                                            <option value="$" @if($web_setting->currency == "$") selected @endif>Dollar</option>
                                         </select>
                                     </div>
                                 </div>

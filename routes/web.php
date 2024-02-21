@@ -44,5 +44,9 @@ require __DIR__.'/auth.php';
 
 // static pages
 Route::get('/', [HomeController::class, 'home'] )->name('homePage');
+Route::get('/product-details/{slug}', [HomeController::class, 'productDetails'] )->name('productDetails');
+
+// Auth pages
+// Route::get('/user-login', [HomeController::class, 'userLogin'] )->name('user-login');
 
 

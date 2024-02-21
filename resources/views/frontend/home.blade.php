@@ -5,7 +5,9 @@
 @endsection
 
 @section('body-content')
-    
+
+        @include('frontend.includes.category-nav')
+
         <!-- Banner Section Begin -->
         <section class="banner_section">
             <div class="container">
@@ -14,9 +16,9 @@
                         <div class="hero__item set-bg" data-setbg="{{ asset('frontend/img/hero/banner.jpg') }}">
                             <div class="hero__text">
                                 <span>FRUIT FRESH</span>
-                                <h2>Vegetable <br />100% Organic</h2>
+                                <h2>Vegetable <br />{{ $setting->currency }} 100% Organic</h2>
                                 <p>Free Pickup and Delivery Available</p>
-                                <a href="#" class="primary-btn">SHOP NOW</a>
+                                <a href="{{ route('productDetails', $product->slug) }}" class="primary-btn">SHOP NOW</a>
                             </div>
                         </div>
                     </div>

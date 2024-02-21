@@ -4,6 +4,12 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Product;
+use App\Models\Category;
+use App\Models\Brand;
+use App\Models\Pickup_point;
+use App\Models\ProductImage;
+use App\Models\Setting;
 
 class HomeController extends Controller
 {
@@ -12,23 +18,31 @@ class HomeController extends Controller
      */
     public function home()
     {
-        return view('frontend.home');
+        $product = Product::where('product_slide', 2)->where('status', 1)->first();
+        return view('frontend.home', compact('product'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function productDetails(string $slug)
     {
-        //
+        $products         =  Product::where('slug', $slug)->first();
+        $category         =  Category::where('id', $products->category_id)->first();
+        $brand            =  Brand::where('id', $products->brand_id)->first();
+        $productImg       =  ProductImage::where('product_id', $products->id)->get();
+        $pickup_point     =  Pickup_point::where('id', $products->	pickup_point_id)->first();
+        $related_product  =  Product::orderBy('id', 'desc')->where('subCategory_id', $products->subCategory_id )->where('status', 1)->take(10)->get();
+        return view('frontend.pages.shop.shop-details', compact('products', 'category', 'brand', 'productImg', 'pickup_point', 'related_product'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function userLogin()
     {
-        //
+        $setting = Setting::orderBy('id', 'asc')->first();
+        return view('frontend.pages.auth.login', compact('setting'));
     }
 
     /**

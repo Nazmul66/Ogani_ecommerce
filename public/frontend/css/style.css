@@ -1742,14 +1742,15 @@ ol {
 }
 
 .product__details__text .product__details__price {
-	font-size: 30px;
-	color: #dd2222;
+	font-size: 24px;
+	color: #000;
 	font-weight: 600;
 	margin-bottom: 15px;
+	margin-top: 15px;
 }
 
 .product__details__text p {
-	margin-bottom: 45px;
+	margin-bottom: 20px;
 }
 
 .product__details__text .primary-btn {
@@ -3289,7 +3290,7 @@ ol {
 		position: relative;
 	}
 	.humberger__menu__wrapper {
-		width: 300px;
+		width: 85%;
 		background: #ffffff;
 		position: fixed;
 		left: -300px;
