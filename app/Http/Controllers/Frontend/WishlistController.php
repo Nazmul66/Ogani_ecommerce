@@ -4,15 +4,52 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Wishlist;
+use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 
 class WishlistController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function addWishlist(string $id)
     {
-        //
+        if( !Auth::check() ){
+            return redirect()->route('login');
+        }
+        else{
+            $wishlist_check = Wishlist::where('user_id', Auth::user()->id)->where('product_id', $id)->first();
+
+            if( $wishlist_check ){
+
+                $wishlist_check->delete();
+
+                $notifications = [
+                    "message"    => "Product removed on wishlist",
+                    'alert-type' => "error",
+                ];
+        
+                return redirect()->back()->with($notifications);
+            }
+            else{
+                $wishlist = new Wishlist();
+
+                if( !is_null($wishlist) ){
+                    $wishlist->user_id    =  Auth::user()->id;
+                    $wishlist->product_id =  $id;
+                }
+
+                $wishlist->save();
+
+                $notifications = [
+                    "message"    => "Product added on wishlist",
+                    'alert-type' => "success",
+                ];
+        
+                return redirect()->back()->with($notifications);
+            }
+        }
     }
 
     /**

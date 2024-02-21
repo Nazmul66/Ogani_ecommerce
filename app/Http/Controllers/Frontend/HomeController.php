@@ -12,6 +12,8 @@ use App\Models\ProductImage;
 use App\Models\Setting;
 use App\Models\Review;
 use App\Models\User;
+use App\Models\Wishlist;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {

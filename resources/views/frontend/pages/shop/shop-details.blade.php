@@ -12,6 +12,8 @@
     $two_star    =  App\Models\Review::where('rating', 2)->where('product_id', $products->id)->get()->count();
     $one_star    =  App\Models\Review::where('rating', 1)->where('product_id', $products->id)->get()->count();
 
+    $existingWishlist = App\Models\Wishlist::where('user_id', Auth::id())->where('product_id', $products->id)->first();
+
 @endphp
 
 @extends('frontend.layout.template')
@@ -124,7 +126,8 @@
                             
                             <input type="submit" class="primary-btn cart_btn" style="border: none;" value="ADD TO CART" 
                               @if ( $products->quantity_stock == 0 ) disabled @endif/>
-                            <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+
+                             <a href="{{ route('add.wishlist', $products->id) }}" class="heart-icon @if( $existingWishlist ) text-success @endif"><span class="icon_heart_alt"></span></a>
 
                             <ul>
                                 <li><b>Availability</b> 

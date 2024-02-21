@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\ReviewController;
+use App\Http\Controllers\Frontend\WishlistController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,5 +53,8 @@ Route::get('/product-details/{slug}', [HomeController::class, 'productDetails'] 
 
 // Review
 Route::post('/store/review', [ReviewController::class, 'storeReview'] )->name('store.review');
+
+// Wishlist
+Route::get('/add/wishlist/{id}', [WishlistController::class, 'addWishlist'] )->name('add.wishlist');
 
 

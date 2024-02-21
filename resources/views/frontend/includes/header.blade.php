@@ -3,6 +3,10 @@
         <div class="loader"></div>
     </div> --}}
 
+    @php
+        $wishlist_count =  App\Models\Wishlist::where('user_id', Auth::id() )->count();
+    @endphp
+
     <!-- Res Humberger Begin -->
     <div class="humberger__menu__overlay"></div>
     <div class="humberger__menu__wrapper">
@@ -14,7 +18,17 @@
         <div class="humberger__menu__cart">
             <ul>
                 <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                <li>
+                    <a href="#"><i class="fa fa-shopping-bag"></i> 
+                       <span>
+                           @if ( Auth::check() )
+                              {{ $wishlist_count }}
+                           @else
+                              0
+                           @endif
+                       </span>
+                    </a>
+                </li>
             </ul>
             <div class="header__cart__price">item: <span>{{ $setting->currency }}150.00</span></div>
         </div>
@@ -127,7 +141,7 @@
                                 <div>English</div>
                                 <span class="arrow_carrot-down"></span>
                                 <ul>
-                                    <li><a href="#">Spanis</a></li>
+                                    <li><a href="#">Spanish</a></li>
                                     <li><a href="#">English</a></li>
                                 </ul>
                             </div>
@@ -204,7 +218,17 @@
                     <div class="header__cart">
                         <ul>
                             <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                            <li>
+                                <a href="#"><i class="fa fa-shopping-bag"></i> 
+                                    <span>
+                                        @if ( Auth::check() )
+                                           {{ $wishlist_count }}
+                                        @else
+                                           0
+                                        @endif
+                                    </span>
+                                </a>
+                            </li>
                         </ul>
                         <div class="header__cart__price">item: <span>$150.00</span></div>
                     </div>
