@@ -16,7 +16,7 @@
                 <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
                 <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
             </ul>
-            <div class="header__cart__price">item: <span>$150.00</span></div>
+            <div class="header__cart__price">item: <span>{{ $setting->currency }}150.00</span></div>
         </div>
         <div class="humberger__menu__widget">
             <div class="header__top__right__language">
@@ -43,8 +43,16 @@
                 <div>Users Account</div>
                 <span class="arrow_carrot-down"></span>
                 <ul>
-                    <li><a href="#"><i class="fa fa-user"></i> Login</a></li>
-                    <li><a href="#"><i class="fa fa-user"></i> Register</a></li>
+                    <li>
+                        <a href="{{ route('login') }}">
+                            <i class="fa fa-user"></i> Login
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('register') }}">
+                            <i class="fa fa-user"></i> Register
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -139,7 +147,7 @@
                                     <span class="arrow_carrot-down"></span>
                                     <ul>
                                         <li><a href="{{ route('login') }}"><i class="fa fa-user"></i> Login</a></li>
-                                        <li><a href="#"><i class="fa fa-user"></i> Register</a></li>
+                                        <li><a href="{{ route('register') }}"><i class="fa fa-user"></i> Register</a></li>
                                     </ul>
                                 </div>
                             @else
@@ -150,7 +158,12 @@
                                         <li><a href="#">Profile</a></li>
                                         <li><a href="#">Setting</a></li>
                                         <li><a href="#">Order List</a></li>
-                                        <li><a href="#">Logout</a></li>
+                                        <li>
+                                            <form method="POST" action="{{ route('logout') }}">
+                                                @csrf
+                                                <button type="submit" style="background: transparent; border: none; color: #FFF; ">Logout</button>
+                                            </form>
+                                        </li>
                                     </ul>
                                 </div>
                             @endif

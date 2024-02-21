@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,5 +49,8 @@ Route::get('/product-details/{slug}', [HomeController::class, 'productDetails'] 
 
 // Auth pages
 // Route::get('/user-login', [HomeController::class, 'userLogin'] )->name('user-login');
+
+// Review
+Route::post('/store/review', [ReviewController::class, 'storeReview'] )->name('store.review');
 
 

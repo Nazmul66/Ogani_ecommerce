@@ -16,3 +16,10 @@ del{
     background: #d7c2c2;
     cursor: no-drop;
 }
+.orang_star{
+    color: #FDA429;
+}
+.white_star{
+    color: #FFF;
+    margin-right: 6px;
+}

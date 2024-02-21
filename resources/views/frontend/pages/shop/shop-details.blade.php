@@ -1,3 +1,19 @@
+
+@php
+    $color = $products->color;
+    $size = $products->size;
+
+    $color_split = preg_split('/(,| ,)/', $color);
+    $size_split = preg_split('/(,| ,)/', $size);
+
+    $five_star   =  App\Models\Review::where('rating', 5)->where('product_id', $products->id)->get()->count();
+    $four_star   =  App\Models\Review::where('rating', 4)->where('product_id', $products->id)->get()->count();
+    $three_star  =  App\Models\Review::where('rating', 3)->where('product_id', $products->id)->get()->count();
+    $two_star    =  App\Models\Review::where('rating', 2)->where('product_id', $products->id)->get()->count();
+    $one_star    =  App\Models\Review::where('rating', 1)->where('product_id', $products->id)->get()->count();
+
+@endphp
+
 @extends('frontend.layout.template')
 
 @section('page-title')
@@ -5,14 +21,6 @@
 @endsection
 
 @section('body-content')
-
-        @php
-            $color = $products->color;
-            $size = $products->size;
-
-            $color_split = preg_split('/(,| ,)/', $color);
-            $size_split = preg_split('/(,| ,)/', $size);
-        @endphp
 
         <!-- Breadcrumb Section Begin -->
         <section class="breadcrumb-section set-bg" data-setbg="{{ asset('frontend/img/breadcrumb.jpg') }}">
@@ -77,7 +85,7 @@
                             @else
                                 <div class="product__details__price">Price: 
                                     <del>
-                                        <span >{{ $setting->currency }}{{ $products->selling_price }}</span>
+                                        <span>{{ $setting->currency }}{{ $products->selling_price }}</span>
                                     </del> 
 
                                     <span style="color: #000;">{{ $setting->currency }}{{ $products->discount_price }} </span>
@@ -113,11 +121,9 @@
                                     </div>
                                 </div>
                             </div>
+                            
                             <input type="submit" class="primary-btn cart_btn" style="border: none;" value="ADD TO CART" 
-                              @if ( $products->quantity_stock == 0 )
-                                  disabled
-                              @endif
-                            />
+                              @if ( $products->quantity_stock == 0 ) disabled @endif/>
                             <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
 
                             <ul>
@@ -168,7 +174,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab"
-                                        aria-selected="false">Reviews <span>(1)</span></a>
+                                        aria-selected="false">Rating & Reviews</a>
                                 </li>
                             </ul>
                             <div class="tab-content">
@@ -195,6 +201,7 @@
                                             sed sit amet dui. Proin eget tortor risus.</p>
                                     </div>
                                 </div>
+
                                 <div class="tab-pane" id="tabs-2" role="tabpanel">
                                     <div class="product__details__tab__desc">
                                         <h6>Products Infomation</h6>
@@ -216,25 +223,188 @@
                                             nibh. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.</p>
                                     </div>
                                 </div>
+
                                 <div class="tab-pane" id="tabs-3" role="tabpanel">
-                                    <div class="product__details__tab__desc">
-                                        <h6>Products Infomation</h6>
-                                        <p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.
-                                            Pellentesque in ipsum id orci porta dapibus. Proin eget tortor risus.
-                                            Vivamus suscipit tortor eget felis porttitor volutpat. Vestibulum ac diam
-                                            sit amet quam vehicula elementum sed sit amet dui. Donec rutrum congue leo
-                                            eget malesuada. Vivamus suscipit tortor eget felis porttitor volutpat.
-                                            Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Praesent
-                                            sapien massa, convallis a pellentesque nec, egestas non nisi. Vestibulum ac
-                                            diam sit amet quam vehicula elementum sed sit amet dui. Vestibulum ante
-                                            ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
-                                            Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula.
-                                            Proin eget tortor risus.</p>
+                                    <div class="product__details__tab__desc border">
+                                        <div class="alert alert-warning" role="alert">
+                                            Ratings & Reviews of {{ $products->product_name }} variation
+                                        </div>
+
+                                        <div class="row p-3">
+                                            <div class="col-lg-4 mb-3">
+                                               <span>Average Review of {{ $products->product_name }} variation silver:</span>
+                                               <div class="star_ratings">
+                                                   <i class="fa fa-star orang_star" aria-hidden="true"></i>
+                                                   <i class="fa fa-star orang_star" aria-hidden="true"></i>
+                                                   <i class="fa fa-star orang_star" aria-hidden="true"></i>
+                                                   <i class="fa fa-star orang_star" aria-hidden="true"></i>
+                                                   <i class="fa fa-star" aria-hidden="true"></i>
+                                               </div>
+                                            </div>
+
+                                            <div class="col-lg-3 mb-3">
+                                               <span>Total Review of this product: </span>
+                                               <div class="five_star">
+                                                    <i class="fa fa-star orang_star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star orang_star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star orang_star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star orang_star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star orang_star" aria-hidden="true"></i>
+                                                    <span style="font-weight: 600; margin-left: 8px">Total {{ $five_star }}</span>
+                                               </div>
+
+                                                <div class="four_star">
+                                                    <i class="fa fa-star orang_star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star orang_star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star orang_star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star orang_star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <span style="font-weight: 600; margin-left: 8px">Total {{ $four_star }}</span>
+                                               </div>
+
+                                               <div class="three_star">
+                                                    <i class="fa fa-star orang_star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star orang_star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star orang_star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <span style="font-weight: 600; margin-left: 8px">Total {{ $three_star }}</span>
+                                                </div>
+
+                                                <div class="two_star">
+                                                    <i class="fa fa-star orang_star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star orang_star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <span style="font-weight: 600; margin-left: 8px">Total {{ $two_star }}</span>
+                                                </div>
+
+                                                <div class="one_star">
+                                                    <i class="fa fa-star orang_star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <span style="font-weight: 600; margin-left: 8px">Total {{ $one_star }}</span>
+                                                </div>
+                                            </div>
+
+                                            {{-- Product Review form submit --}}
+                                            <div class="col-lg-5">
+                                                <form method="POST" action="{{ route('store.review') }}">
+
+                                                    @csrf
+
+                                                    <input type="hidden" name="product_id" value="{{ $products->id }}">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Write your Reviews</label>
+                                                        <textarea class="form-control" name="review" rows="3"></textarea>
+                                                    </div>
+    
+                                                    <div class="d-flex align-items-center">
+                                                        <span style="margin-right: 20px;">Select Review star</span>
+                                                        <select class="form-select" aria-label="Default select example" name="rating_star">
+                                                            <option selected>Select your Review</option>
+                                                            <option value="1">1 star</option>
+                                                            <option value="2">2 star</option>
+                                                            <option value="3">3 star</option>
+                                                            <option value="4">4 star</option>
+                                                            <option value="5">5 star</option>
+                                                        </select>
+                                                    </div>
+    
+                                                    @if ( Auth::check() )
+                                                        <button type="submit" class="btn btn-info mt-3">
+                                                            <i class="fa fa-star white_star" aria-hidden="true"></i>
+                                                            Submit Review
+                                                        </button>
+                                                    @endif
+                                                </form>
+                                            </div>
+                                        </div>
+
+                                        {{-- All customer reviews show --}}
+                                        <div class="p-3">
+                                            <div class="review_container">
+                                                <div class="mb-3 border-bottom pb-3"><strong>All review of {{ $products->product_name }}</strong></div>
+
+                                                <div class="row">
+                                                    @foreach ($review_products as $review_prdt)
+                                                        <div class="col-lg-6">
+                                                            <div class="card">
+                                                                <div class="card-body">
+                                                                    <div class="alert alert-secondary" role="alert">
+                                                                        @foreach ($users as $user)
+                                                                            @if( $user->id == $review_prdt->user_id ) 
+                                                                                {{ $user->name }} - ( {{ date('d F, Y') }} )
+                                                                            @endif
+                                                                        @endforeach
+                                                                    </div>
+                                                                    <p>{{ $review_prdt->review }}</p>
+
+                                                                    @if ( $review_prdt->rating == 5 )
+                                                                        <div class="one_star">
+                                                                            <i class="fa fa-star orang_star" aria-hidden="true"></i>
+                                                                            <i class="fa fa-star orang_star" aria-hidden="true"></i>
+                                                                            <i class="fa fa-star orang_star" aria-hidden="true"></i>
+                                                                            <i class="fa fa-star orang_star" aria-hidden="true"></i>
+                                                                            <i class="fa fa-star orang_star" aria-hidden="true"></i>
+                                                                            <span style="font-weight: 600; margin-left: 8px">( {{ $review_prdt->rating }} star )</span>
+                                                                        </div>
+                                                                    @elseif ( $review_prdt->rating == 4 )
+                                                                        <div class="one_star">
+                                                                            <i class="fa fa-star orang_star" aria-hidden="true"></i>
+                                                                            <i class="fa fa-star orang_star" aria-hidden="true"></i>
+                                                                            <i class="fa fa-star orang_star" aria-hidden="true"></i>
+                                                                            <i class="fa fa-star orang_star" aria-hidden="true"></i>
+                                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                                            <span style="font-weight: 600; margin-left: 8px">( {{ $review_prdt->rating }} star )</span>
+                                                                        </div>
+                                                                    @elseif ( $review_prdt->rating == 3 )
+                                                                        <div class="one_star">
+                                                                            <i class="fa fa-star orang_star" aria-hidden="true"></i>
+                                                                            <i class="fa fa-star orang_star" aria-hidden="true"></i>
+                                                                            <i class="fa fa-star orang_star" aria-hidden="true"></i>
+                                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                                            <span style="font-weight: 600; margin-left: 8px">( {{ $review_prdt->rating }} star )</span>
+                                                                        </div>
+                                                                    @elseif ( $review_prdt->rating == 2 )
+                                                                        <div class="one_star">
+                                                                            <i class="fa fa-star orang_star" aria-hidden="true"></i>
+                                                                            <i class="fa fa-star orang_star" aria-hidden="true"></i>
+                                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                                            <span style="font-weight: 600; margin-left: 8px">( {{ $review_prdt->rating }} star )</span>
+                                                                        </div>
+                                                                    @elseif ( $review_prdt->rating == 1 )
+                                                                        <div class="one_star">
+                                                                            <i class="fa fa-star orang_star" aria-hidden="true"></i>
+                                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                                            <span style="font-weight: 600; margin-left: 8px">( {{ $review_prdt->rating }} star )</span>
+                                                                            
+                                                                        </div>
+                                                                    @endif
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+
                 </div>
             </div>
         </section>
