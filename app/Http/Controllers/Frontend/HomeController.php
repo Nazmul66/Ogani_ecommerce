@@ -22,42 +22,38 @@ class HomeController extends Controller
      */
     public function home()
     {
-        $product = Product::where('product_slide', 2)->where('status', 1)->first();
-        return view('frontend.home', compact('product'));
+        $product           = Product::where('product_slide', 2)->where('status', 1)->first();
+        $featured_product  = Product::where('featured', 1)->where('status', 1)->get();
+        $popular_product   = Product::orderBy('product_view', 'DESC')->where('status', 1)->limit(10)->get();
+        $trendy_product    = Product::where('trendy', 1)->where('status', 1)->limit(10)->get();
+        return view('frontend.home', compact('product', 'featured_product', 'popular_product', 'trendy_product'));
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
+    * Show the form for creating a new resource.
+    */
     public function productDetails(string $slug)
     { 
-        $products         =  Product::where('slug', $slug)->first();
-        $users            =  User::all();
-        $category         =  Category::where('id', $products->category_id)->first();
-        $brand            =  Brand::where('id', $products->brand_id)->first();
-        $productImg       =  ProductImage::where('product_id', $products->id)->get();
-        $pickup_point     =  Pickup_point::where('id', $products->	pickup_point_id)->first();
-        $related_product  =  Product::orderBy('id', 'desc')->where('subCategory_id', $products->subCategory_id )->where('status', 1)->take(10)->get();
-        $review_products  = Review::orderBy('id', 'desc')->where('product_id', $products->id)->get();
+        $products          =  Product::where('slug', $slug)->first();
+                              Product::where('slug', $slug)->increment('product_view');
+        $users             =  User::all();
+        $category          =  Category::where('id', $products->category_id)->first();
+        $brand             =  Brand::where('id', $products->brand_id)->first();
+        $productImg        =  ProductImage::where('product_id', $products->id)->get();
+        $pickup_point      =  Pickup_point::where('id', $products->	pickup_point_id)->first();
+        $related_product   =  Product::orderBy('id', 'desc')->where('subCategory_id', $products->subCategory_id )->where('status', 1)->take(10)->get();
+        $review_products   =  Review::orderBy('id', 'desc')->where('product_id', $products->id)->get();
 
         return view('frontend.pages.shop.shop-details', compact('products', 'category', 'brand', 'productImg', 'pickup_point', 'related_product', 'review_products', 'users'));
     }
 
     /**
-     * Store a newly created resource in storage.
-     */
+    * Store a newly created resource in storage.
+    */
     public function userLogin()
     {
         $setting = Setting::orderBy('id', 'asc')->first();
         return view('frontend.pages.auth.login', compact('setting'));
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
     }
 
     /**

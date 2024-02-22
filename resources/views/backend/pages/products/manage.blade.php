@@ -85,11 +85,15 @@
                                             @endforeach
                                         </td>
                                         <td>
-                                            @foreach ($child_cats as $child_cat)
-                                                @if ( $product->childCategory_id == $child_cat->id )
-                                                   {{ $child_cat->childCategory_name }} 
-                                                @endif
-                                            @endforeach
+                                            @if ( $product->childCategory_id !== null )
+                                                @foreach ($child_cats as $child_cat)
+                                                    @if ( $product->childCategory_id == $child_cat->id )
+                                                    {{ $child_cat->childCategory_name }} 
+                                                    @endif
+                                                @endforeach
+                                            @else
+                                            <span class="badge badge-danger">-- ChildCategory Unavailable --</span>
+                                            @endif
                                         </td>
                                         <td>
                                             @foreach ($brands as $brand)

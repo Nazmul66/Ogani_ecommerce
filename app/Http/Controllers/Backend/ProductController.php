@@ -62,7 +62,6 @@ class ProductController extends Controller
                 'subCat_id'        => 'required',
                 'brand_id'         => 'required',
                 'selling_price'    => 'required',
-                'color'            => 'required',
                 'description'      => 'required',
             ]);
 
@@ -88,6 +87,7 @@ class ProductController extends Controller
             $product->description             =   $request->description;
             $product->video                   =   $request->video;
             $product->featured                =   $request->featured;
+            $product->trendy                  =   $request->trendy;
             $product->today_deal              =   $request->today_deal;
             $product->product_slide           =   $request->product_slide;
             $product->status                  =   $request->status;

@@ -79,41 +79,47 @@
                                 <i class="fa fa-star-half-o"></i>
                                 <span>(18 reviews)</span>
                             </div>
-                            <div style="color: #6f6f6f">Brand: <span class="brand_div">{{ $brand->brand_name }}</span></div>
+                            <div style="color: #6f6f6f;" class="mb-2">Brand: <span class="brand_div">{{ $brand->brand_name }}</span></div>
+                            <div style="color: #6f6f6f">Product Views: {{ $products->product_view }} <i class="fa fa-eye" aria-hidden="true"></i></div>
 
                             @if ( $products->discount_price == NULL )
-                                <div class="product__details__price">Price: {{ $setting->currency }}{{ $products->selling_price }} 
+                                <div class="product__details__price">Price: {{ $setting->currency }}{{ $products->selling_price }}/-
                                 </div>
                             @else
                                 <div class="product__details__price">Price: 
                                     <del>
-                                        <span>{{ $setting->currency }}{{ $products->selling_price }}</span>
+                                        <span>{{ $setting->currency }}{{ $products->selling_price }}</span>/-
                                     </del> 
 
-                                    <span style="color: #000;">{{ $setting->currency }}{{ $products->discount_price }} </span>
+                                    <span style="color: #000;">{{ $setting->currency }}{{ $products->discount_price }}</span>/-
                                 </div>
                             @endif
 
                             <p>{{ strip_tags($products->description) }}</p>
 
                             <div class="row mb-3">
-                                <div class="col-lg-6">
-                                    <select class="custom_select_form" name="color">
-                                        <option value="" disabled selected>select this color</option>
-                                        @foreach ($color_split as $row => $colorSplit)
-                                          <option value="{{ $colorSplit }}">{{ $colorSplit }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
 
-                                <div class="col-lg-6">
-                                    <select class="custom_select_form" name="size">
-                                        <option value="" disabled selected>select this size</option>
-                                        @foreach ($size_split as $sizeSplit)
-                                          <option value="{{ $sizeSplit }}">{{ $sizeSplit }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                                @if ( !is_null( $products->color) )
+                                    <div class="col-lg-6">
+                                        <select class="custom_select_form" name="color">
+                                            <option value="" disabled selected>select this color</option>
+                                            @foreach ($color_split as $row => $colorSplit)
+                                            <option value="{{ $colorSplit }}">{{ $colorSplit }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                @endif
+                                
+                                @if ( !is_null( $products->size) )
+                                    <div class="col-lg-6">
+                                        <select class="custom_select_form" name="size">
+                                            <option value="" disabled selected>select this size</option>
+                                            @foreach ($size_split as $sizeSplit)
+                                            <option value="{{ $sizeSplit }}">{{ $sizeSplit }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                @endif
                             </div>
                             
                             <div class="product__details__quantity">
@@ -230,7 +236,7 @@
                                 <div class="tab-pane" id="tabs-3" role="tabpanel">
                                     <div class="product__details__tab__desc border">
                                         <div class="alert alert-warning" role="alert">
-                                            Ratings & Reviews of {{ $products->product_name }} variation
+                                            Ratings & Reviews of {{ $products->product_name }}
                                         </div>
 
                                         <div class="row p-3">

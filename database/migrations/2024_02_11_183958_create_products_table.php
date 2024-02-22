@@ -27,15 +27,16 @@ return new class extends Migration
             $table->string('discount_price')->nullable();
             $table->string('quantity_stock')->nullable();
             $table->integer('warehouse')->nullable();
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->string('video')->nullable();
             $table->string('thumbnail')->nullable();
-            $table->string('images')->nullable();
             $table->integer('featured')->nullable();
             $table->string('color')->nullable();
             $table->string('size')->nullable();
             $table->integer('today_deal')->nullable();
             $table->integer('status')->nullable();
+            $table->integer('product_view')->default(0)->nullable();
+            $table->integer('trendy')->default(0)->nullable();
             $table->integer('flash_deal_id')->nullable();
             $table->integer('cash_on_delivery')->nullable();
             $table->integer('product_slide')->nullable();

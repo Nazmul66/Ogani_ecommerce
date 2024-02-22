@@ -3227,7 +3227,7 @@ ol {
 	}
 	.categories__slider.owl-carousel .owl-nav {
 		text-align: center;
-		margin-top: 40px;
+		margin-top: 0px;
 	}
 	.categories__slider.owl-carousel .owl-nav button {
 		position: relative;

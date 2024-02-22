@@ -75,7 +75,7 @@
         
                                         <div class="form-group">
                                             <label for="brand" class="col-form-label">Brand*</label>
-                                            <select class="form-control" id="brand_id" required name="brand_id">
+                                            <select class="form-control" id="brand_id" required name="brand_id" required>
                                                 <option value="" selected disabled>Select the brand</option>
                                                 @foreach ( $brands as $brand )
                                                     <option value="{{ $brand->id }}">{{ $brand->brand_name }}</option>      
@@ -85,7 +85,11 @@
         
                                         <div class="form-group">
                                             <label for="product_unit" class="col-form-label">Product Unit*</label>
-                                            <input id="product_unit" type="text" name="product_unit" value="{{ old('product_unit') }}" class="form-control" required autocomplete="off" placeholder="">
+                                            <select class="form-control" id="product_unit" name="product_unit" required>
+                                                <option value="" selected disabled>Select the product unit</option>
+                                                <option value="pcs">Pcs</option>
+                                                <option value="kg">Kg</option>
+                                            </select>
                                         </div>
                                     </div>
         
@@ -97,7 +101,7 @@
         
                                         <div class="form-group">
                                             <label for="childCategory_id" class="col-form-label">Child Category*</label>
-                                            <select class="form-control" id="childCategory_id" name="childCategory_id" required>
+                                            <select class="form-control" id="childCategory_id" name="childCategory_id">
                                                 <option value="" selected disabled>Select the child category</option>
                                                 @foreach ($childCats as $childCat)
                                                     <option value="{{ $childCat->id }}">{{ $childCat->childCategory_name }}</option>
@@ -138,7 +142,7 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label for="discount_price" class="col-form-label">Discount Price*</label>
-                                            <input id="discount_price" type="text" name="discount_price" value="{{ old('discount_price') }}" class="form-control" required autocomplete="off" placeholder="">
+                                            <input id="discount_price" type="text" name="discount_price" value="{{ old('discount_price') }}" class="form-control" autocomplete="off" placeholder="">
                                         </div>
                                     </div>
         
@@ -161,31 +165,31 @@
                                         </div>
                                     </div>
         
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-6" id="color">
                                         <div class="form-group">
                                             <label for="color" class="col-form-label">Color</label>
-                                            <input id="color" type="text" name="color" value="{{ old('color') }}" class="form-control" required autocomplete="off" placeholder="">
+                                            <input type="text" name="color" value="{{ old('color') }}" class="form-control" autocomplete="off" placeholder="">
                                         </div>
                                     </div>
         
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-6" id="size">
                                         <div class="form-group">
                                             <label for="size" class="col-form-label">Size</label>
-                                            <input id="size" type="text" name="size" value="{{ old('size') }}" class="form-control" required autocomplete="off" placeholder="">
+                                            <input type="text" name="size" value="{{ old('size') }}" class="form-control" autocomplete="off" placeholder="">
                                         </div>
                                     </div>
         
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Product Description</label>
-                                            <textarea id="summernote" name="description"></textarea>
+                                            <textarea id="editor" name="description"></textarea>
                                         </div>
                                     </div>
 
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <label for="video" class="col-form-label">Video Embeded Code</label>
-                                            <input id="video" type="text" name="video" value="{{ old('video') }}" class="form-control" required autocomplete="off">
+                                            <input id="video" type="text" name="video" value="{{ old('video') }}" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                </div>
@@ -221,6 +225,15 @@
                                         <option value="" selected disabled>Select the featured product</option>
                                         <option value="1">Yes</option>
                                         <option value="2">No</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="input-select">Trendy Product</label>
+                                    <select class="form-control" id="input-select" name="trendy" required>
+                                        <option value="" selected disabled>Select the trendy product</option>
+                                        <option value="1">Active</option>
+                                        <option value="0">Inactive</option>
                                     </select>
                                 </div>
 
@@ -266,7 +279,7 @@
 
 @section('scripts')
    
- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/41.1.0/classic/ckeditor.js"></script>
 
  <script>
     // file upload function
@@ -296,27 +309,60 @@
         });
     });
 
-    // SummerNote plugin js 
+    // Product units
+     let product_unit =  document.getElementById('product_unit');
+     let color        =  document.getElementById('color');
+     let size         =  document.getElementById('size');
+     
+     product_unit.addEventListener('change', function(e){
+        console.log(e.target.value);
+
+        if( e.target.value === 'kg' ){
+            color.style.display = 'none';
+            size.style.display = 'none';
+        }
+        else if( e.target.value === 'pcs' ){
+            color.style.display = 'block';
+            size.style.display = 'block';
+        }
+     })
+     
+
+    // CK Editor Plugin
+    ClassicEditor
+        .create( document.querySelector( '#editor' ) )
+        .then( editor => {
+                console.log( editor );
+        } )
+        .catch( error => {
+                console.error( error );
+        } );
+
+
     $(document).ready(function() {
-        $('#summernote').summernote({
-          placeholder: "{{ old(strip_tags('description')) }}",
-          tabsize: 2,
-          height: 150
-      });
 
     // Child Category api data read
      $('#subCategory_id').change(function() {
          var id = $('#subCategory_id').val();
-         console.log(id);
+            // console.log(id);
 
          $.ajax({
             url: "{{ url('/get-child-category') }}/" + id,
             type: "get",
             success: function(data) {
-                $('#childCategory_id').empty();
-                $.each(data, function(key, data){
-                    $('#childCategory_id').append('<option value="'+ data.id +'">'+ data.childCategory_name +'</option>');
-                });
+                $('#childCategory_id').empty(); // Clear existing options
+
+                // Check if data is not empty
+                if (data.length > 0) {
+                    // Iterate over each child category in the response
+                    $.each(data, function(index, category) {
+                        // Append an option for each child category
+                        $('#childCategory_id').append('<option value="' + category.id + '">' + category.childCategory_name + '</option>');
+                    });
+                } else {
+                    // If no child categories are returned, add a disabled option indicating so
+                    $('#childCategory_id').append('<option value="" disabled>No Child Categories Available</option>');
+                }
             }
          })
      })
