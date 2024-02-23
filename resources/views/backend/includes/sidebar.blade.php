@@ -157,7 +157,7 @@
                                             <a class="nav-link" href="{{ route('coupon.manage') }}">Coupon</a>
                                         </li> 
                                         <li class="nav-item">
-                                            <a class="nav-link" href="">E Campaign</a>
+                                            <a class="nav-link" href="{{ route('campaign.manage') }}">E Campaign</a>
                                         </li>
                                     </ul>
                                 </div>

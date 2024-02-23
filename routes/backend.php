@@ -12,6 +12,7 @@ use App\Http\Controllers\Backend\WarehouseController;
 use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\PickupController;
 use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Backend\CampaignController;
 
 
 /*
@@ -130,6 +131,19 @@ Route::group(['middleware' => ['auth','isAdmin'], 'prefix' => '/admin'], functio
       Route::post('/update/{id}', [CouponController::class, 'update'])->name('coupon.update');
       Route::get('/destroy/{id}', [CouponController::class, 'destroy'])->name('coupon.destroy');
       Route::get('/trash-destroy/{id}', [CouponController::class, 'trashDestroy'])->name('coupon.trash-destroy');
+   });
+
+
+   // Campaigns
+   Route::group(['prefix' => '/campaign'], function () {
+      Route::get('/manage', [CampaignController::class, 'manage'])->name('campaign.manage');
+      Route::get('/trash-manage', [CampaignController::class, 'trashManage'])->name('campaign.trash-manage');
+      Route::get('/create', [CampaignController::class, 'create'])->name('campaign.create');
+      Route::post('/store', [CampaignController::class, 'store'])->name('campaign.store');
+      Route::get('/edit/{id}', [CampaignController::class, 'edit'])->name('campaign.edit');
+      Route::post('/update/{id}', [CampaignController::class, 'update'])->name('campaign.update');
+      Route::get('/destroy/{id}', [CampaignController::class, 'destroy'])->name('campaign.destroy');
+      Route::get('/trash-destroy/{id}', [CampaignController::class, 'trashDestroy'])->name('campaign.trash-destroy');
    });
 
 
