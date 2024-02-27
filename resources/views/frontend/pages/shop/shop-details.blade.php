@@ -97,43 +97,47 @@
 
                             <p>{{ strip_tags($products->description) }}</p>
 
-                            <div class="row mb-3">
-
-                                @if ( !is_null( $products->color) )
-                                    <div class="col-lg-6">
-                                        <select class="custom_select_form" name="color">
-                                            <option value="" disabled selected>select this color</option>
-                                            @foreach ($color_split as $row => $colorSplit)
-                                            <option value="{{ $colorSplit }}">{{ $colorSplit }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                @endif
+                            <form method="POST" action="">
                                 
-                                @if ( !is_null( $products->size) )
-                                    <div class="col-lg-6">
-                                        <select class="custom_select_form" name="size">
-                                            <option value="" disabled selected>select this size</option>
-                                            @foreach ($size_split as $sizeSplit)
-                                            <option value="{{ $sizeSplit }}">{{ $sizeSplit }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                @endif
-                            </div>
-                            
-                            <div class="product__details__quantity">
-                                <div class="quantity">
-                                    <div class="pro-qty">
-                                        <input type="text" value="1">
+                                @csrf
+
+                                <div class="row mb-3">
+                                    @if ( !is_null( $products->color) )
+                                        <div class="col-lg-6">
+                                            <select class="custom_select_form" name="color">
+                                                <option value="" disabled selected>select this color</option>
+                                                @foreach ($color_split as $row => $colorSplit)
+                                                <option value="{{ $colorSplit }}">{{ $colorSplit }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    @endif
+                                    
+                                    @if ( !is_null( $products->size) )
+                                        <div class="col-lg-6">
+                                            <select class="custom_select_form" name="size">
+                                                <option value="" disabled selected>select this size</option>
+                                                @foreach ($size_split as $sizeSplit)
+                                                <option value="{{ $sizeSplit }}">{{ $sizeSplit }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    @endif
+                                </div>
+                                
+                                <div class="product__details__quantity">
+                                    <div class="quantity">
+                                        <div class="pro-qty">
+                                            <input type="text" name="quantity" value="1">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            
-                            <input type="submit" class="primary-btn cart_btn" style="border: none;" value="ADD TO CART" 
-                              @if ( $products->quantity_stock == 0 ) disabled @endif/>
+                                
+                                <input type="submit" class="primary-btn cart_btn" style="border: none;" value="ADD TO CART" 
+                                @if ( $products->quantity_stock == 0 ) disabled @endif/>
 
-                             <a href="{{ route('add.wishlist', $products->id) }}" class="heart-icon @if( $existingWishlist ) text-success @endif"><span class="icon_heart_alt"></span></a>
+                                <a href="{{ route('add.wishlist', $products->id) }}" class="heart-icon @if( $existingWishlist ) text-success @endif"><span class="icon_heart_alt"></span></a>
+                            </form>
 
                             <ul>
                                 <li><b>Availability</b> 

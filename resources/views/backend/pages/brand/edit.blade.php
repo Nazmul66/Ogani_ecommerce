@@ -52,6 +52,15 @@
                           </div>
 
                         <div class="form-group">
+                            <label for="input-select">Front Page</label>
+                            <select class="form-control" id="input-select" name="front_page">
+                                <option value="" selected disabled>Select the front page status</option>
+                                <option value="1" @if( $brand->front_page == 1 ) selected @endif>Yes</option>
+                                <option value="0" @if( $brand->front_page == 0 ) selected @endif>No</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
                             <label for="input-select">Status</label>
                             <select class="form-control" id="input-select" name="status">
                                 <option value="" selected disabled>Select the status name</option>

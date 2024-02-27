@@ -31,43 +31,31 @@
         <section class="categories">
             <div class="container">
                 <div class="row">
-                    <div class="categories__slider owl-carousel">
-                        <div class="col-lg-3">
-                            <div class="categories__item set-bg" data-setbg="{{ asset('frontend/img/categories/cat-1.jpg') }}">
-                                <h5><a href="#">Fresh Fruit</a></h5>
-                            </div>
+                    <div class="col-lg-12">
+                        <div class="section-title">
+                            <h2>Popular Categories</h2>
                         </div>
+                    </div>
 
-                        <div class="col-lg-3">
-                            <div class="categories__item set-bg" data-setbg="{{ asset('frontend/img/categories/cat-2.jpg') }}">
-                                <h5><a href="#">Dried Fruit</a></h5>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3">
-                            <div class="categories__item set-bg" data-setbg="{{ asset('frontend/img/categories/cat-3.jpg') }}">
-                                <h5><a href="#">Vegetables</a></h5>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3">
-                            <div class="categories__item set-bg" data-setbg="{{ asset('frontend/img/categories/cat-4.jpg') }}">
-                                <h5><a href="#">drink fruits</a></h5>
-                            </div>
-                        </div>
-                        
-                        <div class="col-lg-3">
-                            <div class="categories__item set-bg" data-setbg="{{ asset('frontend/img/categories/cat-5.jpg') }}">
-                                <h5><a href="#">drink fruits</a></h5>
-                            </div>
-                        </div>
+                    <div class="col-lg-12">
+                        <div class="categories__slider owl-carousel">
+                            @foreach ($home_category as $home_cat)
+                              <div class="col-lg-3">
+                                  <div class="category_slides">
+                                    <img src="{{  asset('backend/uploads/category/' . $home_cat->icon) }}" alt="" class="cat_icons">
+                                    <h5>
+                                        <a href="#">{{ $home_cat->category_name }}</a>
+                                    </h5>
+                                  </div>
+                              </div>
+                            @endforeach
+                          </div>
                     </div>
                 </div>
             </div>
         </section>
         <!-- Categories Section End -->
     
-
         <!-- Featured Section Begin -->
         <section class="featured spad">
             <div class="container">
@@ -115,7 +103,66 @@
             </div>
         </section>
         <!-- Featured Section End -->
-    
+
+        <!-- All Category Section Begin -->
+        @foreach ($home_category as $home_cat)
+          <section class="all_categories_shows">
+             <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="category_details">
+                            <h3>{{ $home_cat->category_name }}</h3>
+                            <button style="border: none; background: transparent;">
+                                <a href="" class="btn btn-primary">
+                                    View Details
+                                    <i class="fa fa-angle-right" aria-hidden="true" style="margin-left: 6px;"></i>
+                                </a>
+                            </button>
+                        </div>
+                    </div>
+
+                    @php
+                        $cat_products = App\Models\Product::where('category_id', $home_cat->id)->orderBy('id', 'asc')->limit(8)->get();
+                    @endphp
+
+                    <div class="col-lg-12">
+                        <div class="card_container">
+                           @foreach ($cat_products as $cat_prdt)
+                            <div class="product_card">
+                                <figure class="images_resize">
+                                    <img src="{{ asset('backend/uploads/products/' . $cat_prdt->thumbnail) }}" alt="" class="product_img">
+                                    <i class="fa fa-heart"></i>
+                                </figure>
+                                <h5 class="product_title">{{ Str::substr($cat_prdt->product_name, 0, 30) }}</h5>
+                                <p style="text-align: center">
+                                    @if ( $cat_prdt->discount_price == NULL )
+                                        <div class="product__details__price">Price :  {{ $setting->currency }}{{ $cat_prdt->selling_price }}/-
+                                        </div>
+                                    @else
+                                        <div class="product__details__price">Price :  
+                                            <del>
+                                                <span>{{ $setting->currency }}{{ $cat_prdt->selling_price }}</span>/-
+                                            </del> 
+        
+                                            <span style="color: #000;">{{ $setting->currency }}{{ $cat_prdt->discount_price }}</span>/-
+                                        </div>
+                                    @endif
+                                </p>
+                                <div class="quick_view_link">
+                                    <a href="{{ route('productDetails', $cat_prdt->slug ) }}">Quick view</a>
+                                </div>
+                                <button type="submit" class="btn btn-primary" style="width: 100%;">Add To Cart</button>
+                            </div>
+                           @endforeach
+                        </div>
+                    </div>
+                    
+                </div>
+             </div>
+          </section>
+        @endforeach
+        <!-- All Category Section Begin -->
+
         <!-- Banner Begin -->
         <div class="banner">
             <div class="container">
@@ -294,9 +341,100 @@
         </section>
         <!-- Blog Section End -->
 
+        <!-- Random Product Section Begin -->
+        <section class="random_product">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="section-title">
+                            <h2>Product For You</h2>
+                        </div>
+                        <div class="row">
+                            <div class="categories__slider owl-carousel">
+                                
+                                @foreach ($random_products as $random_product)
+
+                                <div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fastfood">
+                                    <div class="featured__item">
+                                        <div class="featured__item__pic set-bg" data-setbg="{{ asset('backend/uploads/products/' . $random_product->thumbnail) }}">
+                                            <ul class="featured__item__pic__hover">
+                                                <li><a href="{{ route('add.wishlist', $random_product->id) }}"><i class="fa fa-heart"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="featured__item__text">
+                                            <h6><a href="{{ route('productDetails', $random_product->slug ) }}">{{ $random_product->product_name }}</a></h6>
+                                            <h5>
+                                                @if ( $random_product->discount_price )
+                                                    <del>
+                                                        <span>{{ $setting->currency }}{{ $random_product->selling_price }}</span>/-
+                                                    </del> 
+                                                    {{ $setting->currency }}{{ $random_product->discount_price }}/-
+                                                @else
+                                                    {{ $setting->currency }}{{ $random_product->selling_price }}/-
+                                                @endif
+                                                
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                @endforeach  
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Random Product Section End -->
+
+        <!-- Brand Logo Section Begin -->
+        <section class="brand_logo">
+           <div class="container">
+             <div class="row">
+                <div class="col-lg-12">
+                    <div class="owl-carousel owl-theme owls_border">
+                        @foreach ($brand_logos as $brand_logo)
+                            <div class="item">
+                                <a href="" title="{{ $brand_logo->brand_slug }}">
+                                    <img src="{{ asset('backend/uploads/brand/' . $brand_logo->brand_logo) }}" alt="{{ $brand_logo->brand_slug }}" style="width: 75px;">
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+             </div>
+           </div>
+        </section>
+        <!-- Brand Logo Section End -->
+
 @endsection
 
 
 @section('scripts')
-    
+    <script>
+        $('.owl-carousel').owlCarousel({
+            loop: true,
+            margin: 10,
+            nav: false,
+            autoplay: true,
+            autoplayTimeout: 2500,
+            autoplayHoverPause: true,
+            responsive:{
+                320: {
+                items: 4,
+                },
+                480: {
+                    items: 5,
+                },
+                768: {
+                    items: 7,
+                },
+                992: {
+                    items: 10,
+                }
+            }
+        })
+    </script>
 @endsection

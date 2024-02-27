@@ -8,6 +8,8 @@ use App\Models\Category;
 use App\Models\ChildCategory;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class CategoryController extends Controller
 {
@@ -34,11 +36,33 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         // raw query system laravel ( 1st method )
-        // $data = array();
-        // $data['category_name'] = $request->cat_name;
-        // $data['category_slug'] = Str::slug($request->cat_name);
-        // $data['status']        =  $request->status;
-        // DB::table('categories')->insert($data);
+        $data = array();
+        $data['category_name']    =  $request->cat_name;
+        $data['category_slug']    =  Str::slug($request->cat_name);
+        $data['status']           =  $request->status;
+        $data['home_page']        =  $request->home_page;
+
+        if( $request->icon ){
+            $manager  =  new ImageManager(new Driver());
+            $image    =  $request->icon;
+            $img      =  $manager->read($request->icon);
+
+            $images = rand(0, 9999999) . "-icon-." . $image->getClientOriginalExtension();
+
+            // images path location
+            $location = public_path("backend/uploads/category/" . $images);
+
+            // images size set
+            $img->resize(600, 600);
+
+            // to set images to their path location
+            $img->toJpeg()->save($location);
+
+            // added the images data to database
+            $data['icon']   =  $images;
+        }
+
+        DB::table('categories')->insert($data);
 
 
         // eloquent relation system
@@ -50,16 +74,16 @@ class CategoryController extends Controller
         // ]);
 
         //( 3rd method )
-        $category = new Category();
+        // $category = new Category();
 
-        if( !is_null($category) ){
-            $category->category_name   = $request->cat_name;
-            $category->category_slug   = Str::slug($request->cat_name);
-            $category->status          = $request->status;
+        // if( !is_null($category) ){
+        //     $category->category_name   = $request->cat_name;
+        //     $category->category_slug   = Str::slug($request->cat_name);
+        //     $category->status          = $request->status;
 
-            $category->save();
+        //     $category->save();
 
-        }
+        // }
 
         $notifications = [
             "message"    =>  "Category data has been added successfully",
@@ -89,6 +113,7 @@ class CategoryController extends Controller
         // $data['category_name']   = $request->cat_name;
         // $data['category_slug']   = Str::slug($request->cat_name);
         // $data['status']          =  $request->status;
+
         // DB::table('categories')->where('id', $cat_id)->update($data);
 
 
@@ -96,9 +121,39 @@ class CategoryController extends Controller
         $category = Category::find($id);
 
         if( !is_null($category) ){
-            $category->category_name   = $request->cat_name;
-            $category->category_slug   = Str::slug($request->cat_name);
-            $category->status          = $request->status;
+            $category->category_name      = $request->cat_name;
+            $category->category_slug      = Str::slug($request->cat_name);
+            $category->status             = $request->status;
+            $category->home_page          = $request->home_page;
+
+            if( $request->icon ){
+
+                if( file_exists("backend/uploads/category/" . $category->icon ) == ""){
+                    unlink("backend/uploads/category/" . $category->icon );
+                }
+                else if( file_exists("backend/uploads/category/" . $category->icon ) ){
+                    unlink("backend/uploads/category/" . $category->icon );
+                }
+    
+                $manager  =  new ImageManager(new Driver());
+                $image    =  $request->icon;
+                $img      =  $manager->read($request->icon);
+    
+                $images = rand(0, 9999999) . "-icon-." . $image->getClientOriginalExtension();
+    
+                // images path location
+                $location = public_path("backend/uploads/category/" . $images);
+    
+                // images size set
+                $img->resize(600, 600);
+    
+                // to set images to their path location
+                $img->toJpeg()->save($location);
+    
+                // added the images data to database
+                // $product->thumbnail = $images;
+                $category->icon   =  $images;
+            }
 
             $category->save();
         }
@@ -154,6 +209,9 @@ class CategoryController extends Controller
         $category = Category::find($id);
 
         if( !is_null($category) ){
+            if( !is_null( $category->icon ) ){
+                unlink("backend/uploads/category/" . $category->icon );
+            }
             $category->delete();
         }
 

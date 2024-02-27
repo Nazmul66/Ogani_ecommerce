@@ -14,6 +14,7 @@ use App\Models\Review;
 use App\Models\User;
 use App\Models\Wishlist;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -25,8 +26,11 @@ class HomeController extends Controller
         $product           = Product::where('product_slide', 2)->where('status', 1)->first();
         $featured_product  = Product::where('featured', 1)->where('status', 1)->get();
         $popular_product   = Product::orderBy('product_view', 'DESC')->where('status', 1)->limit(10)->get();
+        $random_products   = Product::inRandomOrder()->where('status', 1)->limit(10)->get();
         $trendy_product    = Product::where('trendy', 1)->where('status', 1)->limit(10)->get();
-        return view('frontend.home', compact('product', 'featured_product', 'popular_product', 'trendy_product'));
+        $brand_logos       = Brand::where('status', 1)->where('front_page', 1)->inRandomOrder()->limit(12)->get();
+        $home_category     = DB::table('categories')->where('home_page', 1)->orderBy('category_name', 'asc')->get();
+        return view('frontend.home', compact('product', 'featured_product', 'popular_product', 'trendy_product', 'home_category', 'brand_logos', 'random_products'));
     }
 
     /**
@@ -41,7 +45,7 @@ class HomeController extends Controller
         $brand             =  Brand::where('id', $products->brand_id)->first();
         $productImg        =  ProductImage::where('product_id', $products->id)->get();
         $pickup_point      =  Pickup_point::where('id', $products->	pickup_point_id)->first();
-        $related_product   =  Product::orderBy('id', 'desc')->where('subCategory_id', $products->subCategory_id )->where('status', 1)->take(10)->get();
+        $related_product   =  Product::orderBy('id', 'desc')->where('category_id', $products->category_id  )->where('status', 1)->take(8)->get();
         $review_products   =  Review::orderBy('id', 'desc')->where('product_id', $products->id)->get();
 
         return view('frontend.pages.shop.shop-details', compact('products', 'category', 'brand', 'productImg', 'pickup_point', 'related_product', 'review_products', 'users'));

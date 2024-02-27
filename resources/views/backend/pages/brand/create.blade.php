@@ -37,14 +37,22 @@
 
                         <div class="mb-3">
                             <label class="file_div" for="fileUploader">
-                                {{-- <h2>Upload</h2> --}}
                                 <img src="{{ asset('backend/uploads/Upload_icon.png') }}" alt="" class="img_upload">
                                 <h3>Upload Files Here or <span>Browse</span></h3>
                                 <p>Supported formates: JPEG, PNG, JPG</p>
                                 <figcaption class="file_name d-none" ></figcaption>
                             </label>
                             <input type="file" name="brandLogo" accept=".jpg, .png, .jpeg" class="d-none" id="fileUploader">
-                          </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-select">Front Page</label>
+                            <select class="form-control" id="input-select" name="front_page">
+                                <option value="" selected disabled>Select the front page status</option>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
 
                         <div class="form-group">
                             <label for="input-select">Status</label>

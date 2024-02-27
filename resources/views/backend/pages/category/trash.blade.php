@@ -42,8 +42,10 @@
                             <thead>
                             <tr>
                                 <th scope="col">#Sl.</th>
+                                <th scope="col">Icons</th>
                                 <th scope="col">Category Name</th>
                                 <th scope="col">Category Slug</th>
+                                <th scope="col">Home Page</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Action</th>
                             </tr>
@@ -53,8 +55,18 @@
                                 @foreach ( $categories as $key=>$category )
                                     <tr>
                                         <th scope="row">{{ $key + 1 }}</th>
+                                        <td>
+                                            @if ( !is_null( $category->icon ) )
+                                                <img src="{{ asset('backend/uploads/category/' . $category->icon) }}" alt="" style="width: 40px; height: 40px;">
+                                            @endif
+                                        </td>
                                         <td>{{ $category->category_name }}</td>
                                         <td>{{ $category->category_slug }}</td>
+                                        <td>
+                                            @if ( $category->home_page == 1 )
+                                              <span class="badge badge-primary">Home Page</span>
+                                            @endif
+                                        </td>
                                         <td>
                                             @if ( $category->status == 1 )
                                             <span class="badge-text-primary">Active</span>

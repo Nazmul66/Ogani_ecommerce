@@ -13,7 +13,7 @@
                             <ul class="main_ul">
                                 @foreach ( App\Models\Category::where('status', 1)->get() as $category )
                                     <li class="category">
-                                        <a href="#">{{ $category->category_name }}</a>
+                                        <a href="#"><img src="{{ asset('backend/uploads/category/' . $category->icon ) }}" alt="" style="width: 20px; margin-right: 8px"> {{ $category->category_name }}</a>
 
                                         @if( App\Models\SubCategory::where('status', 1)->where('category_id', $category->id)->get()->count() > 0 ) 
                                         <ul class="sub_cat_list_nav">

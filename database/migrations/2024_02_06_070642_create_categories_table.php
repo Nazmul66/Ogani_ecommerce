@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('category_name')->nullable();
             $table->string('category_slug')->nullable();
+            $table->integer('home_page')->default(0)->comment("1=active, 0=inActive");
             $table->integer('status')->default(1)->comment("1=active, 2=inActive");
+            $table->text('icon')->nullable();
             $table->timestamps();
         });
     }

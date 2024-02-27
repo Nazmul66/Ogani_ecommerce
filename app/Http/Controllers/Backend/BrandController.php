@@ -39,6 +39,7 @@ class BrandController extends Controller
             $slug = Str::slug( $request->brand_name );
             $brand->brand_name   = $request->brand_name;
             $brand->brand_slug   = Str::slug( $request->brand_name );
+            $brand->front_page   = $request->front_page;
 
             if( $request->brandLogo ){
                 $manager  =  new ImageManager(new Driver());
@@ -94,6 +95,7 @@ class BrandController extends Controller
             $slug = Str::slug( $request->brand_name );
             $brand->brand_name   = $request->brand_name;
             $brand->brand_slug   = Str::slug( $request->brand_name );
+            $brand->front_page   = $request->front_page;
 
             if( $request->brandLogo ){
                 
