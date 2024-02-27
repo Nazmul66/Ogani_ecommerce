@@ -97,9 +97,11 @@
 
                             <p>{{ strip_tags($products->description) }}</p>
 
-                            <form method="POST" action="">
-                                
+                            <form method="POST" action="{{ route('cart.store') }}">
+
                                 @csrf
+
+                                <input type="hidden" name="prdct_id" value="{{ $products->id }}">
 
                                 <div class="row mb-3">
                                     @if ( !is_null( $products->color) )

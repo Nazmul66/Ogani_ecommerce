@@ -133,7 +133,11 @@
                                     <img src="{{ asset('backend/uploads/products/' . $cat_prdt->thumbnail) }}" alt="" class="product_img">
                                     <i class="fa fa-heart"></i>
                                 </figure>
-                                <h5 class="product_title">{{ Str::substr($cat_prdt->product_name, 0, 30) }}</h5>
+                                <h5 class="product_title">
+                                    <a href="{{ route('productDetails', $cat_prdt->slug ) }}">
+                                        {{ Str::substr($cat_prdt->product_name, 0, 30) }}
+                                    </a>
+                                </h5>
                                 <p style="text-align: center">
                                     @if ( $cat_prdt->discount_price == NULL )
                                         <div class="product__details__price">Price :  {{ $setting->currency }}{{ $cat_prdt->selling_price }}/-
@@ -148,9 +152,8 @@
                                         </div>
                                     @endif
                                 </p>
-                                <div class="quick_view_link">
-                                    <a href="{{ route('productDetails', $cat_prdt->slug ) }}">Quick view</a>
-                                </div>
+
+                                <p>{{ strip_tags(Str::substr($cat_prdt->description, 0,65)) }}...</p>
                                 <button type="submit" class="btn btn-primary" style="width: 100%;">Add To Cart</button>
                             </div>
                            @endforeach

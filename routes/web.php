@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\ReviewController;
 use App\Http\Controllers\Frontend\WishlistController;
+use App\Http\Controllers\Frontend\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,5 +57,13 @@ Route::post('/store/review', [ReviewController::class, 'storeReview'] )->name('s
 
 // Wishlist
 Route::get('/add/wishlist/{id}', [WishlistController::class, 'addWishlist'] )->name('add.wishlist');
+
+// CartList
+Route::group(['prefix' => '/cart'], function (){
+    Route::post('/', [CartController::class, 'index'] )->name('cart.manage');
+    Route::post('/store', [CartController::class, 'store'] )->name('cart.store');
+    Route::post('/update/{id}', [CartController::class, 'update'] )->name('cart.update');
+    Route::post('/destroy/{id}', [CartController::class, 'destroy'] )->name('cart.destroy');
+});
 
 

@@ -5,6 +5,29 @@
 
     @php
         $wishlist_count =  App\Models\Wishlist::where('user_id', Auth::id() )->count();
+        $cartlists  =  App\Models\Cart::where('user_id', Auth::id() )->where('order_id', NULL)->get();
+
+
+        // total item added into cart
+        $total_item = 0;
+        foreach ($cartlists as $cartlist) {
+            $total_item += $cartlist->product_qty;
+        }
+        
+        //total amount
+        $total_amount = 0;
+        foreach ($cartlists as $cartlist) {
+            $products   =  App\Models\Product::where('id', $cartlist->product_id)->get();
+
+            foreach ($products as $product) {
+                if( $product->discount_price ){
+                    $total_amount += $cartlist->product_qty * $product->discount_price;
+                }
+                else{
+                    $total_amount += $cartlist->product_qty * $product->selling_price;
+                }
+            }
+        }
     @endphp
 
     <!-- Res Humberger Begin -->
@@ -217,7 +240,17 @@
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
+                            <li>
+                                <a href="#"><i class="fa fa-heart"></i> 
+                                    <span>
+                                        @if ( Auth::check() )
+                                           {{ $total_item }}
+                                        @else
+                                           0
+                                        @endif
+                                    </span>
+                                </a>
+                            </li>
                             <li>
                                 <a href="#"><i class="fa fa-shopping-bag"></i> 
                                     <span>
@@ -230,7 +263,7 @@
                                 </a>
                             </li>
                         </ul>
-                        <div class="header__cart__price">item: <span>$150.00</span></div>
+                        <div class="header__cart__price">item: <span>{{ $setting->currency }}{{ $total_amount }}</span></div>
                     </div>
                 </div>
             </div>

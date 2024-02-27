@@ -86,11 +86,22 @@ del{
     opacity: 1;
 }
 .quick_view_link{
-    color: darkcyan;
+    color: darkcyan ;
     font-weight: 600;
     text-align: center;
     margin-bottom: 10px;
     cursor: pointer;
+}
+.product_title a{
+    color: #1c1c1c !important;
+    font-weight: 600;
+    margin-bottom: 10px;
+    cursor: pointer; 
+}
+.quick_view_link a{
+    text-decoration: none !important;
+    outline: none !important;
+    color: darkcyan !important;
 }
 .category_slides{
     padding: 30px;
