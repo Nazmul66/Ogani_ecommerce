@@ -26,6 +26,26 @@
             </div>
         </section>
         <!-- Banner Section End -->
+
+        <!-- Brand Logo Section Begin -->
+        <section class="brand_logo">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="owl-carousel owl-theme owls_border">
+                            @foreach ($brand_logos as $brand_logo)
+                                <div class="item">
+                                    <a href="" title="{{ $brand_logo->brand_slug }}">
+                                        <img src="{{ asset('backend/uploads/brand/' . $brand_logo->brand_logo) }}" alt="{{ $brand_logo->brand_slug }}" style="width: 75px;">
+                                    </a>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Brand Logo Section End -->
       
         <!-- Categories Section Begin -->
         <section class="categories">
@@ -391,26 +411,6 @@
             </div>
         </section>
         <!-- Random Product Section End -->
-
-        <!-- Brand Logo Section Begin -->
-        <section class="brand_logo">
-           <div class="container">
-             <div class="row">
-                <div class="col-lg-12">
-                    <div class="owl-carousel owl-theme owls_border">
-                        @foreach ($brand_logos as $brand_logo)
-                            <div class="item">
-                                <a href="" title="{{ $brand_logo->brand_slug }}">
-                                    <img src="{{ asset('backend/uploads/brand/' . $brand_logo->brand_logo) }}" alt="{{ $brand_logo->brand_slug }}" style="width: 75px;">
-                                </a>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-             </div>
-           </div>
-        </section>
-        <!-- Brand Logo Section End -->
 
 @endsection
 

@@ -1,8 +1,3 @@
-    <!-- Page Preloder -->
-    {{-- <div id="preloder">
-        <div class="loader"></div>
-    </div> --}}
-
     @php
         $wishlist_count =  App\Models\Wishlist::where('user_id', Auth::id() )->count();
         $cartlists  =  App\Models\Cart::where('user_id', Auth::id() )->where('order_id', NULL)->get();
@@ -29,6 +24,12 @@
             }
         }
     @endphp
+    
+    <!-- Page Preloder -->
+    {{-- <div id="preloder">
+        <div class="loader"></div>
+    </div> --}}
+
 
     <!-- Res Humberger Begin -->
     <div class="humberger__menu__overlay"></div>
@@ -145,7 +146,7 @@
                     <div class="col-lg-5 col-md-5">
                         <div class="header__top__left">
                             <ul>
-                                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+                                <li><i class="fa fa-envelope"></i>{{ $setting->support_email }}</li>
                                 <li>Free Shipping for all Order of $99</li>
                             </ul>
                         </div>
@@ -244,7 +245,7 @@
                                 <a href="#"><i class="fa fa-heart"></i> 
                                     <span>
                                         @if ( Auth::check() )
-                                           {{ $total_item }}
+                                           {{ $wishlist_count }}
                                         @else
                                            0
                                         @endif
@@ -252,10 +253,10 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-shopping-bag"></i> 
+                                <a href="{{ route('cart.manage') }}"><i class="fa fa-shopping-bag"></i> 
                                     <span>
                                         @if ( Auth::check() )
-                                           {{ $wishlist_count }}
+                                           {{ $total_item }}
                                         @else
                                            0
                                         @endif

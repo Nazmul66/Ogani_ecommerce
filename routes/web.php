@@ -60,10 +60,12 @@ Route::get('/add/wishlist/{id}', [WishlistController::class, 'addWishlist'] )->n
 
 // CartList
 Route::group(['prefix' => '/cart'], function (){
-    Route::post('/', [CartController::class, 'index'] )->name('cart.manage');
+    Route::get('/', [CartController::class, 'index'] )->name('cart.manage');
     Route::post('/store', [CartController::class, 'store'] )->name('cart.store');
-    Route::post('/update/{id}', [CartController::class, 'update'] )->name('cart.update');
-    Route::post('/destroy/{id}', [CartController::class, 'destroy'] )->name('cart.destroy');
+    Route::get('/update/{id}', [CartController::class, 'update'] )->name('cart.update');
+    Route::get('/destroy/{id}', [CartController::class, 'destroy'] )->name('cart.destroy');
+    Route::get('/destroy/{id}', [CartController::class, 'destroy'] )->name('cart.destroy');
+    Route::post('/coupon/apply', [CartController::class, 'applyCoupon'] )->name('cart.coupon.apply');
 });
 
 

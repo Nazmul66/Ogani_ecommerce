@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Cart;
+use App\Models\Coupon;
+use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
@@ -14,7 +16,20 @@ class CartController extends Controller
      */
     public function index()
     {
-        //
+        if( !Auth::check() ){
+            $notifications = [
+                "message"    => "Please login ",
+                'alert-type' => "warning",
+            ];
+
+           return redirect()->route('login')->with($notifications);
+        }
+
+        else{
+           $carts = Cart::where('user_id', Auth::id())->where('order_id', NULL)->get();
+           return view('frontend.pages.shop.shopping-cart', compact('carts'));
+        }
+
     }
 
     /**
@@ -73,19 +88,33 @@ class CartController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function applyCoupon(Request $request)
     {
-        //
+        $checkCoupon = Coupon::where('coupon_code', $request->coupon)->first();
+
+        if( !is_null($checkCoupon) ){
+          Session::put('coupon', [
+               'coupon_name' => $checkCoupon->coupon_code,
+               'coupon_discount' => $checkCoupon->coupon_amount
+          ]);
+
+            $notifications = [
+                "message"    => "Successfully Coupon added",
+                'alert-type' => "success",
+            ];
+
+            return redirect()->back()->with($notifications);
+        }
+        else{
+            $notifications = [
+                "message"    => "Invalid Coupon",
+                'alert-type' => "warning",
+            ];
+    
+            return redirect()->back()->with($notifications);
+        }
     }
 
     /**
@@ -93,6 +122,17 @@ class CartController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $cart = Cart::find($id);
+
+        if( !is_null($cart) ){
+            $cart->delete();
+        }
+
+        $notifications = [
+            "message"    => "Item delete into the cart",
+            'alert-type' => "error",
+        ];
+
+        return redirect()->back()->with($notifications);
     }
 }
