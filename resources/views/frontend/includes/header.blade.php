@@ -242,7 +242,7 @@
                     <div class="header__cart">
                         <ul>
                             <li>
-                                <a href="#"><i class="fa fa-heart"></i> 
+                                <a href="{{ route('wishlist') }}"><i class="fa fa-heart"></i> 
                                     <span>
                                         @if ( Auth::check() )
                                            {{ $wishlist_count }}

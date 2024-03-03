@@ -56,7 +56,10 @@ Route::get('/product-details/{slug}', [HomeController::class, 'productDetails'] 
 Route::post('/store/review', [ReviewController::class, 'storeReview'] )->name('store.review');
 
 // Wishlist
+Route::get('/wishlist', [WishlistController::class, 'wishlist'] )->name('wishlist');
 Route::get('/add/wishlist/{id}', [WishlistController::class, 'addWishlist'] )->name('add.wishlist');
+Route::get('/clear/wishlist', [WishlistController::class, 'clearWishlist'] )->name('clear.wishlist');
+Route::get('/wishlist/destroy/{id}', [WishlistController::class, 'destroy'] )->name('wishlist.destroy');
 
 // CartList
 Route::group(['prefix' => '/cart'], function (){

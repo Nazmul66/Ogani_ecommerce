@@ -38,6 +38,7 @@ class WishlistController extends Controller
                 if( !is_null($wishlist) ){
                     $wishlist->user_id    =  Auth::user()->id;
                     $wishlist->product_id =  $id;
+                    $wishlist->date       =  date('d, F y');
                 }
 
                 $wishlist->save();
@@ -55,48 +56,48 @@ class WishlistController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function wishlist()
     {
-        //
+        if( !Auth::check() ){
+            $notifications = [
+                "message"    => "At first please login your account",
+                'alert-type' => "warning",
+            ];
+
+           return redirect()->route('login')->with($notifications);
+        }
+
+        else{
+           $wishlists = Wishlist::where('user_id', Auth::id())->get();
+           return view('frontend.pages.cart.wishlist', compact('wishlists'));
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function clearWishlist()
     {
-        //
+        $wishlists = Wishlist::where('user_id', Auth::id())->delete();
+
+        if( !is_null($wishlists)){
+            $notifications = [
+                "message"    => "Clear All Wishlists data",
+                'alert-type' => "warning",
+            ];
+    
+           return redirect()->back()->with($notifications);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        $wishlist = Wishlist::where('id', $id)->delete();
+
+        if( !is_null($wishlist)){
+            $notifications = [
+                "message"    => "Wishlists data is being delete",
+                'alert-type' => "error",
+            ];
+    
+           return redirect()->back()->with($notifications);
+        }
     }
 }

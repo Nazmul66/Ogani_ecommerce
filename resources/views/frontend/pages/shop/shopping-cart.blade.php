@@ -157,7 +157,12 @@
                             @else
                                <li>Subtotal <span>{{ $setting->currency }}{{ $total_amount }}</span></li>
                             @endif
-                            <li>Total <span>{{ $setting->currency }}{{ $total_amount - Session::get('coupon')['coupon_discount'] }}</span></li>
+
+                            @if (Session::has('coupon'))
+                               <li>Total <span>{{ $setting->currency }}{{ $total_amount - Session::get('coupon')['coupon_discount'] }}</span></li>
+                            @else
+                               <li>Total <span>{{ $setting->currency }}{{ $total_amount }}</span></li>
+                            @endif
                         </ul>
                         <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
                     </div>

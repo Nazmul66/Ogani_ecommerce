@@ -18,7 +18,7 @@ class CartController extends Controller
     {
         if( !Auth::check() ){
             $notifications = [
-                "message"    => "Please login ",
+                "message"    => "At first please login your account",
                 'alert-type' => "warning",
             ];
 
@@ -29,7 +29,6 @@ class CartController extends Controller
            $carts = Cart::where('user_id', Auth::id())->where('order_id', NULL)->get();
            return view('frontend.pages.shop.shopping-cart', compact('carts'));
         }
-
     }
 
     /**
