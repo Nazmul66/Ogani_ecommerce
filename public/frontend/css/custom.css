@@ -125,7 +125,7 @@ del{
     display: block;
 }
 .brand_logo{
-    padding: 0 0 75px;
+    padding-top: 75px;
 }
 .owls_border{
     border: 2px solid #F3F3F3;
@@ -136,4 +136,34 @@ del{
     color: #B2B2B2;
     margin-left: 30px;
     font-size: 20px;
+}
+.cat_menu{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    transition: all 0.2s ease-in-out;
+}
+.cat_menu #angle_arrow{
+    transition: all 0.2s ease-in-out;
+}
+.subCat_list{
+    padding: 0 0 0 20px;
+    display: none;
+}
+.childCat_list{
+    padding: 0 0 0 20px; 
+}
+.subCat_list.show{
+    display: block; 
+}
+.subCat_menu{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    transition: all 0.2s ease-in-out;
+}
+.subCat_menu #angle_arrow2{
+    transition: all 0.2s ease-in-out;
 }

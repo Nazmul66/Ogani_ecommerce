@@ -35,7 +35,7 @@
                         <div class="owl-carousel owl-theme owls_border">
                             @foreach ($brand_logos as $brand_logo)
                                 <div class="item">
-                                    <a href="" title="{{ $brand_logo->brand_slug }}">
+                                    <a href="{{ route('brandwise.product', $brand_logo->id) }}" title="{{ $brand_logo->brand_slug }}">
                                         <img src="{{ asset('backend/uploads/brand/' . $brand_logo->brand_logo) }}" alt="{{ $brand_logo->brand_slug }}" style="width: 75px;">
                                     </a>
                                 </div>

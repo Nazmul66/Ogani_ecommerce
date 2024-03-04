@@ -48,7 +48,7 @@ class CartController extends Controller
                 $cart->product_qty = $cart->product_qty + $request->quantity;
             }
             else{
-                $cart->increment('quantity');
+                $cart->increment('product_qty');
             }
 
             $cart->save();
@@ -70,7 +70,7 @@ class CartController extends Controller
                 }
                 $carts->product_id   =  $request->prdct_id;
                 $carts->ip_address   =  $request->ip();
-                $carts->product_qty  =  $request->quantity;
+                $carts->product_qty  =  $request->quantity ?? 1;
                 $carts->color        =  $request->color;
                 $carts->size         =  $request->size ;
 

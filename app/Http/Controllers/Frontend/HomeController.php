@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\SubCategory;
+use App\Models\ChildCategory;
 use App\Models\Brand;
 use App\Models\Pickup_point;
 use App\Models\ProductImage;
@@ -59,31 +61,67 @@ class HomeController extends Controller
     */
     public function userLogin()
     {
-        $setting = Setting::orderBy('id', 'asc')->first();
+        $setting   =  Setting::orderBy('id', 'asc')->first();
         return view('frontend.pages.auth.login', compact('setting'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function shopPage()
     {
-        //
+        $categories        = Category::orderBy('id', 'asc')->where('status', 1)->get();
+        $products          = Product::inRandomOrder()->orderBy('id', 'desc')->limit(9)->get();
+        $productSales      = Product::whereNotNull('discount_price')->inRandomOrder()->orderBy('id', 'desc')->get();
+        $brands            = Brand::orderBy('id', 'asc')->get();
+        $random_products   = Product::inRandomOrder()->where('status', 1)->limit(10)->get();
+        return view('frontend.pages.shop.shop', compact('categories', 'products', 'brands', 'productSales', 'random_products'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function categoryWiseProduct(string $id)
     {
-        //
+    //    dd($id);
+       $category           = Category::where('id', $id)->first();
+       $subCategories      = SubCategory::where('category_id', $id)->get();
+       $brands             = Brand::orderBy('id', 'asc')->get();
+       $products           = Product::orderBy('id', 'desc')->where('category_id', $id)->get();
+       $productSales       = Product::whereNotNull('discount_price')->inRandomOrder()->orderBy('id', 'desc')->get();
+       $random_products    = Product::inRandomOrder()->where('status', 1)->limit(10)->get();
+       return  view('frontend.pages.shop.categoryWise-product', compact( 'category', 'products', 'brands', 'productSales', 'subCategories', 'random_products'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function subCategoryWiseProduct(string $id)
     {
-        //
+        $subCat              = SubCategory::where('id', $id)->first();
+        $childCategories     = ChildCategory::where('subcategory_id', $id)->get();
+        $brands              = Brand::orderBy('id', 'asc')->get();
+        $products            = Product::orderBy('id', 'desc')->where('subcategory_id', $id)->get();
+        $productSales        = Product::whereNotNull('discount_price')->inRandomOrder()->orderBy('id', 'desc')->get();
+        $random_products     = Product::inRandomOrder()->where('status', 1)->limit(10)->get();
+        return  view('frontend.pages.shop.subCatWise-product', compact( 'subCat', 'products', 'brands', 'productSales', 'childCategories', 'random_products'));
     }
+
+    public function childCategoryWise(string $id)
+    {
+        $products            = Product::orderBy('id', 'desc')->where('childCategory_id', $id)->get();
+        $childCat            = ChildCategory::where('id', $id)->first();
+        $Categories          = Category::orderBy('id', 'asc')->where('status', 1)->get();
+        $brands              = Brand::orderBy('id', 'asc')->get();
+        $productSales        = Product::whereNotNull('discount_price')->inRandomOrder()->orderBy('id', 'desc')->get();
+        $random_products     = Product::inRandomOrder()->where('status', 1)->limit(10)->get();
+        return view('frontend.pages.shop.childCatWise-product', compact( 'childCat', 'products', 'brands', 'productSales', 'Categories', 'random_products'));
+    }
+
+
+    public function brandWiseProduct(string $id)
+    {
+        $brand               = Brand::where('id', $id)->where('status', 1)->first();
+        $brands              = Brand::orderBy('id', 'asc')->get();
+        $Categories          = Category::orderBy('id', 'asc')->where('status', 1)->get();
+        $products            = Product::orderBy('id', 'desc')->where('brand_id', $id)->get();
+        $productSales        = Product::whereNotNull('discount_price')->inRandomOrder()->orderBy('id', 'desc')->get();
+        $random_products     = Product::inRandomOrder()->where('status', 1)->limit(10)->get();
+        return view('frontend.pages.shop.brandWise-product', compact( 'brand', 'products', 'brands', 'productSales', 'Categories', 'random_products'));
+    }
+
 }

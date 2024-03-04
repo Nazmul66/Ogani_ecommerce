@@ -61,6 +61,13 @@ Route::get('/add/wishlist/{id}', [WishlistController::class, 'addWishlist'] )->n
 Route::get('/clear/wishlist', [WishlistController::class, 'clearWishlist'] )->name('clear.wishlist');
 Route::get('/wishlist/destroy/{id}', [WishlistController::class, 'destroy'] )->name('wishlist.destroy');
 
+// Category wise product
+Route::get('/shop-page', [HomeController::class, 'shopPage'] )->name('shopPage');
+Route::get('/category/product/{id}', [HomeController::class, 'categoryWiseProduct'] )->name('categoryWise.product');
+Route::get('/subCategory/product/{id}', [HomeController::class, 'subCategoryWiseProduct'] )->name('subCategoryWise.product');
+Route::get('/childCategory/product/{id}', [HomeController::class, 'childCategoryWise'] )->name('childCategoryWise.product');
+Route::get('/brand/product/{id}', [HomeController::class, 'brandWiseProduct'] )->name('brandwise.product');
+
 // CartList
 Route::group(['prefix' => '/cart'], function (){
     Route::get('/', [CartController::class, 'index'] )->name('cart.manage');

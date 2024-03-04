@@ -13,19 +13,20 @@
                             <ul class="main_ul">
                                 @foreach ( App\Models\Category::where('status', 1)->get() as $category )
                                     <li class="category">
-                                        <a href="#"><img src="{{ asset('backend/uploads/category/' . $category->icon ) }}" alt="" style="width: 20px; margin-right: 8px"> {{ $category->category_name }}</a>
+                                        <a href="{{ route('categoryWise.product', $category->id) }}"><img src="{{ asset('backend/uploads/category/' . $category->icon ) }}" alt="" style="width: 20px; margin-right: 8px"> {{ $category->category_name }}</a>
+                                        <i class="fa fa-angle-right" aria-hidden="true" id="angle_arrow"></i>
 
                                         @if( App\Models\SubCategory::where('status', 1)->where('category_id', $category->id)->get()->count() > 0 ) 
                                         <ul class="sub_cat_list_nav">
                                             @foreach ( App\Models\SubCategory::where('status', 1)->where('category_id', $category->id)->get() as $SubCat )
                                             <li>
-                                                <a href="#">{{ $SubCat->subcategory_name }}</a>
+                                                <a href="{{ route('subCategoryWise.product', $SubCat->id) }}">{{ $SubCat->subcategory_name }}</a>
 
                                                 @if( App\Models\ChildCategory::where('status', 1)->where('subcategory_id', $SubCat->id)->get()->count() > 0 )
                                                 <ul class="child_cat">
                                                     @foreach ( App\Models\ChildCategory::where('status', 1)->where('subcategory_id', $SubCat->id)->get() as $ChildCat )
                                                     <li>
-                                                        <a href="#">{{ $ChildCat->childCategory_name }}</a>
+                                                        <a href="{{ route('childCategoryWise.product', $ChildCat->id) }}">{{ $ChildCat->childCategory_name }}</a>
                                                     </li>
                                                     @endforeach
                                                 </ul>
