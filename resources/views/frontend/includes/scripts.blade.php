@@ -6,11 +6,13 @@
 <script src="{{ asset('frontend/js/jquery.slicknav.js') }}"></script>
 <script src="{{ asset('frontend/js/mixitup.min.js') }}"></script>
 <script src="{{ asset('frontend/js/owl.carousel.min.js') }}"></script>
+<script src="{{ asset('frontend/js/menu.js') }}"></script>
 
 <!-- toaster Js plugins  -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 <script src="{{ asset('frontend/js/main.js') }}"></script>
+<script src="{{ asset('frontend/js/script.js') }}"></script>
 
 <script type="text/javascript">
     toastr.options = {

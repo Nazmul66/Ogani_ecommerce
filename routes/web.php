@@ -6,6 +6,7 @@ use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\ReviewController;
 use App\Http\Controllers\Frontend\WishlistController;
 use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Frontend\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,12 +49,16 @@ require __DIR__.'/auth.php';
 // static pages
 Route::get('/', [HomeController::class, 'home'] )->name('homePage');
 Route::get('/product-details/{slug}', [HomeController::class, 'productDetails'] )->name('productDetails');
+Route::get('/blog', [HomeController::class, 'blogPage'] )->name('blogPage');
 
 // Auth pages
 // Route::get('/user-login', [HomeController::class, 'userLogin'] )->name('user-login');
 
 // Review
 Route::post('/store/review', [ReviewController::class, 'storeReview'] )->name('store.review');
+
+// review for frontend customer dashboard pages 
+Route::post('/write/review', [ReviewController::class, 'writeReview'] )->name('write.review');
 
 // Wishlist
 Route::get('/wishlist', [WishlistController::class, 'wishlist'] )->name('wishlist');
@@ -67,6 +72,10 @@ Route::get('/category/product/{id}', [HomeController::class, 'categoryWiseProduc
 Route::get('/subCategory/product/{id}', [HomeController::class, 'subCategoryWiseProduct'] )->name('subCategoryWise.product');
 Route::get('/childCategory/product/{id}', [HomeController::class, 'childCategoryWise'] )->name('childCategoryWise.product');
 Route::get('/brand/product/{id}', [HomeController::class, 'brandWiseProduct'] )->name('brandwise.product');
+
+// Customer profile
+Route::get('/customer-profile', [CustomerController::class, 'customerProfile'] )->name('customer.profile');
+
 
 // CartList
 Route::group(['prefix' => '/cart'], function (){

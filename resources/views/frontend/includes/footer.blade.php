@@ -1,4 +1,9 @@
 
+@php
+    $page_one = App\Models\Page::where('page_position', 1)->get();
+    $page_two = App\Models\Page::where('page_position', 2)->get();
+@endphp
+
     <footer class="footer spad">
         <div class="container">
             <div class="row">
@@ -18,20 +23,14 @@
                     <div class="footer__widget">
                         <h6>Useful Links</h6>
                         <ul>
-                            <li><a href="#">About Us</a></li>
-                            <li><a href="#">About Our Shop</a></li>
-                            <li><a href="#">Secure Shopping</a></li>
-                            <li><a href="#">Delivery infomation</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Our Sitemap</a></li>
+                            @foreach ($page_one as $pageOne)
+                               <li><a href="{{ route($pageOne->page_url) }}">{{ $pageOne->page_name }}</a></li>
+                            @endforeach
                         </ul>
                         <ul>
-                            <li><a href="#">Who We Are</a></li>
-                            <li><a href="#">Our Services</a></li>
-                            <li><a href="#">Projects</a></li>
-                            <li><a href="#">Contact</a></li>
-                            <li><a href="#">Innovation</a></li>
-                            <li><a href="#">Testimonials</a></li>
+                            @foreach ($page_two as $pagTwo)
+                               <li><a href="#">{{ $pagTwo->page_name }}</a></li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>

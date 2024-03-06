@@ -5,26 +5,11 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Review;
+use App\Models\WbReview;
 use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      */
@@ -45,7 +30,7 @@ class ReviewController extends Controller
         $reviews->save();
 
         $notifications = [
-            "message"    => "Review inserted! Successfully",
+            "message"    => "Thanks for your review",
             'alert-type' => "success"
         ];
 
@@ -55,24 +40,39 @@ class ReviewController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function writeReview(Request $request)
     {
-        //
-    }
+        $check = WbReview::where('user_id', Auth::user()->id)->first();
+        if( $check ){
+            $notifications = [
+                "message"    => "Review already exist!",
+                'alert-type' => "error"
+            ];
+    
+            return redirect()->back()->with($notifications);
+        }
+        
+        else{
+            $website_review = new WbReview();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+            if( !is_null($website_review) ){
+                $website_review->user_id        = Auth::user()->id; 
+                $website_review->name           = $request->name; 
+                $website_review->review         = $request->review; 
+                $website_review->rating         = $request->rating; 
+                $website_review->review_date    = date('d-m-y'); 
+                $website_review->status         = 2; 
+    
+                $website_review->save();
+    
+                $notifications = [
+                    "message"    => "Website review inserted! Successfully",
+                    'alert-type' => "success"
+                ];
+        
+                return redirect()->back()->with($notifications);
+            }
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

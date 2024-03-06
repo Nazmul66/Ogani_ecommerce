@@ -51,8 +51,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="page_title" class="col-form-label">Page Title</label>
-                            <input id="page_title" type="text" name="page_title" value="{{ old('page_title') }}" class="form-control" required autocomplete="off" placeholder="Page Title">
+                            <label for="page_url" class="col-form-label">Page Url</label>
+                            <input id="page_url" type="text" name="page_url" value="{{ old('page_url') }}" class="form-control" required autocomplete="off" placeholder="Page Url">
                         </div>
 
                         <div class="form-group">

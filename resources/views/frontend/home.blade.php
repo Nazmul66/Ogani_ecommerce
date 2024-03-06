@@ -16,7 +16,7 @@
                         <div class="hero__item set-bg" data-setbg="{{ asset('frontend/img/hero/banner.jpg') }}">
                             <div class="hero__text">
                                 <span>FRUIT FRESH</span>
-                                <h2>Vegetable <br />{{ $setting->currency }} 100% Organic</h2>
+                                <h2>Vegetable <br />100% Organic</h2>
                                 <p>Free Pickup and Delivery Available</p>
                                 <a href="{{ route('productDetails', $product->slug) }}" class="primary-btn">SHOP NOW</a>
                             </div>
@@ -133,7 +133,7 @@
                         <div class="category_details">
                             <h3>{{ $home_cat->category_name }}</h3>
                             <button style="border: none; background: transparent;">
-                                <a href="" class="btn btn-primary">
+                                <a href="{{ route('categoryWise.product', $home_cat->id) }}" class="btn btn-primary">
                                     View Details
                                     <i class="fa fa-angle-right" aria-hidden="true" style="margin-left: 6px;"></i>
                                 </a>

@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pages', function (Blueprint $table) {
+        Schema::create('wb_reviews', function (Blueprint $table) {
             $table->id();
-            $table->integer('page_position')->nullable();
-            $table->string('page_name')->nullable();
-            $table->string('page_url')->nullable();
-            $table->string('page_description')->nullable();
+            $table->integer('user_id');
+            $table->string('name');
+            $table->text('review')->nullable();
+            $table->integer('rating')->nullable();
+            $table->string('review_date')->nullable();
+            $table->integer('status')->default(1)->comment('1=active, 2=inactive');
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pages');
+        Schema::dropIfExists('wb_reviews');
     }
 };

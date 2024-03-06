@@ -124,4 +124,9 @@ class HomeController extends Controller
         return view('frontend.pages.shop.brandWise-product', compact( 'brand', 'products', 'brands', 'productSales', 'Categories', 'random_products'));
     }
 
+    public function blogPage()
+    {
+       return view('frontend.pages.static.blog');
+    }
+
 }
