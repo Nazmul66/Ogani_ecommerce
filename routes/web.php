@@ -48,17 +48,22 @@ require __DIR__.'/auth.php';
 
 // static pages
 Route::get('/', [HomeController::class, 'home'] )->name('homePage');
-Route::get('/product-details/{slug}', [HomeController::class, 'productDetails'] )->name('productDetails');
 Route::get('/blog', [HomeController::class, 'blogPage'] )->name('blogPage');
+
+// product details page
+Route::get('/product-details/{slug}', [HomeController::class, 'productDetails'] )->name('productDetails');
 
 // Auth pages
 // Route::get('/user-login', [HomeController::class, 'userLogin'] )->name('user-login');
 
-// Review
+// Review for product details pages
 Route::post('/store/review', [ReviewController::class, 'storeReview'] )->name('store.review');
 
 // review for frontend customer dashboard pages 
 Route::post('/write/review', [ReviewController::class, 'writeReview'] )->name('write.review');
+
+// Newsletter for frontend customer
+Route::post('/store/newsletter', [HomeController::class, 'newsLetter'] )->name('store.newsletter');
 
 // Wishlist
 Route::get('/wishlist', [WishlistController::class, 'wishlist'] )->name('wishlist');
@@ -75,7 +80,6 @@ Route::get('/brand/product/{id}', [HomeController::class, 'brandWiseProduct'] )-
 
 // Customer profile
 Route::get('/customer-profile', [CustomerController::class, 'customerProfile'] )->name('customer.profile');
-
 
 // CartList
 Route::group(['prefix' => '/cart'], function (){

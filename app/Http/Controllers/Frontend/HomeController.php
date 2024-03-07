@@ -13,7 +13,8 @@ use App\Models\Pickup_point;
 use App\Models\ProductImage;
 use App\Models\Setting;
 use App\Models\Review;
-use App\Models\User;
+use App\Models\User; 
+use App\Models\Newsletter; 
 use App\Models\Wishlist;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -127,6 +128,36 @@ class HomeController extends Controller
     public function blogPage()
     {
        return view('frontend.pages.static.blog');
+    }
+
+    public function newsLetter(Request $request)
+    {
+        $check = Newsletter::where('email', $request->email)->first();
+
+        if($check){
+            $notifications = [
+                "message"    => "Subscription email already exists",
+                'alert-type' => "error",
+            ];
+    
+            return redirect()->back()->with($notifications);
+        }
+        else{
+            $newsletter = new Newsletter();
+
+            if( !is_null($newsletter) ){
+                $newsletter->email = $request->email;
+    
+                $newsletter->save();
+    
+                $notifications = [
+                    "message"    => "Thanks for your subscription",
+                    'alert-type' => "success",
+                ];
+        
+                return redirect()->back()->with($notifications);
+            }
+        }
     }
 
 }
