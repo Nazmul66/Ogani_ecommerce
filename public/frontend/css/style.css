@@ -2274,19 +2274,26 @@ ol {
 	font-weight: 700;
 	float: right;
 }
-
-.checkout__order .checkout__order__subtotal {
-	font-size: 18px;
-	color: #1c1c1c;
-	font-weight: 700;
+.checkout__order .checkout__order__list{
 	border-bottom: 1px solid #e1e1e1;
 	border-top: 1px solid #e1e1e1;
-	padding-bottom: 15px;
 	margin-bottom: 15px;
 	padding-top: 15px;
 }
+.checkout__order .checkout__order__subtotal,
+.checkout__order .checkout__order__tax,
+.checkout__order .checkout__order__shipping,
+.checkout__order .checkout__order__coupon {
+	font-size: 16px;
+	color: #6f6f6f;
+	font-weight: 700;
+    margin-bottom: 10px;
+}
 
-.checkout__order .checkout__order__subtotal span {
+.checkout__order .checkout__order__subtotal span,
+.checkout__order .checkout__order__tax span,
+.checkout__order .checkout__order__shipping span,
+.checkout__order .checkout__order__coupon span {
 	float: right;
 }
 

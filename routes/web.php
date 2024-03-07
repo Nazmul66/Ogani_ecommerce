@@ -7,6 +7,7 @@ use App\Http\Controllers\Frontend\ReviewController;
 use App\Http\Controllers\Frontend\WishlistController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CustomerController;
+use App\Http\Controllers\Frontend\CheckoutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -90,5 +91,8 @@ Route::group(['prefix' => '/cart'], function (){
     Route::get('/destroy/{id}', [CartController::class, 'destroy'] )->name('cart.destroy');
     Route::post('/coupon/apply', [CartController::class, 'applyCoupon'] )->name('cart.coupon.apply');
 });
+
+// Checkout 
+Route::get('/checkout', [CheckoutController::class, 'checkoutPage'] )->name('checkout.page');
 
 
