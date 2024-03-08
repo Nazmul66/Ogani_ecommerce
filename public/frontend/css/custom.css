@@ -167,3 +167,10 @@ del{
 .subCat_menu #angle_arrow2{
     transition: all 0.2s ease-in-out;
 }
+.remove_coupon{
+    color: #dd2222;
+    margin-left: 6px;
+}
+.remove_coupon:hover .fa-times{
+    color: #dd2222;
+}

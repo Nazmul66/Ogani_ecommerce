@@ -116,6 +116,17 @@ class CartController extends Controller
         }
     }
 
+    public function removeCoupon()
+    {
+        Session::forget('coupon');
+
+        $notifications = [
+            "message"    => "Coupon Removed!",
+            'alert-type' => "warning",
+        ];
+        return redirect()->back()->with($notifications);
+    }
+
     /**
      * Remove the specified resource from storage.
      */

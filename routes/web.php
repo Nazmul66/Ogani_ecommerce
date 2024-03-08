@@ -90,6 +90,7 @@ Route::group(['prefix' => '/cart'], function (){
     Route::get('/destroy/{id}', [CartController::class, 'destroy'] )->name('cart.destroy');
     Route::get('/destroy/{id}', [CartController::class, 'destroy'] )->name('cart.destroy');
     Route::post('/coupon/apply', [CartController::class, 'applyCoupon'] )->name('cart.coupon.apply');
+    Route::get('/coupon/remove', [CartController::class, 'removeCoupon'] )->name('coupon.remove');
 });
 
 // Checkout 

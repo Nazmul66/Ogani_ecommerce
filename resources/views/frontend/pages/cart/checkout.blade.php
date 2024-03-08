@@ -107,9 +107,11 @@
                                 </ul>
                                 <div class="checkout__order__list">
                                     <div class="checkout__order__subtotal">SubTotal <span>$750.99</span></div>
+                                        @if ( Session::has('coupon') )
+                                           <div class="checkout__order__coupon">- Coupon ({{ Session::get('coupon')['coupon_name'] }})<a href="{{ route('coupon.remove') }}" class="remove_coupon"><i class="fa fa-times" aria-hidden="true"></i></a>  <span>{{ $setting->currency }}{{ Session::get('coupon')['coupon_discount'] }}</span></div>
+                                        @endif
                                     <div class="checkout__order__tax">- Tax (%) <span>$750.99</span></div>
                                     <div class="checkout__order__shipping">- Shipping (%) <span>$750.99</span></div>
-                                    <div class="checkout__order__coupon">- Coupon (%) <span>$750.99</span></div>
                                 </div>
                                 <div class="checkout__order__total">Total <span>$750.99</span></div>
 

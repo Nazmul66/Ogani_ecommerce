@@ -264,7 +264,12 @@
                                 </a>
                             </li>
                         </ul>
-                        <div class="header__cart__price">item: <span>{{ $setting->currency }}{{ $total_amount }}</span></div>
+
+                        @if ( Session::has('coupon') )
+                           <div class="header__cart__price">item: <span>{{ $setting->currency }}{{ $total_amount - (Session::get('coupon')['coupon_discount']) }}</span></div>
+                        @else
+                           <div class="header__cart__price">item: <span>{{ $setting->currency }}{{ $total_amount }}</span></div>
+                        @endif
                     </div>
                 </div>
             </div>
