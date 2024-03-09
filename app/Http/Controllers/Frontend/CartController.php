@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Cart;
 use App\Models\Coupon;
+use App\Models\Order;
 use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
@@ -94,17 +95,27 @@ class CartController extends Controller
         $checkCoupon = Coupon::where('coupon_code', $request->coupon)->first();
 
         if( !is_null($checkCoupon) ){
-          Session::put('coupon', [
-               'coupon_name' => $checkCoupon->coupon_code,
-               'coupon_discount' => $checkCoupon->coupon_amount
-          ]);
-
-            $notifications = [
-                "message"    => "Successfully Coupon added",
-                'alert-type' => "success",
-            ];
-
-            return redirect()->back()->with($notifications);
+            if( date("Y-m-d", strtotime(date("Y-m-d")) ) <= date("Y-m-d", strtotime($checkCoupon->valid_date) ) ){
+                Session::put('coupon', [
+                    'coupon_name' => $checkCoupon->coupon_code,
+                    'coupon_discount' => $checkCoupon->coupon_amount
+               ]);
+     
+                 $notifications = [
+                     "message"    => "Successfully Coupon added",
+                     'alert-type' => "success",
+                 ];
+     
+                 return redirect()->back()->with($notifications);
+            }
+            else{
+                $notifications = [
+                    "message"    => "Sorry, Coupon is being Expire",
+                    'alert-type' => "error",
+                ];
+    
+                return redirect()->back()->with($notifications);
+            }
         }
         else{
             $notifications = [
@@ -122,7 +133,7 @@ class CartController extends Controller
 
         $notifications = [
             "message"    => "Coupon Removed!",
-            'alert-type' => "warning",
+            'alert-type' => "error",
         ];
         return redirect()->back()->with($notifications);
     }
@@ -144,5 +155,53 @@ class CartController extends Controller
         ];
 
         return redirect()->back()->with($notifications);
+    }
+
+    public function orderPlace(Request $request)
+    {
+       $order = new Order();
+
+       if( !is_null($order) ){
+           $order_id = "#" . rand(10000, 9999999999);
+
+           $order->user_id             = Auth::id();
+           $order->c_name              = $request->c_name;
+           $order->c_country           = $request->c_country;
+           $order->c_city              = $request->c_city;
+           $order->c_address           = $request->c_address;
+           $order->c_address_optional  = $request->c_address_optional;
+           $order->c_zipCode           = $request->c_zipCode;
+           $order->c_phone             = $request->c_phone;
+           $order->c_phone_optional    = $request->c_phone_optional;
+           $order->c_email             = $request->c_email;
+            if(Session::has('coupon')){
+                    $order->subtotal            = $request->subtotal;
+                    $order->coupon_code         = Session::get('coupon')['coupon_name'];
+                    $order->coupon_discount     = Session::get('coupon')['coupon_discount'];
+                    $order->after_discount      = $request->subtotal - Session::get('coupon')['coupon_discount'];
+                    $order->total               = $request->subtotal - Session::get('coupon')['coupon_discount'];
+            }
+            else{
+                    $order->subtotal            = $request->subtotal;
+                    $order->total               = $request->subtotal;
+            }
+           $order->payment_type        = $request->payment_type;
+           $order->tax                 = 0;
+           $order->shipping_charge     = 0;
+           $order->order_id            = $order_id;
+           $order->status              = 0;
+           $order->date                = date('Y-m-d');
+           $order->month               = date('F');
+           $order->year                = date('Y');
+
+           $order->save();
+
+           $notifications = [
+            "message"    => "order placed successfully",
+            'alert-type' => "success",
+          ];
+
+          return redirect()->route('homePage')->with($notifications);
+       }
     }
 }
