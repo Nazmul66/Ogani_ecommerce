@@ -153,7 +153,7 @@
                         <ul>
                             @if (Session::has('coupon'))
                                <li>Subtotal <span>{{ $setting->currency }}{{ $total_amount }}</span></li>
-                               <li>Discount(%) <span>{{ $setting->currency }}{{ Session::get('coupon')['coupon_discount'] }}</span></li>
+                               <li>- Discount(%) <span>{{ $setting->currency }}{{ Session::get('coupon')['coupon_discount'] }}</span></li>
                             @else
                                <li>Subtotal <span>{{ $setting->currency }}{{ $total_amount }}</span></li>
                             @endif

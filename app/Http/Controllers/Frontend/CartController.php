@@ -8,7 +8,10 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Cart;
 use App\Models\Coupon;
 use App\Models\Order;
+use App\Models\OrderDetails;
 use Illuminate\Support\Facades\Session;
+use App\Mail\InvoiceMail;
+use Illuminate\Support\Facades\Mail;
 
 class CartController extends Controller
 {
@@ -195,6 +198,28 @@ class CartController extends Controller
            $order->year                = date('Y');
 
            $order->save();
+
+           // clear all cart items
+           $carts = Cart::where('user_id', Auth::id())->get();
+           foreach( $carts as $cart ){
+               $cart->order_id = $order_id;
+               $cart->save();
+           }
+
+           // session destroy for coupons after purchase
+           if( Session::has('coupon') ){
+               Session::forget('coupon');
+           }
+
+           // sending mail information
+           $mailData = [
+                'name'     => $request->c_name,
+                'address'  => $request->c_address,
+                'mail'     => $request->c_email,
+           ];
+
+           $customerMail = [$request->c_email, "hnazmul748@gmail.com"];
+           Mail::to($customerMail)->send(new InvoiceMail($mailData));
 
            $notifications = [
             "message"    => "order placed successfully",

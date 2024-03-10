@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('product_id');
             $table->integer('product_qty')->default(0);
             $table->integer('product_unit_prc')->nullable();
-            $table->integer('order_id')->nullable();
+            $table->text('order_id')->nullable();
             $table->string('ip_address')->nullable();
             $table->string('user_id')->nullable();
             $table->string('size')->nullable();
