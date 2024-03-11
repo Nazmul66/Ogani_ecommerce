@@ -81,6 +81,7 @@ Route::get('/brand/product/{id}', [HomeController::class, 'brandWiseProduct'] )-
 
 // Customer profile
 Route::get('/customer-profile', [CustomerController::class, 'customerProfile'] )->name('customer.profile');
+Route::get('/customer-invoice/{transaction_id}', [CustomerController::class, 'customerInvoice'] )->name('customer.invoice');
 
 // CartList
 Route::group(['prefix' => '/cart'], function (){

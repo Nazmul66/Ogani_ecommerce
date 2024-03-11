@@ -27,7 +27,6 @@
         font-size: 17px !important;
     }
 }
-
 .orders{
     border: 1px solid #dee2e6;
     border-radius: 4px;
@@ -219,4 +218,15 @@ del{
 }
 .remove_coupon:hover .fa-times{
     color: #dd2222;
+}
+.theme-invoice-1{
+    margin-top: 70px;
+}
+@media (min-width: 360px) and (max-width: 576px){
+    .theme-invoice-1{
+        margin-top: 30px;
+    } 
+}
+.Grand_total{
+    border-top: 1px solid #ddd;
 }

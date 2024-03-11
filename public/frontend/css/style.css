@@ -24305,7 +24305,8 @@ header.stickycls {
     border-top: 1px solid #ddd;
 }
 .invoice-wrapper .invoice-body .table tfoot td {
-    padding-top: 15px;
+    padding-top: 7px;
+    padding-bottom: 7px !important;
 }
 .invoice-wrapper .invoice-footer {
     padding: calc(15px + (45 - 15) * ((100vw - 320px) / (1920 - 320)));

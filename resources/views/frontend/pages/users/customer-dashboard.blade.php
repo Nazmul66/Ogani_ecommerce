@@ -185,7 +185,7 @@
                                                <thead>
                                                    <tr class="table-head">
                                                        <th scope="col">#SL.</th>
-                                                       <th scope="col">Order Id</th>
+                                                       <th scope="col">Transaction Id</th>
                                                        <th scope="col">Date</th>
                                                        <th scope="col">Total</th>
                                                        <th scope="col">Payment Type</th>
@@ -199,7 +199,7 @@
                                                     <tr>
                                                         <td>{{ $index + 1 }}</td>
                                                         <td>
-                                                            <span class="mt-0 td_ash">{{ $row->order_id }}</span>
+                                                            <span class="mt-0 td_ash">#{{ $row->transaction_id }}</span>
                                                         </td>
                                                         <td>
                                                             <span class="fs-6 td_ash">{{ $row->date }}</span>
@@ -231,7 +231,7 @@
                                                             {{-- <a href="" class="btn_action">
                                                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                             </a> --}}
-                                                            <a href="" class="btn_action">
+                                                            <a href="{{ route('customer.invoice', $row->transaction_id) }}" class="btn_action">
                                                                 <i class="fa fa-eye text-theme"></i>
                                                             </a>
                                                         </td>

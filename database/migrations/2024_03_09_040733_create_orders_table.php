@@ -31,7 +31,7 @@ return new class extends Migration
             $table->string('payment_type')->nullable();
             $table->string('tax')->nullable();
             $table->string('shipping_charge')->nullable();
-            $table->string('order_id')->nullable();
+            $table->string('transaction_id')->nullable();
             $table->integer('status')->nullable()->default(0);
             $table->string('date')->nullable();
             $table->string('month')->nullable();

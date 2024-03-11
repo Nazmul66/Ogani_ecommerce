@@ -165,7 +165,7 @@ class CartController extends Controller
        $order = new Order();
 
        if( !is_null($order) ){
-           $order_id = "#" . rand(10000, 9999999999);
+           $transaction_id = hexdec(rand(10000, 9999999999));
 
            $order->user_id             = Auth::id();
            $order->c_name              = $request->c_name;
@@ -191,18 +191,20 @@ class CartController extends Controller
            $order->payment_type        = $request->payment_type;
            $order->tax                 = 0;
            $order->shipping_charge     = 0;
-           $order->order_id            = $order_id;
+           $order->transaction_id      = $transaction_id;
            $order->status              = 0;
            $order->date                = date('Y-m-d');
            $order->month               = date('F');
            $order->year                = date('Y');
 
+           
            $order->save();
-
+           
            // clear all cart items
-           $carts = Cart::where('user_id', Auth::id())->get();
-           foreach( $carts as $cart ){
-               $cart->order_id = $order_id;
+           $order_id = Order::where('transaction_id', $transaction_id)->first();
+
+           foreach( Cart::where('user_id', Auth::id())->where('order_id', NULL)->get() as $cart ){
+               $cart->order_id = $order_id->id;
                $cart->save();
            }
 

@@ -12,7 +12,7 @@ class CheckoutController extends Controller
     public function checkoutPage()
     {
         if( Auth::check() ){
-            $carts = Cart::where('user_id', Auth::user()->id)->get();
+            $carts = Cart::where('user_id', Auth::user()->id)->where('order_id', NULL)->get();
             return view('frontend.pages.cart.checkout', compact('carts'));
         }
         else{
