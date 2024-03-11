@@ -1,3 +1,49 @@
+.td_ash{
+    color: #777;
+}
+.btn_action .fa-pencil-square-o{
+    color: green;
+    font-size: 20px;
+}
+.btn_action .fa-eye{
+    color: #0056b3;
+    font-size: 20px;
+    margin-left: 6px;
+}
+.all_order_Status{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
+@media (min-width: 360px) and (max-width: 576px){
+    .all_order_Status{
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+    .orders h5{
+        text-align: center;
+        font-size: 17px !important;
+    }
+}
+
+.orders{
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 24px 20px 20px;
+}
+.orders h5{
+    text-align: center;
+    font-size: 18px;
+}
+.orders span{
+    text-align: center;
+    display: block;
+    font-size: 20px;
+    color: #777;
+}
+
 .brand_div{
     background: #EDBB0E;
     padding: 0px 14px;

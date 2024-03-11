@@ -148,107 +148,95 @@
                        </div>
                    </div>
 
+                   {{-- My order pages --}}
                    <div class="tab-pane fade" id="orders">
                        <div class="row">
                            <div class="col-12">
                                <div class="card dashboard-table mt-0">
                                    <div class="card-body table-responsive-sm">
-                                       <div class="top-sec">
-                                           <h3>My Orders</h3>
-                                       </div>
+                                       <div class="alert alert-secondary" role="alert">
+                                        My Orders
+                                      </div>
+
+                                      <div class="all_order_Status">
+                                            <div class="orders">
+                                                <h5 style="color: #529575;">Total Order</h5>
+                                                <span>{{ $total_order }}</span>
+                                            </div>
+
+                                            <div class="orders">
+                                                <h5 style="color: #529575;">Complete Order</h5>
+                                                <span>{{ $complete_order }}</span>
+                                            </div>
+
+                                            <div class="orders">
+                                                <h5 style="color: #dd0000;">Cancel Order</h5>
+                                                <span>{{ $cancel_order }}</span>
+                                            </div>
+
+                                            <div class="orders">
+                                                <h5 style="color: #F5C65E;">Return Order</h5>
+                                                <span>{{ $return_order }}</span>
+                                            </div>
+                                      </div>
+
                                        <div class="table-responsive-xl">
                                            <table class="table cart-table order-table">
                                                <thead>
                                                    <tr class="table-head">
-                                                       <th scope="col">image</th>
+                                                       <th scope="col">#SL.</th>
                                                        <th scope="col">Order Id</th>
-                                                       <th scope="col">Product Details</th>
+                                                       <th scope="col">Date</th>
+                                                       <th scope="col">Total</th>
+                                                       <th scope="col">Payment Type</th>
                                                        <th scope="col">Status</th>
-                                                       <th scope="col">Price</th>
                                                        <th scope="col">View</th>
                                                    </tr>
                                                </thead>
                                                <tbody>
-                                                   <tr>
-                                                       <td>
-                                                           <a href="javascript:void(0)">
-                                                               <img src="../assets/images/pro3/1.jpg"
-                                                                   class="blur-up lazyloaded" alt="">
-                                                           </a>
-                                                       </td>
-                                                       <td>
-                                                           <span class="mt-0">#125021</span>
-                                                       </td>
-                                                       <td>
-                                                           <span class="fs-6">Purple polo tshirt</span>
-                                                       </td>
-                                                       <td>
-                                                           <span
-                                                               class="badge rounded-pill text-white bg-success custom-badge">Shipped</span>
-                                                       </td>
-                                                       <td>
-                                                           <span class="theme-color fs-6">$49.54</span>
-                                                       </td>
-                                                       <td>
-                                                           <a href="javascript:void(0)">
-                                                               <i class="fa fa-eye text-theme"></i>
-                                                           </a>
-                                                       </td>
-                                                   </tr>
 
-                                                   <tr>
-                                                       <td>
-                                                           <a href="javascript:void(0)">
-                                                               <img src="../assets/images/pro3/2.jpg"
-                                                                   class="blur-up lazyloaded" alt="">
-                                                           </a>
-                                                       </td>
-                                                       <td>
-                                                           <span class="mt-0">#125367</span>
-                                                       </td>
-                                                       <td>
-                                                           <span class="fs-6">Sleevless white top</span>
-                                                       </td>
-                                                       <td>
-                                                           <span
-                                                               class="badge rounded-pill text-white bg-danger custom-badge">Pending</span>
-                                                       </td>
-                                                       <td>
-                                                           <span class="theme-color fs-6">$49.54</span>
-                                                       </td>
-                                                       <td>
-                                                           <a href="javascript:void(0)">
-                                                               <i class="fa fa-eye text-theme"></i>
-                                                           </a>
-                                                       </td>
-                                                   </tr>
+                                                 @foreach ($orders as $index => $row)
+                                                    <tr>
+                                                        <td>{{ $index + 1 }}</td>
+                                                        <td>
+                                                            <span class="mt-0 td_ash">{{ $row->order_id }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span class="fs-6 td_ash">{{ $row->date }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span class="fs-6 td_ash">{{ $row->total }} {{ $setting->currency }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span class="fs-6 td_ash">{{ $row->payment_type }}</span>
+                                                        </td>
+                                                        <td>
+                                                            @if ( $row->status == 0 )
+                                                                <span class="badge rounded-pill text-white bg-secondary custom-badge">Order Pending</span>
+                                                            @elseif($row->status == 1)
+                                                                <span class="badge rounded-pill text-white bg-info custom-badge">Order Received</span>
+                                                            @elseif($row->status == 2)
+                                                                <span class="badge rounded-pill text-white bg-primary custom-badge">Order Shipped</span>
+                                                            @elseif($row->status == 3)
+                                                                <span class="badge rounded-pill text-white bg-success custom-badge">Order Done</span>
+                                                            @elseif($row->status == 4)
+                                                                <span class="badge rounded-pill text-white bg-warning custom-badge">Order Return</span>
+                                                            @elseif($row->status == 5)
+                                                                <span class="badge rounded-pill text-white bg-danger custom-badge">Order Cancel</span>
+                                                            @endif
 
-                                                   <tr>
-                                                       <td>
-                                                           <a href="javascript:void(0)">
-                                                               <img src="../assets/images/pro3/34.jpg"
-                                                                   class="blur-up lazyloaded" alt="">
-                                                           </a>
-                                                       </td>
-                                                       <td>
-                                                           <span>#125021</span>
-                                                       </td>
-                                                       <td>
-                                                           <span class="fs-6">Men's Sweatshirt</span>
-                                                       </td>
-                                                       <td>
-                                                           <span
-                                                               class="badge rounded-pill text-white bg-secondary custom-badge">Canceled</span>
-                                                       </td>
-                                                       <td>
-                                                           <span class="theme-color fs-6">$49.54</span>
-                                                       </td>
-                                                       <td>
-                                                           <a href="javascript:void(0)">
-                                                               <i class="fa fa-eye text-theme"></i>
-                                                           </a>
-                                                       </td>
-                                                   </tr>
+                                                            {{-- <span class="badge rounded-pill text-white bg-success custom-badge">Shipped</span> --}}
+                                                        </td>
+                                                        <td>
+                                                            {{-- <a href="" class="btn_action">
+                                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                            </a> --}}
+                                                            <a href="" class="btn_action">
+                                                                <i class="fa fa-eye text-theme"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                 @endforeach
                                                </tbody>
                                            </table>
                                        </div>
@@ -258,6 +246,7 @@
                        </div>
                    </div>
 
+                   {{-- my wishlist pages --}}
                    <div class="tab-pane fade" id="wishlist">
                        <div class="row">
                            <div class="col-12">
