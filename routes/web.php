@@ -8,6 +8,7 @@ use App\Http\Controllers\Frontend\WishlistController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CustomerController;
 use App\Http\Controllers\Frontend\CheckoutController;
+use App\Http\Controllers\Frontend\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,7 +56,7 @@ Route::get('/blog', [HomeController::class, 'blogPage'] )->name('blogPage');
 Route::get('/product-details/{slug}', [HomeController::class, 'productDetails'] )->name('productDetails');
 
 // Auth pages
-// Route::get('/user-login', [HomeController::class, 'userLogin'] )->name('user-login');
+Route::get('/forgot-password', [DashboardController::class, 'forgotPassword'] )->name('forgot.password');
 
 // Review for product details pages
 Route::post('/store/review', [ReviewController::class, 'storeReview'] )->name('store.review');
@@ -80,7 +81,7 @@ Route::get('/childCategory/product/{id}', [HomeController::class, 'childCategory
 Route::get('/brand/product/{id}', [HomeController::class, 'brandWiseProduct'] )->name('brandwise.product');
 
 // Customer profile
-Route::get('/customer-profile', [CustomerController::class, 'customerProfile'] )->name('customer.profile');
+Route::get('/customer-profile', [CustomerController::class, 'customerProfile'] )->middleware(['auth', 'verified'])->name('customer.profile');
 Route::get('/customer-invoice/{transaction_id}', [CustomerController::class, 'customerInvoice'] )->name('customer.invoice');
 
 // CartList

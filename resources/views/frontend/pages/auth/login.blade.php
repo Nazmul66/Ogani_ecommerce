@@ -49,9 +49,7 @@
                   <label class="form_check_label">Remember Me</label>
                </div>
 
-               @if (Route::has('password.request'))
-                  <a href="{{ route('password.request') }}" class="form_check_label">Forget Password</a>
-               @endif
+                  <a href="{{ route('forgot.password') }}" class="form_check_label">Forget Password</a>
             </div>
 
             <button type="submit" class="login__btn mb-3">Login</button>
