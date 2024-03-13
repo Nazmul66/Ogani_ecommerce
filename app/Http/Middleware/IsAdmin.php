@@ -18,11 +18,11 @@ class IsAdmin
     {
 
         if( Auth::check() ){
-            if( Auth::user()->is_admin == 1 ){
+            if( Auth::user()->role == 1 ){
                 return $next($request); 
             }
-            else if (Auth::user()->is_admin == 2 ){
-               return redirect()->route('welcome');
+            else if (Auth::user()->role == 2 ){
+               return redirect()->route('homePage');
             }
          }
          else{

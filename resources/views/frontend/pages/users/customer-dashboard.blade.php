@@ -256,162 +256,62 @@
                                            <h3>My Wishlist</h3>
                                        </div>
                                        <div class="table-responsive-xl">
-                                           <table class="table cart-table wishlist-table">
-                                               <thead>
-                                                   <tr class="table-head">
-                                                       <th scope="col">image</th>
-                                                       <th scope="col">Order Id</th>
-                                                       <th scope="col">Product Details</th>
-                                                       <th scope="col">Price</th>
-                                                       <th scope="col">Action</th>
-                                                   </tr>
-                                               </thead>
-                                               <tbody>
-                                                   <tr>
-                                                       <td>
-                                                           <a href="javascript:void(0)">
-                                                               <img src="../assets/images/pro3/1.jpg"
-                                                                   class="blur-up lazyloaded" alt="">
-                                                           </a>
-                                                       </td>
-                                                       <td>
-                                                           <span class="mt-0">#125021</span>
-                                                       </td>
-                                                       <td>
-                                                           <span>Purple polo tshirt</span>
-                                                       </td>
-                                                       <td>
-                                                           <span class="theme-color fs-6">$49.54</span>
-                                                       </td>
-                                                       <td>
-                                                           <a href="javascript:void(0)"
-                                                               class="btn btn-xs btn-solid">
-                                                               Move to Cart
-                                                           </a>
-                                                       </td>
-                                                   </tr>
+                                            @if ( $wishlists->count() === 0 )
+                                                <div class="alert alert-danger text-center" role="alert">
+                                                    There is no wishlists data available right now!
+                                                </div>
+                                            @else
+                                                <table class="table cart-table wishlist-table">
+                                                    <thead>
+                                                        <tr class="table-head">
+                                                            <th scope="col">image</th>
+                                                            <th scope="col">Product Name</th>
+                                                            <th scope="col">Product Details</th>
+                                                            <th scope="col">Price</th>
+                                                            <th scope="col">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($wishlists as $wishlist)
+                                                           @php
+                                                              $products  =  App\Models\Product::where('id', $wishlist->product_id)->get();
+                                                           @endphp
 
-                                                   <tr>
-                                                       <td>
-                                                           <a href="javascript:void(0)">
-                                                               <img src="../assets/images/pro3/2.jpg"
-                                                                   class="blur-up lazyloaded" alt="">
-                                                           </a>
-                                                       </td>
-                                                       <td>
-                                                           <span class="mt-0">#125367</span>
-                                                       </td>
-                                                       <td>
-                                                           <span>Sleevless white top</span>
-                                                       </td>
-                                                       <td>
-                                                           <span class="theme-color fs-6">$49.54</span>
-                                                       </td>
-                                                       <td>
-                                                           <a href="javascript:void(0)"
-                                                               class="btn btn-xs btn-solid">
-                                                               Move to Cart
-                                                           </a>
-                                                       </td>
-                                                   </tr>
-
-                                                   <tr>
-                                                       <td>
-                                                           <a href="javascript:void(0)">
-                                                               <img src="../assets/images/pro3/27.jpg"
-                                                                   class="blur-up lazyloaded" alt="">
-                                                           </a>
-                                                       </td>
-                                                       <td>
-                                                           <span>#125948</span>
-                                                       </td>
-                                                       <td>
-                                                           <span>multi color polo tshirt</span>
-                                                       </td>
-                                                       <td>
-                                                           <span class="theme-color fs-6">$49.54</span>
-                                                       </td>
-                                                       <td>
-                                                           <a href="javascript:void(0)"
-                                                               class="btn btn-xs btn-solid">
-                                                               Move to Cart
-                                                           </a>
-                                                       </td>
-                                                   </tr>
-
-                                                   <tr>
-                                                       <td>
-                                                           <a href="javascript:void(0)">
-                                                               <img src="../assets/images/pro3/28.jpg"
-                                                                   class="blur-up lazyloaded" alt="">
-                                                           </a>
-                                                       </td>
-                                                       <td>
-                                                           <span>#127569</span>
-                                                       </td>
-                                                       <td>
-                                                           <span>Candy red solid tshirt</span>
-                                                       </td>
-                                                       <td>
-                                                           <span class="theme-color fs-6">$49.54</span>
-                                                       </td>
-                                                       <td>
-                                                           <a href="javascript:void(0)"
-                                                               class="btn btn-xs btn-solid">
-                                                               Move to Cart
-                                                           </a>
-                                                       </td>
-                                                   </tr>
-
-                                                   <tr>
-                                                       <td>
-                                                           <a href="javascript:void(0)">
-                                                               <img src="../assets/images/pro3/33.jpg"
-                                                                   class="blur-up lazyloaded" alt="">
-                                                           </a>
-                                                       </td>
-                                                       <td>
-                                                           <span>#125753</span>
-                                                       </td>
-                                                       <td>
-                                                           <span>multicolored polo tshirt</span>
-                                                       </td>
-                                                       <td>
-                                                           <span class="theme-color fs-6">$49.54</span>
-                                                       </td>
-                                                       <td>
-                                                           <a href="javascript:void(0)"
-                                                               class="btn btn-xs btn-solid">
-                                                               Move to Cart
-                                                           </a>
-                                                       </td>
-                                                   </tr>
-
-                                                   <tr>
-                                                       <td>
-                                                           <a href="javascript:void(0)">
-                                                               <img src="../assets/images/pro3/34.jpg"
-                                                                   class="blur-up lazyloaded" alt="">
-                                                           </a>
-                                                       </td>
-                                                       <td>
-                                                           <span>#125021</span>
-                                                       </td>
-                                                       <td>
-                                                           <span>Men's Sweatshirt</span>
-                                                       </td>
-                                                       <td>
-                                                           <span class="theme-color fs-6">$49.54</span>
-                                                       </td>
-                                                       <td>
-                                                           <a href="javascript:void(0)"
-                                                               class="btn btn-xs btn-solid">
-                                                               Move to Cart
-                                                           </a>
-                                                       </td>
-                                                   </tr>
-                                               </tbody>
-                                           </table>
+                                                           @foreach ($products as $product)
+                                                            <tr>
+                                                                <td>
+                                                                    <a href="{{ route('productDetails', $product->slug ) }}">
+                                                                        <img src="{{ asset('backend/uploads/products/' . $product->thumbnail) }}"
+                                                                            class="blur-up lazyloaded" alt="">
+                                                                    </a>
+                                                                </td>
+                                                                <td>
+                                                                    <span class="mt-0">{{ $product->product_name }}</span>
+                                                                </td>
+                                                                <td>
+                                                                    <span>{{ Str::substr(strip_tags($product->description), 0, 40) }}.....</span>
+                                                                </td>
+                                                                <td>
+                                                                    <span class="theme-color fs-6">
+                                                                        @if ( $product->discount_price )
+                                                                          {{ $setting->currency }}{{ $product->discount_price }}
+                                                                        @else
+                                                                           {{ $setting->currency }}{{ $product->selling_price }}
+                                                                        @endif
+                                                                    </span>
+                                                                </td>
+                                                                <td>
+                                                                    <a href="{{ route('productDetails', $product->slug ) }}"
+                                                                        class="btn btn-xs btn-solid">
+                                                                        Move to Cart
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                           @endforeach
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            @endif
                                        </div>
                                    </div>
                                </div>

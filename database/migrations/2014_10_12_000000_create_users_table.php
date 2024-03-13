@@ -16,9 +16,17 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('phone')->nullable();
-            $table->integer('is_admin')->default(2)->comment("1=admin, 2=user");
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->text('address_Line1')->nullable();
+            $table->text('address_Line2')->nullable();
+            $table->integer('division_id')->nullable();
+            $table->integer('district_id')->nullable();
+            $table->integer('country_id')->nullable();
+            $table->string('zipCode')->nullable();
+            $table->integer('status')->default(1)->comment("1=active, 0=inactive");
+            $table->integer('role')->default(2)->comment("1=admin, 2=user");
+            $table->text('image')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

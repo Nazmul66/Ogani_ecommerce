@@ -17,7 +17,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): View
     {
-        return view('auth.login');
+        return view('frontend.pages.auth.login');
     }
 
     /**
@@ -29,10 +29,10 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        if( Auth::user()->is_admin == 1 ){
+        if( Auth::user()->role == 1 ){
             return redirect()->intended(RouteServiceProvider::HOME);
         }
-        else if( Auth::user()->is_admin == 2 ){
+        else if( Auth::user()->role == 2 ){
             return redirect()->intended(RouteServiceProvider::CUSTOMER_HOME);
         }
 

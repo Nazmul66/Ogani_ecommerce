@@ -230,3 +230,71 @@ del{
 .Grand_total{
     border-top: 1px solid #ddd;
 }
+
+.login__section{
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 40px 0;
+}
+
+@media (min-width: 360px) and (max-width: 576px){  
+    .login__section{
+        padding: 40px 16px;
+    }
+}
+
+.login__form__box{
+    max-width: 440px;
+    margin: 0 auto;
+    border: 1px solid #F2F2F2;
+    border-radius: 8px;
+    padding: 24px 24px 32px 24px;
+    box-shadow: 0px 0px 58px rgba(0,0,0,0.08);
+}
+.login__form__box h3{
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.input__field{
+    width: 100%;
+    height: 40px;
+    padding-left: 14px;
+    border-radius: 8px;
+    border: 1px solid #E6E6E6;
+}
+.login__btn,
+.register__btn{
+    background: #00B207;
+    color: #FFF;
+    border: navajowhite;
+    width: 100%;
+    height: 40px;
+    border-radius: 30px;
+    font-weight: 600;
+}
+.form_check_label{
+    color: #666666;
+    margin: 0;
+    font-size: 14px;
+}
+.form_check_label:hover{
+    color: #666666;
+}
+.anchor_link{
+    color: #191919;
+    font-size: 17px;
+    font-weight: 600;
+}
+.anchor_link:hover,
+.anchor_link:focus{
+    color: #191919; 
+}
+.error_msg{
+   padding: 0;
+}
+.error_msg li{
+    list-style: none;
+    color: #ff0000eb;
+    font-size: 14px;
+}
