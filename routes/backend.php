@@ -39,7 +39,7 @@ Route::get('/get-child-category/{id}', [CategoryController::class, 'getChildCate
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::group(['middleware' => ['auth','isAdmin'], 'prefix' => '/admin'], function () {
+Route::group(['middleware' => ['auth', 'IsAdmin'], 'prefix' => '/admin'], function () {
    Route::get('/dashboard', [AdminPageController::class, 'index'])->name('admin.dashboard');
     
    // Category

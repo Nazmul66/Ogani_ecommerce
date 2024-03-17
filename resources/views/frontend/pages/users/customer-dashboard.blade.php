@@ -1,7 +1,7 @@
 @extends('frontend.layout.template')
 
 @section('page-title')
-   <title>Customer Profile | Template</title>
+   <title>Customer Dashboard | Template</title>
 @endsection
 
 @section('body-content')
@@ -15,7 +15,7 @@
                     <h2>Customer Dashboard</h2>
                     <div class="breadcrumb__option">
                         <a href="{{ route('homePage') }}">Home</a>	
-                        <span>Customer Profile</span>
+                        <span>Customer Dashboard</span>
                     </div>
                 </div>
             </div>
@@ -28,42 +28,18 @@
 <section class="dashboard-section section-b-space user-dashboard-section">
    <div class="container">
        <div class="row">
-           <div class="col-lg-3">
-               <div class="dashboard-sidebar">
-                   <div class="profile-top">
-                       <div class="profile-image">
-                           <img src="{{ asset('frontend/img/avtar.jpg') }}" alt="" class="img-fluid">
-                       </div>
-                       <div class="profile-detail">
-                           <h5>Mark Jecno</h5>
-                           <h6>mark.jecno@mail.com</h6>
-                       </div>
-                   </div>
-                   <div class="faq-tab">
-                       <ul class="nav nav-tabs" id="top-tab" role="tablist">
-                           <li class="nav-item"><a data-toggle="tab" data-target="#info"
-                                   class="nav-link active">Account Info</a></li>
-                           <li class="nav-item"><a data-toggle="tab" data-target="#orders"
-                                   class="nav-link">My Orders</a></li>
-                           <li class="nav-item"><a data-toggle="tab" data-target="#wishlist"
-                                   class="nav-link">My Wishlist</a></li>
-                           <li class="nav-item"><a data-toggle="tab" data-target="#review"
-                            class="nav-link">Write a Review</a></li>
-                           <li class="nav-item"><a data-toggle="tab" data-target="#payment"
-                                   class="nav-link">Saved Cards</a></li>
-                           <li class="nav-item"><a data-toggle="tab" data-target="#profile"
-                                   class="nav-link">Profile</a></li>
-                           <li class="nav-item"><a href="" class="nav-link">Log Out</a> </li>
-                       </ul>
-                   </div>
-               </div>
-           </div>
+        
+        @include('frontend.pages.component.customer-sidebar')
+
            <div class="col-lg-9">
+            
                <div class="faq-content tab-content" id="top-tabContent">
+
+                   {{-- Account Info --}}
                    <div class="tab-pane fade show active" id="info">
                        <div class="counter-section">
                            <div class="welcome-msg">
-                               <h4>Hello, MARK JECNO !</h4>
+                               <h4>Hello, @if ( Auth::check() ) {{ Auth::user()->name }} @endif !</h4>
                                <p>From your My Account Dashboard you have the ability to view a snapshot of your
                                    recent
                                    account activity and update your account information. Select a link below to
@@ -110,9 +86,9 @@
                                                <h3>Contact Information</h3><a href="#">Edit</a>
                                            </div>
                                            <div class="box-content">
-                                               <h6>Mark Jecno</h6>
-                                               <h6>mark-jecno@gmail.com</h6>
-                                               <h6><a href="#">Change Password</a></h6>
+                                               <h6>@if ( Auth::check() ) {{ Auth::user()->name }} @endif</h6>
+                                               <h6>@if ( Auth::check() ) {{ Auth::user()->email }} @endif</h6>
+                                               <h6><a href="{{ route('password.email') }}">Change Password</a></h6>
                                            </div>
                                        </div>
                                    </div>
@@ -134,13 +110,13 @@
                                    <div class="row">
                                        <div class="col-sm-6">
                                            <h6>Default Billing Address</h6>
-                                           <address>You have not set a default billing address.<br><a href="#">Edit
+                                           <address>@if ( Auth::check() ) {{ Auth::user()->address_Line1 }} - {{ Auth::user()->zipCode }} @endif<br><a href="{{ route('customer.profile') }}">Edit
                                                    Address</a></address>
                                        </div>
                                        <div class="col-sm-6">
                                            <h6>Default Shipping Address</h6>
-                                           <address>You have not set a default shipping address.<br><a
-                                                   href="#">Edit Address</a></address>
+                                           <address>@if ( Auth::check() ) {{ Auth::user()->address_Line2 }} - {{ Auth::user()->zipCode }} @endif<br><a
+                                                   href="{{ route('customer.profile') }}">Edit Address</a></address>
                                        </div>
                                    </div>
                                </div>
@@ -155,8 +131,8 @@
                                <div class="card dashboard-table mt-0">
                                    <div class="card-body table-responsive-sm">
                                        <div class="alert alert-secondary" role="alert">
-                                        My Orders
-                                      </div>
+                                          My Orders
+                                       </div>
 
                                       <div class="all_order_Status">
                                             <div class="orders">
@@ -319,6 +295,7 @@
                        </div>
                    </div>
                    
+                   {{-- my review pages --}}
                    <div class="tab-pane fade" id="review">
                         <div class="row">
                             <div class="col-12">
@@ -364,78 +341,179 @@
                         </div>
                    </div>
 
-                   <div class="tab-pane fade" id="payment">
+                    {{-- my ticket pages --}}
+                   <div class="tab-pane fade" id="ticket">
                        <div class="row">
                            <div class="col-12">
-                               <div class="card mt-0">
-                                   <div class="card-body">
-                                       <div class="top-sec">
-                                           <h3>Saved Cards</h3>
-                                           <a href="#" class="btn btn-sm btn-solid">+ add new</a>
+                               <div class="card dashboard-table mt-0">
+                                   <div class="card-body table-responsive-sm">
+                                       <div class="alert alert-secondary d-flex align-items-center justify-content-between" role="alert">
+                                          All Tickets
+                                          <button class="btn btn-primary" data-toggle="modal" data-target="#openTicket">Open Ticket</button>
+
+                                          <!-- Modal for open ticket -->
+                                            <div class="modal fade" id="openTicket" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header mb-3">
+                                                            <h5>Submit your ticket, We will reply</h5>
+
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+
+                                                        <div class="modal-body">
+                                                            <form method="POST" action="{{ route('store.ticket') }}" enctype="multipart/form-data">
+                                                                @csrf
+                                                                <div class="form-group">
+                                                                    <label>Subject</label>
+                                                                    <input type="text" name="subject" class="form-control" required>
+                                                                </div>
+    
+                                                                <div class="row">
+                                                                    <div class="col-lg-6">
+                                                                        <label>Priority *</label>
+                                                                        <select class="custom_select_form" name="priority" style="height: 56px;">
+                                                                            <option value="Low" selected>Low</option>
+                                                                            <option value="Medium">Medium</option>
+                                                                            <option value="High">High</option>
+                                                                        </select>
+                                                                    </div>
+    
+                                                                    <div class="col-lg-6">
+                                                                        <label>service *</label>
+                                                                        <select class="custom_select_form" name="service" style="height: 56px;">
+                                                                            <option value="Technical" selected>Technical</option>
+                                                                            <option value="Payment">Payment</option>
+                                                                            <option value="Affiliate">Affiliate</option>
+                                                                            <option value="Refund">Refund</option>
+                                                                            <option value="Return">Return</option>
+                                                                        </select>
+                                                                    </div>
+    
+                                                                    <div class="col-lg-12 mt-3">
+                                                                        <div class="form-group">
+                                                                            <label for="message">Message</label>
+                                                                            <textarea class="form-control" name="message" id="message" rows="3"></textarea>
+                                                                        </div>
+                                                                    </div>
+    
+                                                                    <div class="col-lg-12">
+                                                                        <div class="form-group">
+                                                                            <label for="file">image</label>
+                                                                            <input type="file" name="image" class="form-control" id="file">
+                                                                        </div>
+                                                                    </div>
+    
+                                                                    <div class="col-lg-12">
+                                                                        <button type="submit" class="btn btn-primary">Submit Ticket</button>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
                                        </div>
-                                       <div class="address-book-section">
-                                           <div class="row g-4">
-                                               <div class="select-box active col-xl-4 col-md-6">
-                                                   <div class="address-box">
-                                                       <div class="bank-logo">
-                                                           <img src="../assets/images/bank-logo.png"
-                                                               class="bank-logo">
-                                                           <img src="../assets/images/visa.png"
-                                                               class="network-logo">
-                                                       </div>
-                                                       <div class="card-number">
-                                                           <h6>Card Number</h6>
-                                                           <h5>6262 6126 2112 1515</h5>
-                                                       </div>
-                                                       <div class="name-validity">
-                                                           <div class="left">
-                                                               <h6>name on card</h6>
-                                                               <h5>Mark Jecno</h5>
-                                                           </div>
-                                                           <div class="right">
-                                                               <h6>validity</h6>
-                                                               <h5>XX/XX</h5>
-                                                           </div>
-                                                       </div>
-                                                       <div class="bottom">
-                                                           <a href="javascript:void(0)"
-                                                               data-target="#edit-address"
-                                                               data-toggle="modal" class="bottom_btn">edit</a>
-                                                           <a href="#" class="bottom_btn">remove</a>
-                                                       </div>
-                                                   </div>
-                                               </div>
-                                               <div class="select-box col-xl-4 col-md-6">
-                                                   <div class="address-box">
-                                                       <div class="bank-logo">
-                                                           <img src="../assets/images/bank-logo1.png"
-                                                               class="bank-logo">
-                                                           <img src="../assets/images/visa.png"
-                                                               class="network-logo">
-                                                       </div>
-                                                       <div class="card-number">
-                                                           <h6>Card Number</h6>
-                                                           <h5>6262 6126 2112 1515</h5>
-                                                       </div>
-                                                       <div class="name-validity">
-                                                           <div class="left">
-                                                               <h6>name on card</h6>
-                                                               <h5>Mark Jecno</h5>
-                                                           </div>
-                                                           <div class="right">
-                                                               <h6>validity</h6>
-                                                               <h5>XX/XX</h5>
-                                                           </div>
-                                                       </div>
-                                                       <div class="bottom">
-                                                           <a href="javascript:void(0)"
-                                                               data-target="#edit-address"
-                                                               data-toggle="modal" class="bottom_btn">edit</a>
-                                                           <a href="#" class="bottom_btn">remove</a>
-                                                       </div>
-                                                   </div>
-                                               </div>
-                                           </div>
+
+                                       {{-- table for ticket --}}
+                                       <div class="table-responsive-xl">
+                                            <table class="table cart-table order-table">
+                                                <thead>
+                                                    <tr class="table-head">
+                                                        <th scope="col">Date</th>
+                                                        <th scope="col">Service</th>
+                                                        <th scope="col">Subject</th>
+                                                        <th scope="col">Status</th>
+                                                        <th scope="col">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                @foreach ($tickets as $index => $row)
+                                                    <tr>
+                                                        <td>
+                                                            <span class="mt-0 td_ash">{{ $row->date }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span class="fs-6 td_ash">{{ $row->service }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span class="fs-6 td_ash">{{ $row->subject }} {{ $setting->currency }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span class="fs-6 td_ash">
+                                                                @if ( $row->status == 0 )
+                                                                   <span class="badge badge-danger">Pending</span>
+                                                                @elseif ( $row->status == 1 )
+                                                                   <span class="badge badge-success">Replied</span>
+                                                                @elseif ( $row->status == 2 )
+                                                                   <span class="badge badge-warning">Muted</span>
+                                                                @endif
+                                                            </span>
+                                                        </td>
+                                                        <td class="d-flex justify-content-center align-items-center">
+                                                            <a href="{{ route('show.ticket', $row->id ) }}" class="btn_action" data-toggle="modal" data-target="#showTicket{{ $row->id }}">
+                                                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                                            </a>
+                                                            <a href="" class="btn_action">
+                                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="showTicket{{ $row->id }}" tabindex="-1" aria-labelledby="showTicket" aria-hidden="true">
+                                                        @php
+                                                           $ticket = App\Models\Ticket::where('id', $row->id)->first();    
+                                                        @endphp
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header mb-3">
+                                                                    <h5>Submit your ticket, We will reply</h5>
+
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+
+                                                                <div class="alert alert-secondary" role="alert">
+                                                                    Reply message
+                                                                </div>
+
+                                                                <div class="modal-body">
+                                                                    <form method="POST" action="{{ route('store.ticket') }}" enctype="multipart/form-data">
+                                                                        @csrf
+                                                                        <div class="row">
+                                                                            <div class="col-lg-12 mt-3">
+                                                                                <div class="form-group">
+                                                                                    <label for="message">Message</label>
+                                                                                    <textarea class="form-control" name="message" id="message" rows="3"></textarea>
+                                                                                </div>
+                                                                            </div>
+            
+                                                                            <div class="col-lg-12">
+                                                                                <div class="form-group">
+                                                                                    <label for="file">image</label>
+                                                                                    <input type="file" name="image" class="form-control" id="file">
+                                                                                </div>
+                                                                            </div>
+            
+                                                                            <div class="col-lg-12">
+                                                                                <button type="submit" class="btn btn-primary">Submit Ticket</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                             </tbody>
+                                          </table>
                                        </div>
                                    </div>
                                </div>
@@ -443,6 +521,7 @@
                        </div>
                    </div>
 
+                   {{-- my profile pages --}}
                    <div class="tab-pane fade" id="profile">
                        <div class="row">
                            <div class="col-12">
@@ -458,90 +537,98 @@
                                                    <li>
                                                        <div class="details">
                                                            <div class="left">
-                                                               <h6>company name</h6>
+                                                               <h6>Customer Name</h6>
                                                            </div>
                                                            <div class="right">
-                                                               <h6>Fashion Store</h6>
+                                                               <h6>@if ( Auth::check() ) {{ Auth::user()->name }} @endif</h6>
                                                            </div>
                                                        </div>
                                                    </li>
+
                                                    <li>
                                                        <div class="details">
                                                            <div class="left">
-                                                               <h6>email address</h6>
+                                                               <h6>Email Address</h6>
                                                            </div>
                                                            <div class="right">
-                                                               <h6>mark.jecno@gmail.com</h6>
+                                                               <h6>@if ( Auth::check() ) {{ Auth::user()->email }} @endif</h6>
                                                            </div>
                                                        </div>
                                                    </li>
+
                                                    <li>
                                                        <div class="details">
                                                            <div class="left">
-                                                               <h6>Country / Region</h6>
+                                                               <h6>Phone Number</h6>
                                                            </div>
                                                            <div class="right">
-                                                               <h6>Downers Grove, IL</h6>
+                                                               <h6>@if ( Auth::check() ) {{ Auth::user()->phone }} @endif</h6>
                                                            </div>
                                                        </div>
                                                    </li>
+
                                                    <li>
                                                        <div class="details">
                                                            <div class="left">
-                                                               <h6>Year Established</h6>
+                                                               <h6>Address</h6>
                                                            </div>
                                                            <div class="right">
-                                                               <h6>2018</h6>
+                                                               <h6>@if ( Auth::check() ) {{ Auth::user()->address_Line1 }} @endif</h6>
                                                            </div>
                                                        </div>
                                                    </li>
+
                                                    <li>
                                                        <div class="details">
                                                            <div class="left">
-                                                               <h6>Total Employees</h6>
+                                                               <h6>Address (optional)</h6>
                                                            </div>
                                                            <div class="right">
-                                                               <h6>101 - 200 People</h6>
+                                                               <h6>@if ( Auth::check() ) {{ Auth::user()->address_Line2 }} @endif</h6>
                                                            </div>
                                                        </div>
                                                    </li>
+
                                                    <li>
                                                        <div class="details">
                                                            <div class="left">
-                                                               <h6>category</h6>
+                                                               <h6>Division</h6>
                                                            </div>
                                                            <div class="right">
-                                                               <h6>clothing</h6>
+                                                               <h6>@if ( Auth::check() ) {{ Auth::user()->division_id }} @endif</h6>
                                                            </div>
                                                        </div>
                                                    </li>
-                                                   <li>
-                                                       <div class="details">
-                                                           <div class="left">
-                                                               <h6>street address</h6>
-                                                           </div>
-                                                           <div class="right">
-                                                               <h6>549 Sulphur Springs Road</h6>
-                                                           </div>
-                                                       </div>
-                                                   </li>
+
+                                                    <li>
+                                                        <div class="details">
+                                                            <div class="left">
+                                                                <h6>District</h6>
+                                                            </div>
+                                                            <div class="right">
+                                                                <h6>@if ( Auth::check() ) {{ Auth::user()->district_id }} @endif</h6>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+
                                                    <li>
                                                        <div class="details">
                                                            <div class="left">
                                                                <h6>city/state</h6>
                                                            </div>
                                                            <div class="right">
-                                                               <h6>Downers Grove, IL</h6>
+                                                               <h6>@if ( Auth::check() ) {{ Auth::user()->country_id }} @endif</h6>
                                                            </div>
                                                        </div>
                                                    </li>
+
                                                    <li>
                                                        <div class="details">
                                                            <div class="left">
                                                                <h6>zip</h6>
                                                            </div>
                                                            <div class="right">
-                                                               <h6>60515</h6>
+                                                               <h6>@if ( Auth::check() ) {{ Auth::user()->zipCode }} @endif</h6>
                                                            </div>
                                                        </div>
                                                    </li>
@@ -549,7 +636,6 @@
                                            </div>
                                            <div class="dashboard-title mt-lg-5 mt-3">
                                                <h4>login details</h4>
-                                               <a class="edit-link" href="#">edit</a>
                                            </div>
                                            <div class="dashboard-detail">
                                                <ul>
@@ -559,8 +645,7 @@
                                                                <h6>Email Address</h6>
                                                            </div>
                                                            <div class="right">
-                                                               <h6>mark.jecno@gmail.com <a class="edit-link"
-                                                                       href="#">edit</a></h6>
+                                                               <h6>@if ( Auth::check() ) {{ Auth::user()->email }} @endif</h6>
                                                            </div>
                                                        </div>
                                                    </li>
@@ -570,8 +655,7 @@
                                                                <h6>Phone No.</h6>
                                                            </div>
                                                            <div class="right">
-                                                               <h6>+01 4485 5454<a class="edit-link"
-                                                                       href="#">Edit</a></h6>
+                                                               <h6>@if ( Auth::check() ) {{ Auth::user()->phone }} @endif</h6>
                                                            </div>
                                                        </div>
                                                    </li>
@@ -581,7 +665,7 @@
                                                                <h6>Password</h6>
                                                            </div>
                                                            <div class="right">
-                                                               <h6>******* <a class="edit-link" href="#">Edit</a>
+                                                               <h6>******* <a class="edit-link" href="{{ route('password.email') }}">Edit</a>
                                                                </h6>
                                                            </div>
                                                        </div>

@@ -40,7 +40,7 @@
                             @csrf
                 
                             <div class="form-group">
-                                <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Enter Your Email" required autofocus>
+                                <input type="email" class="input__field" name="email" value="{{ old('email') }}" placeholder="Enter Your Email" required autofocus>
                                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
                             </div>
 

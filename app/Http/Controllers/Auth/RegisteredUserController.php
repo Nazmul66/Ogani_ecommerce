@@ -46,6 +46,11 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::CUSTOMER_HOME);
+        $notifications = [
+            "message"    => "Create a new account successfully",
+            'alert-type' => "success"
+        ];
+
+        return redirect(RouteServiceProvider::CUSTOMER_HOME)->with($notifications);
     }
 }

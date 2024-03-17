@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Cart;
+use App\Models\Cart; 
+use App\Models\User; 
 use Illuminate\Support\Facades\Auth;
 
 class CheckoutController extends Controller
@@ -13,7 +14,8 @@ class CheckoutController extends Controller
     {
         if( Auth::check() ){
             $carts = Cart::where('user_id', Auth::user()->id)->where('order_id', NULL)->get();
-            return view('frontend.pages.cart.checkout', compact('carts'));
+            $users = User::where('id', Auth::user()->id)->first();
+            return view('frontend.pages.cart.checkout', compact('carts', 'users'));
         }
         else{
             $notifications = [

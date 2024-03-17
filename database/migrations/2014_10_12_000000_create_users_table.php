@@ -22,7 +22,7 @@ return new class extends Migration
             $table->text('address_Line2')->nullable();
             $table->integer('division_id')->nullable();
             $table->integer('district_id')->nullable();
-            $table->integer('country_id')->nullable();
+            $table->integer('city_id')->nullable();
             $table->string('zipCode')->nullable();
             $table->integer('status')->default(1)->comment("1=active, 0=inactive");
             $table->integer('role')->default(2)->comment("1=admin, 2=user");

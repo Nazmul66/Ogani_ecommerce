@@ -9,6 +9,7 @@ use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CustomerController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\DashboardController;
+use App\Http\Controllers\Frontend\TicketController;
 
 /*
 |--------------------------------------------------------------------------
@@ -82,7 +83,12 @@ Route::get('/brand/product/{id}', [HomeController::class, 'brandWiseProduct'] )-
 
 // Customer profile
 Route::get('/customer-profile', [CustomerController::class, 'customerProfile'] )->middleware(['auth', 'verified'])->name('customer.profile');
+Route::get('/customer-dashboard', [CustomerController::class, 'customerDashboard'] )->middleware(['auth', 'verified'])->name('customer.dashboard');
+Route::post('/user-info/{id}', [CustomerController::class, 'userInfo'] )->name('user.info');
+Route::post('/user-shippingInfo/{id}', [CustomerController::class, 'userShippingInfo'] )->name('user.shippingInfo');
 Route::get('/customer-invoice/{transaction_id}', [CustomerController::class, 'customerInvoice'] )->name('customer.invoice');
+Route::post('/store/ticket', [CustomerController::class, 'storeTicket'] )->name('store.ticket');
+Route::post('/show/ticket/{id}', [CustomerController::class, 'showTicket'] )->name('show.ticket');
 
 // CartList
 Route::group(['prefix' => '/cart'], function (){
@@ -98,5 +104,9 @@ Route::group(['prefix' => '/cart'], function (){
 
 // Checkout 
 Route::get('/checkout', [CheckoutController::class, 'checkoutPage'] )->name('checkout.page');
+
+// support ticket
+// Route::get('/open/ticket', [TicketController::class, 'openTicket'] )->name('checkout.page');
+// Route::get('/new/ticket', [TicketController::class, 'newTicket'] )->name('checkout.page');
 
 

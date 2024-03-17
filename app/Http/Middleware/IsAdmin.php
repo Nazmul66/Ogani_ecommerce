@@ -22,11 +22,21 @@ class IsAdmin
                 return $next($request); 
             }
             else if (Auth::user()->role == 2 ){
-               return redirect()->route('homePage');
+             $notification = array(
+                 'message'    => "Sorry! you do not have permission to dashboard login",
+                 'alert-type' => "error",
+             );
+ 
+             return redirect()->route('homePage')->with($notification);
             }
          }
          else{
-             return redirect()->route('login');
+             $notification = array(
+                 'message'    => "Sorry! you do not have permission to dashboard login",
+                 'alert-type' => "error"
+             );
+             
+             return redirect()->route('login')->with($notification);
          }
     }
 }

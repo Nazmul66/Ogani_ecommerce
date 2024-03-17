@@ -193,6 +193,7 @@
                                     <div>{{ Auth::user()->name }}</div>
                                     <span class="arrow_carrot-down"></span>
                                     <ul>
+                                        <li><a href="{{ route('customer.dashboard') }}">Dashboard</a></li>
                                         <li><a href="{{ route('customer.profile') }}">Profile</a></li>
                                         <li><a href="#">Setting</a></li>
                                         <li><a href="#">Order List</a></li>

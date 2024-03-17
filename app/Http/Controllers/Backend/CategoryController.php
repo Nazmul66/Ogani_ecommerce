@@ -128,11 +128,13 @@ class CategoryController extends Controller
 
             if( $request->icon ){
 
-                if( file_exists("backend/uploads/category/" . $category->icon ) == ""){
-                    unlink("backend/uploads/category/" . $category->icon );
-                }
-                else if( file_exists("backend/uploads/category/" . $category->icon ) ){
-                    unlink("backend/uploads/category/" . $category->icon );
+                if( !empty($request->icon) ){
+                    if( file_exists("backend/uploads/category/" . $category->icon ) == ""){
+                        unlink("backend/uploads/category/" . $category->icon );
+                    }
+                    else if( file_exists("backend/uploads/category/" . $category->icon ) ){
+                        unlink("backend/uploads/category/" . $category->icon );
+                    }
                 }
     
                 $manager  =  new ImageManager(new Driver());

@@ -211,11 +211,13 @@ class ProductController extends Controller
             // single thumbnail
             if( $request->thumbnail ){
 
-                if( file_exists("backend/uploads/products/" . $product->thumbnail ) == ""){
-                    unlink("backend/uploads/products/" . $product->thumbnail );
-                }
-                else if( file_exists("backend/uploads/products/" . $product->thumbnail ) ){
-                    unlink("backend/uploads/products/" . $product->thumbnail );
+                if( !empty($product->thumbnail) ){
+                    if( file_exists("backend/uploads/products/" . $product->thumbnail ) == ""){
+                        unlink("backend/uploads/products/" . $product->thumbnail );
+                    }
+                    else if( file_exists("backend/uploads/products/" . $product->thumbnail ) ){
+                        unlink("backend/uploads/products/" . $product->thumbnail );
+                    }
                 }
 
                 $manager  =  new ImageManager(new Driver());

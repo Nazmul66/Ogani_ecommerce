@@ -64,47 +64,54 @@
                     <div class="row">
                         <div class="col-lg-8 col-md-6">
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <div class="checkout__input">
-                                        <p>First Name<span>*</span></p>
-                                        <input type="text" name="c_name" autocomplete="off">
+                                        <p>Full Name<span>*</span></p>
+                                        <input type="text" name="c_name"
+                                         @if ( !is_null($users->name) )
+                                            value="{{ $users->name }}"
+                                         @else
+                                            value="{{ old('c_name') }}"
+                                         @endif
+                                        placeholder="Enter your name" autocomplete="off">
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="checkout__input">
-                                        <p>Last Name<span>*</span></p>
-                                        <input type="text"  name="" autocomplete="off"> 
-                                    </div>
-                                </div>
+                            </div>
+
+                            <div class="checkout__input">
+                                <p>Email<span>*</span></p>
+                                <input type="email" name="c_email"  @if ($users->email) value="{{ $users->email }}" @endif disabled autocomplete="off">
                             </div>
                             
                             <div class="checkout__input">
-                                <p>Country<span>*</span></p>
-                                <input type="text" name="c_country" autocomplete="off">
-                            </div>
-                            <div class="checkout__input">
                                 <p>Address<span>*</span></p>
-                                <input type="text" name="c_address" autocomplete="off" placeholder="Street Address" class="checkout__input__add">
-                                <input type="text" name="c_address_optional" autocomplete="off" placeholder="Apartment, suite, unite ect (optinal)">
-                            </div>
-                            <div class="checkout__input">
-                                <p>Town/City<span>*</span></p>
-                                <input type="text" name="c_city" autocomplete="off">
-                            </div>
-                            <div class="checkout__input">
-                                <p>Country/State<span>*</span></p>
-                                <input type="text"  name="" autocomplete="off">
-                            </div>
-                            <div class="checkout__input">
-                                <p>Postcode / ZIP<span>*</span></p>
-                                <input type="text"  name="c_zipCode" autocomplete="off">
+                                <input type="text" name="c_address" 
+                                    @if ( !is_null($users->address_Line1) )
+                                       value="{{ $users->address_Line1 }}"
+                                    @else
+                                       value="{{ old('c_address') }}"
+                                    @endif
+                                autocomplete="off" placeholder="Street Address" class="checkout__input__add">
+                                <input type="text" name="c_address_optional"
+                                    @if ( !is_null($users->address_Line2) )
+                                       value="{{ $users->address_Line2 }}"
+                                    @else
+                                       value="{{ old('c_address_optional') }}"
+                                    @endif
+                                autocomplete="off" placeholder="Apartment, suite, unite ect (optinal)">
                             </div>
 
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
                                         <p>Phone<span>*</span></p>
-                                        <input type="text" name="c_phone" autocomplete="off">
+                                        <input type="text" name="c_phone" 
+                                            @if ( !is_null($users->phone) )
+                                               value="{{ $users->phone }}"
+                                            @else
+                                                value="{{ old('c_phone') }}"
+                                            @endif
+                                        autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -116,8 +123,28 @@
                             </div>
 
                             <div class="checkout__input">
-                                <p>Email<span>*</span></p>
-                                <input type="email"  name="c_email" autocomplete="off">
+                                <p>Division<span>*</span></p>
+                                <input type="text"  name="c_division" autocomplete="off">
+                            </div>
+
+                            <div class="checkout__input">
+                                <p>District<span>*</span></p>
+                                <input type="text"  name="c_district" autocomplete="off">
+                            </div>
+
+                            <div class="checkout__input">
+                                <p>Town/City<span>*</span></p>
+                                <input type="text" name="c_city" autocomplete="off">
+                            </div>
+                            <div class="checkout__input">
+                                <p>Postcode / ZIP<span>*</span></p>
+                                <input type="text"  name="c_zipCode" 
+                                         @if ( !is_null($users->zipCode) )
+                                            value="{{ $users->zipCode }}"
+                                        @else
+                                            value="{{ old('c_zipCode') }}"
+                                        @endif
+                                autocomplete="off">
                             </div>
 
                             <div class="checkout__input">

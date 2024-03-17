@@ -169,8 +169,9 @@ class CartController extends Controller
 
            $order->user_id             = Auth::id();
            $order->c_name              = $request->c_name;
-           $order->c_country           = $request->c_country;
            $order->c_city              = $request->c_city;
+        //    $order->c_division          = $request->c_division;
+        //    $order->c_district          = $request->c_district;
            $order->c_address           = $request->c_address;
            $order->c_address_optional  = $request->c_address_optional;
            $order->c_zipCode           = $request->c_zipCode;
@@ -214,14 +215,17 @@ class CartController extends Controller
            }
 
            // sending mail information
-           $mailData = [
-                'name'     => $request->c_name,
-                'address'  => $request->c_address,
-                'mail'     => $request->c_email,
-           ];
+        //    $mailData = [
+        //         'name'     => $request->c_name,
+        //         'address'  => $request->c_address,
+        //         'mail'     => $request->c_email,
+        //    ];
 
-           $customerMail = [$request->c_email, "hnazmul748@gmail.com"];
-           Mail::to($customerMail)->send(new InvoiceMail($mailData));
+        //    $customerMail = $request->c_email;
+
+        //    if (!empty($customerMail) && filter_var($customerMail, FILTER_VALIDATE_EMAIL)) {
+        //       Mail::to($customerMail)->send(new InvoiceMail($mailData));
+        //    }
 
            $notifications = [
             "message"    => "order placed successfully",
