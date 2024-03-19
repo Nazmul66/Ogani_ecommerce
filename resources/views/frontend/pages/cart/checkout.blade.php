@@ -2,19 +2,21 @@
     $cartlists  =  App\Models\Cart::where('user_id', Auth::id() )->where('order_id', NULL)->get();
 
     //total amount
-    $total_amount = 0;
+    $subTotal = 0;
     foreach ($cartlists as $cartlist) {
         $products   =  App\Models\Product::where('id', $cartlist->product_id)->get();
 
         foreach ($products as $product) {
             if( $product->discount_price ){
-                $total_amount += $cartlist->product_qty * $product->discount_price;
+                $subTotal += $cartlist->product_qty * $product->discount_price;
             }
             else{
-                $total_amount += $cartlist->product_qty * $product->selling_price;
+                $subTotal += $cartlist->product_qty * $product->selling_price;
             }
         }
     }
+
+    $tax = ( $subTotal * 5 ) / 100;
 @endphp
 
 @extends('frontend.layout.template')
@@ -54,12 +56,19 @@
             </div>
             <div class="checkout__form">
                 <h4>Billing Details</h4>
-                <form method="post" action="{{ route('order.place') }}">
+                <form method="post" action="{{ route('make.payment') }}">
 
                     @csrf
 
-                    <input type="hidden" name="subtotal" value="{{ $total_amount }}">
-                    <input type="hidden" name="total" value="{{ $total_amount }}">
+                    <input type="hidden" name="subtotal" value="{{ $subTotal }}">
+                    <input type="hidden" name="tax" value="{{ $tax }}">
+                    <input type="hidden" name="total" 
+                    @if ( Session::has('coupon') )
+                     value="{{ $subTotal - Session::get('coupon')['coupon_discount'] + $tax }}"
+                    @else
+                     value="{{ $subTotal + $tax }}"
+                    @endif
+                    >
 
                     <div class="row">
                         <div class="col-lg-8 col-md-6">
@@ -80,7 +89,7 @@
 
                             <div class="checkout__input">
                                 <p>Email<span>*</span></p>
-                                <input type="email" name="c_email"  @if ($users->email) value="{{ $users->email }}" @endif disabled autocomplete="off">
+                                <input type="email" name="c_email"  @if ($users->email) value="{{ $users->email }}" @endif readonly autocomplete="off">
                             </div>
                             
                             <div class="checkout__input">
@@ -138,7 +147,7 @@
                             </div>
                             <div class="checkout__input">
                                 <p>Postcode / ZIP<span>*</span></p>
-                                <input type="text"  name="c_zipCode" 
+                                <input type="text" name="c_zipCode" 
                                          @if ( !is_null($users->zipCode) )
                                             value="{{ $users->zipCode }}"
                                         @else
@@ -174,30 +183,30 @@
                                     @endforeach
                                 </ul>
                                 <div class="checkout__order__list">
-                                    <div class="checkout__order__subtotal">SubTotal <span>{{ $setting->currency }}{{ $total_amount }}</span></div>
+                                    <div class="checkout__order__subtotal">SubTotal <span>{{ $setting->currency }}{{ $subTotal }}</span></div>
                                         @if ( Session::has('coupon') )
                                            <div class="checkout__order__coupon">- Coupon ({{ Session::get('coupon')['coupon_name'] }})<a href="{{ route('coupon.remove') }}" class="remove_coupon"><i class="fa fa-times" aria-hidden="true"></i></a>  <span>{{ $setting->currency }}{{ Session::get('coupon')['coupon_discount'] }}</span></div>
                                         @endif
-                                    <div class="checkout__order__tax">- Tax (%) <span>{{ $setting->currency }}00</span></div>
-                                    <div class="checkout__order__shipping">- Shipping (%) <span>{{ $setting->currency }}00</span></div>
+                                    <div class="checkout__order__tax">+ Tax (5%) <span>{{ $setting->currency }} {{ $tax }}</span></div>
+                                    <div class="checkout__order__shipping">+ Shipping (%) <span>{{ $setting->currency }}00</span></div>
                                 </div>
 
                                 @if ( Session::has('coupon') )
-                                   <div class="checkout__order__total">Total <span>{{ $setting->currency }}{{ $total_amount - Session::get('coupon')['coupon_discount'] }}</span></div>
+                                   <div class="checkout__order__total">Total <span>{{ $setting->currency }}{{ $subTotal - Session::get('coupon')['coupon_discount'] + $tax }}</span></div>
                                 @else 
-                                   <div class="checkout__order__total">Total <span>{{ $setting->currency }}{{ $total_amount }}</span></div>
+                                   <div class="checkout__order__total">Total <span>{{ $setting->currency }}{{ $subTotal + $tax }}</span></div>
                                 @endif
 
                                 {{-- payment method --}}
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="radio" name="payment_type" id="payment_type2" value="Paypal" checked>
+                                {{-- <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="payment_type" id="payment_type2" value="aamerPay" checked>
                                     <label class="form-check-label" for="payment_type2" style="cursor: pointer;">
-                                        Paypal
+                                        aamerPay
                                     </label>
-                                </div>
+                                </div> --}}
 
                                 <div class="form-check mb-2">
-                                    <input class="form-check-input" type="radio" name="payment_type" id="payment_type3" value="ssl_Commerze">
+                                    <input class="form-check-input" type="radio" name="payment_type" id="payment_type3" value="ssl_Commerze" checked>
                                     <label class="form-check-label" for="payment_type3" style="cursor: pointer;">
                                         Ssl_Commerze
                                     </label>
@@ -220,4 +229,20 @@
     </section>
     <!-- Checkout Section End -->
 
+@endsection
+
+
+
+@section('scripts')
+<script>
+    (function (window, document) {
+        var loader = function () {
+            var script = document.createElement("script"), tag = document.getElementsByTagName("script")[0];
+            script.src = "https://seamless-epay.sslcommerz.com/embed.min.js?" + Math.random().toString(36).substring(7);
+            tag.parentNode.insertBefore(script, tag);
+        };
+    
+        window.addEventListener ? window.addEventListener("load", loader, false) : window.attachEvent("onload", loader);
+    })(window, document);
+</script>
 @endsection

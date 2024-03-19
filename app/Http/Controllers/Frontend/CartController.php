@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Cart;
 use App\Models\Coupon;
 use App\Models\Order;
+use App\Models\Payment_gateway;
 use App\Models\OrderDetails;
 use Illuminate\Support\Facades\Session;
 use App\Mail\InvoiceMail;
@@ -164,8 +165,8 @@ class CartController extends Controller
     {
        $order = new Order();
 
-       if( !is_null($order) ){
-           $transaction_id = hexdec(rand(10000, 9999999999));
+       if( $request->payment_type === "hand_cash" ){
+           $transaction_id             = hexdec(rand(10000, 9999999999));
 
            $order->user_id             = Auth::id();
            $order->c_name              = $request->c_name;
@@ -178,19 +179,19 @@ class CartController extends Controller
            $order->c_phone             = $request->c_phone;
            $order->c_phone_optional    = $request->c_phone_optional;
            $order->c_email             = $request->c_email;
+           $order->tax                 = $request->tax;
+           $order->payment_type        = $request->payment_type;
             if(Session::has('coupon')){
                     $order->subtotal            = $request->subtotal;
                     $order->coupon_code         = Session::get('coupon')['coupon_name'];
                     $order->coupon_discount     = Session::get('coupon')['coupon_discount'];
                     $order->after_discount      = $request->subtotal - Session::get('coupon')['coupon_discount'];
-                    $order->total               = $request->subtotal - Session::get('coupon')['coupon_discount'];
+                    $order->total               = $request->subtotal - Session::get('coupon')['coupon_discount'] + $request->tax;
             }
             else{
                     $order->subtotal            = $request->subtotal;
-                    $order->total               = $request->subtotal;
+                    $order->total               = $request->subtotal + $request->tax;
             }
-           $order->payment_type        = $request->payment_type;
-           $order->tax                 = 0;
            $order->shipping_charge     = 0;
            $order->transaction_id      = $transaction_id;
            $order->status              = 0;
@@ -234,5 +235,13 @@ class CartController extends Controller
 
           return redirect()->route('homePage')->with($notifications);
        }
+
+       // ssl_commercz 
+       else if( $request->payment_type == "ssl_Commerze"){
+        echo "Ssl_Commerze";
+       }
     }
+
+  
+
 }

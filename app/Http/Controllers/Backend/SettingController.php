@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Seo;
 use App\Models\SMTP;
 use App\Models\Setting;
+use App\Models\Payment_gateway;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Illuminate\Support\Facades\File;
@@ -185,8 +186,51 @@ class SettingController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function paymentGateway()
     {
-        //
+        $aamerpay = Payment_gateway::where('gateway_name', "aamerpay")->first();
+        return view('backend.pages.setting.payment_gateway.edit', compact('aamerpay'));
+    }
+
+    public function aamerpayStore(Request $request)
+    {
+        $payment_gateway = new Payment_gateway();
+
+       if( !is_null($payment_gateway) ){
+           $payment_gateway->gateway_name    = 'aamerpay';
+           $payment_gateway->store_id        = $request->store_id;
+           $payment_gateway->signature_key   = $request->signature_key;
+           $payment_gateway->status          = intval($request->status);
+
+
+           $payment_gateway->save();
+
+           $notifications = [
+            "message"    => "Aamerpay Payment gateways access key store",
+            'alert-type' => "success"
+            ];
+
+            return redirect()->back()->with($notifications);
+       }
+    }
+
+    public function aamerpayUpdate (Request $request, string $id)
+    {
+        $payment_gateway = Payment_gateway::find($id);
+
+        if( !is_null($payment_gateway) ){
+            $payment_gateway->store_id        = $request->store_id;
+            $payment_gateway->signature_key   = $request->signature_key;
+            $payment_gateway->status          = $request->status;
+
+            $payment_gateway->save();
+
+            $notifications = [
+                "message"    => "Aamerpay Payment gateways access key update",
+                'alert-type' => "success"
+                ];
+    
+            return redirect()->back()->with($notifications);
+        }
     }
 }

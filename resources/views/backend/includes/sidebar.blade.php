@@ -184,7 +184,7 @@
                                             <a class="nav-link" href="{{ route('smtp.setting') }}">SMTP Setting</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="">Payment Gateway</a>
+                                            <a class="nav-link" href="{{ route('payment.gateway') }}">Payment Gateway</a>
                                         </li>
                                     </ul>
                                 </div>

@@ -10,6 +10,7 @@ use App\Http\Controllers\Frontend\CustomerController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\DashboardController;
 use App\Http\Controllers\Frontend\TicketController;
+use App\Http\Controllers\Payment\SslCommerzPaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -99,14 +100,25 @@ Route::group(['prefix' => '/cart'], function (){
     Route::get('/destroy/{id}', [CartController::class, 'destroy'] )->name('cart.destroy');
     Route::post('/coupon/apply', [CartController::class, 'applyCoupon'] )->name('cart.coupon.apply');
     Route::get('/coupon/remove', [CartController::class, 'removeCoupon'] )->name('coupon.remove');
-    Route::post('/order/place', [CartController::class, 'orderPlace'] )->name('order.place');
+    // Route::post('/order/place', [CartController::class, 'orderPlace'] )->name('order.place');
 });
 
 // Checkout 
-Route::get('/checkout', [CheckoutController::class, 'checkoutPage'] )->name('checkout.page');
+// Route::get('/checkout', [CheckoutController::class, 'checkoutPage'] )->name('checkout.page');
 
 // support ticket
 // Route::get('/open/ticket', [TicketController::class, 'openTicket'] )->name('checkout.page');
 // Route::get('/new/ticket', [TicketController::class, 'newTicket'] )->name('checkout.page');
+
+
+// Checkout page routes
+Route::get('/checkout', [SslCommerzPaymentController::class, 'checkoutPage'])->name('checkout.page');
+Route::post('/pay', [SslCommerzPaymentController::class, 'index'])->name('make.payment');
+
+Route::post('/success', [SslCommerzPaymentController::class, 'success'])->name('order.success');
+Route::post('/fail', [SslCommerzPaymentController::class, 'fail'])->name('order.failed');
+Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel'])->name('order.canceled');
+Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
+
 
 

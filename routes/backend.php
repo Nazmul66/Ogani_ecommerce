@@ -189,6 +189,14 @@ Route::group(['middleware' => ['auth', 'IsAdmin'], 'prefix' => '/admin'], functi
             Route::post('/update/{id}', [PageController::class, 'update'])->name('page.update');
             Route::get('/destroy/{id}', [PageController::class, 'destroy'])->name('page.destroy');
          });
+
+         // Payment Gateway setting
+         Route::group(['prefix' => '/payment-gateway'], function () {
+            Route::get('/', [SettingController::class, 'paymentGateway'])->name('payment.gateway');
+            Route::post('/aamerpay', [SettingController::class, 'aamerpayStore'])->name('store.aamerpay');
+            Route::post('/aamerpay-update/{id}', [SettingController::class, 'aamerpayUpdate'])->name('update.aamerpay');
+            Route::post('/surjopay', [SettingController::class, 'surjopayUpdate'])->name('update.surjopay');
+         });
    });
    
 });
