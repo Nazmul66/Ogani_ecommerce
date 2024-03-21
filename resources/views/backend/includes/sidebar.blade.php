@@ -141,6 +141,21 @@
                                 </div>
                             </li>
 
+                            <!-- Order list  -->
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="collapse" aria-expanded="false" data-target="#submenu-11" aria-controls="submenu-11">
+                                    <i class="fas fa-fw fa-table"></i>Order
+                                </a>
+
+                                <div id="submenu-11" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ route('order.manage') }}">Orders</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
 
                             <li class="nav-divider">
                                 Option

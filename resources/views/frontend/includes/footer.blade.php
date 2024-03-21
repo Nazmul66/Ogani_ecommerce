@@ -13,9 +13,9 @@
                             <a href="./index.html"><img src="{{ asset('frontend/img/logo.png') }}" alt=""></a>
                         </div>
                         <ul>
-                            <li>Address: 60-49 Road 11378 New York</li>
-                            <li>Phone: +65 11.188.888</li>
-                            <li>Email: hello@colorlib.com</li>
+                            <li>Address: {{ $setting->address }}</li>
+                            <li>Phone: {{ $setting->phone_one }}</li>
+                            <li>Email: {{ $setting->mail_email }}</li>
                         </ul>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                                 <button type="submit" class="site-btn">Subscribe</button>
                             </form>
                         <div class="footer__widget__social">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="{{ $setting->facebook }}" target="_blank"><i class="fa fa-facebook"></i></a>
                             <a href="#"><i class="fa fa-instagram"></i></a>
                             <a href="#"><i class="fa fa-twitter"></i></a>
                             <a href="#"><i class="fa fa-pinterest"></i></a>

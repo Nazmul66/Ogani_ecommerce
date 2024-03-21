@@ -101,12 +101,12 @@
                   </tr>
                   <tr>
                      <td colspan="2"></td>
-                     <td class="font-bold text-dark" colspan="2">- Tax (%)</td>
+                     <td class="font-bold text-dark" colspan="2">+ Tax (5%)</td>
                      <td class="font-bold text-theme">{{ $setting->currency }}{{ $order_details->tax }}</td>
                   </tr>
                   <tr>
                      <td colspan="2"></td>
-                     <td class="font-bold text-dark" colspan="2">- Shipping Charge (%)</td>
+                     <td class="font-bold text-dark" colspan="2">+ Shipping Charge (%)</td>
                      <td class="font-bold text-theme">{{ $setting->currency }}{{ $order_details->shipping_charge }}</td>
                   </tr>
                   <tr class="Grand_total">

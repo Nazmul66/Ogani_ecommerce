@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Cart;
 use App\Models\User;
 use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\InvoiceMail;
@@ -34,10 +35,6 @@ class SslCommerzPaymentController extends Controller
         }
     }
 
-    // public function exampleHostedCheckout()
-    // {
-    //     return view('exampleHosted');
-    // }
 
     public function index(Request $request)
     {
@@ -83,25 +80,25 @@ class SslCommerzPaymentController extends Controller
         }
 
         # SHIPMENT INFORMATION
-        $post_data['ship_name'] = "Store Test";
-        $post_data['ship_add1'] = "Dhaka";
-        $post_data['ship_add2'] = "Dhaka";
-        $post_data['ship_city'] = "Dhaka";
-        $post_data['ship_state'] = "Dhaka";
-        $post_data['ship_postcode'] = "1000";
-        $post_data['ship_phone'] = "";
-        $post_data['ship_country'] = "Bangladesh";
+        $post_data['ship_name']               = "Store Test";
+        $post_data['ship_add1']               = "Dhaka";
+        $post_data['ship_add2']               = "Dhaka";
+        $post_data['ship_city']               = "Dhaka";
+        $post_data['ship_state']              = "Dhaka";
+        $post_data['ship_postcode']           = "1000";
+        $post_data['ship_phone']              = "";
+        $post_data['ship_country']            = "Bangladesh";
 
-        $post_data['shipping_method'] = "NO";
-        $post_data['product_name'] = "Computer";
-        $post_data['product_category'] = "Goods";
-        $post_data['product_profile'] = "physical-goods";
+        $post_data['shipping_method']         = "NO";
+        $post_data['product_name']            = "Computer";
+        $post_data['product_category']        = "Goods";
+        $post_data['product_profile']         = "physical-goods";
 
         # OPTIONAL PARAMETERS
-        $post_data['value_a'] = "ref001";
-        $post_data['value_b'] = "ref002";
-        $post_data['value_c'] = "ref003";
-        $post_data['value_d'] = "ref004";
+        $post_data['value_a']                 = "ref001";
+        $post_data['value_b']                 = "ref002";
+        $post_data['value_c']                 = "ref003";
+        $post_data['value_d']                 = "ref004";
 
          // for ssl commercz payments
         if( $request->payment_type === 'ssl_Commerze' ){
@@ -138,8 +135,14 @@ class SslCommerzPaymentController extends Controller
             $order_id = Order::where('transaction_id', $transaction_Id)->first();
 
             foreach( Cart::where('user_id', Auth::id())->where('order_id', NULL)->get() as $cart ){
-            $cart->order_id = $order_id->id;
-            $cart->save();
+                // cart deduce quantity stock
+                $product = Product::where('id', $cart->product_id)->first();
+                $upQty   = $product->quantity_stock - $cart->product_qty;
+                $product->quantity_stock = $upQty;
+                $product->save();
+                
+                $cart->order_id = $order_id->id;
+                $cart->save();
             }
 
             // session destroy for coupons after purchase
@@ -205,6 +208,13 @@ class SslCommerzPaymentController extends Controller
             $order_id = Order::where('transaction_id', $transaction_id)->first();
  
             foreach( Cart::where('user_id', Auth::id())->where('order_id', NULL)->get() as $cart ){
+                
+                // cart deduce quantity stock
+                $product = Product::where('id', $cart->product_id)->first();
+                $upQty   = $product->quantity_stock - $cart->product_qty;
+                $product->quantity_stock = $upQty;
+                $product->save();
+
                 $cart->order_id = $order_id->id;
                 $cart->save();
             }

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Cart;
 use App\Models\Coupon;
 use App\Models\Order;
+use App\Models\Product;
 use App\Models\Payment_gateway;
 use App\Models\OrderDetails;
 use Illuminate\Support\Facades\Session;
@@ -49,21 +50,43 @@ class CartController extends Controller
         }
 
         if( !is_null( $cart ) ){
-            if( !is_null( $request->quantity ) ){
+            $availableStock = Product::where('id', $cart->product_id)->value('quantity_stock');
+
+            if ($request->quantity > $availableStock) {
+                $notifications = [
+                    "message"    => "Sorry, only $availableStock items are available, you can't choose $request->quantity items",
+                    'alert-type' => "error",
+                ];
+                return redirect()->back()->with($notifications);
+            }
+
+            else if( !is_null( $request->quantity ) ){
                 $cart->product_qty = $cart->product_qty + $request->quantity;
+
+                $cart->save();
+
+                $notifications = [
+                    "message"    => "Item Quantity updated in your cart",
+                    'alert-type' => "success",
+                ];
+        
+                return redirect()->back()->with($notifications);
             }
-            else{
+
+            else {
                 $cart->increment('product_qty');
+
+                $cart->save();
+
+                $notifications = [
+                    "message"    => "Item Quantity updated in your cart",
+                    'alert-type' => "success",
+                ];
+        
+                return redirect()->back()->with($notifications);
             }
 
-            $cart->save();
 
-            $notifications = [
-                "message"    => "Item Quantity updated in your cart",
-                'alert-type' => "success",
-            ];
-    
-            return redirect()->back()->with($notifications);
         }
         else{
             $carts = new Cart();
