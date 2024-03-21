@@ -31,7 +31,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="d-flex justify-content-between align-items-center card-header ">
-                    <h5 class="mb-0">Manage Product</h5>
+                    <h5 class="mb-0">Manage Order</h5>
                     <a href="{{ route('product.trash-manage') }}">
                         <button class="btn btn-dark ">Manage Trash Folder</button>
                     </a>
@@ -84,18 +84,11 @@
                                             @elseif($order->status == 5)
                                                 <span class="badge rounded-pill text-white bg-danger custom-badge">Order Cancel</span>
                                             @endif
-
-                                            {{-- <span class="badge rounded-pill text-white bg-success custom-badge">Shipped</span> --}}
                                         </td>
                                         <td>
                                             <ul class="action_list">
-                                                <li style="background: #0078FF;">
-                                                    <a href="">
-                                                        <i class="fa fa-eye text-theme"></i>
-                                                    </a> 
-                                                </li>
                                                 <li style="background: #157347;">
-                                                    <a href=""><i class="far fa-edit"></i></a> 
+                                                    <a href="{{ route('order.edit', $order->id) }}"><i class="far fa-edit"></i></a> 
                                                 </li>
                                                 <li style="background: #BB2D3B;">
                                                     <span data-toggle="modal" data-target="#order{{ $order->id }}">
@@ -105,29 +98,6 @@
                                             </ul>
                                         </td>
                                     </tr>
-
-
-                                    <!-- Modal start -->
-                                    {{-- <div class="modal fade" id="order{{ $order->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Do you want to delete this data!</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-
-                                                <div class="modal-body text-center">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                    
-                                                    <a href="{{ route('product.destroy', $product->id) }}" class="btn btn-primary">Confirm</a>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div> --}}
-                                    <!-- Modal end -->
                                 @endforeach
                             </tbody>
                         </table>

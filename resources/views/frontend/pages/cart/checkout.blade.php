@@ -182,6 +182,7 @@
                                       
                                     @endforeach
                                 </ul>
+
                                 <div class="checkout__order__list">
                                     <div class="checkout__order__subtotal">SubTotal <span>{{ $setting->currency }}{{ $subTotal }}</span></div>
                                         @if ( Session::has('coupon') )

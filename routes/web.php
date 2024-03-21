@@ -97,7 +97,6 @@ Route::group(['prefix' => '/cart'], function (){
     Route::post('/store', [CartController::class, 'store'] )->name('cart.store');
     Route::get('/update/{id}', [CartController::class, 'update'] )->name('cart.update');
     Route::get('/destroy/{id}', [CartController::class, 'destroy'] )->name('cart.destroy');
-    Route::get('/destroy/{id}', [CartController::class, 'destroy'] )->name('cart.destroy');
     Route::post('/coupon/apply', [CartController::class, 'applyCoupon'] )->name('cart.coupon.apply');
     Route::get('/coupon/remove', [CartController::class, 'removeCoupon'] )->name('coupon.remove');
     // Route::post('/order/place', [CartController::class, 'orderPlace'] )->name('order.place');
