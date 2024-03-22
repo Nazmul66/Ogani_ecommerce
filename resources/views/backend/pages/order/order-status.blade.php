@@ -14,11 +14,11 @@
                     <ol class="breadcrumb justify-content-between align-items-center">
                         <div class="d-flex">
                             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}" class="breadcrumb-link">Dashboard</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Manage Order</li>
+                            <li class="breadcrumb-item active" aria-current="page">Order Status</li>
                         </div>
 
-                        <a href="{{ route('product.create') }}">
-                            <button class="btn btn-dark ">Add New Order</button>
+                        <a href="{{ route('order.manage') }}">
+                            <button class="btn btn-dark">Go Back</button>
                         </a>
                     </ol>
                 </nav>
@@ -219,10 +219,11 @@
                                 </table>
                         </div>
 
-                        <form method="POST" action="" class="mt-3">
+                        <form method="POST" action="{{ route('order.update', $order->id) }}" class="mt-3">
                             @csrf
 
-                            <input type="hidden" name="emailAddress" value="">
+                            {{-- <input type="hidden" name="emailAddress" value=""> --}}
+
                             <div class="mb-3">
                                 <label for="status">Update Status</label>
                                 <select class="form-control" name="update_status" id="status">

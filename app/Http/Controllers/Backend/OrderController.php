@@ -43,7 +43,19 @@ class OrderController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $orderUpdate = Order::where('id', $id)->first();
+
+        if( !is_null($orderUpdate) ){
+            $orderUpdate->status = $request->update_status;
+            $orderUpdate->save();
+        }
+
+        $notifications = [
+            "message"     =>   "Order Status updated",
+            'alert-type'  =>   "info"
+        ];
+
+        return redirect()->back()->with($notifications);
     }
 
     /**

@@ -15,10 +15,6 @@
                             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}" class="breadcrumb-link">Dashboard</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Manage Order</li>
                         </div>
-
-                        <a href="{{ route('product.create') }}">
-                            <button class="btn btn-dark ">Add New Order</button>
-                        </a>
                     </ol>
                 </nav>
             </div>
@@ -30,14 +26,11 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
-                <div class="d-flex justify-content-between align-items-center card-header ">
+                <div class="card-header">
                     <h5 class="mb-0">Manage Order</h5>
-                    <a href="{{ route('product.trash-manage') }}">
-                        <button class="btn btn-dark ">Manage Trash Folder</button>
-                    </a>
                 </div>
+                
                   <div class="card-body">
-
                     @if ( $orders->count() == 0 )
                         <div class="alert alert-danger" role="alert">
                            Oops! there is no orders data here.

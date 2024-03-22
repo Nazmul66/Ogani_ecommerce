@@ -155,7 +155,7 @@ Route::group(['middleware' => ['auth', 'IsAdmin'], 'prefix' => '/admin'], functi
       // Route::get('/trash-manage', [OrderController::class, 'trashManage'])->name('campaign.trash-manage');
       // Route::get('/create', [OrderController::class, 'create'])->name('campaign.create');
       // Route::post('/store', [OrderController::class, 'store'])->name('campaign.store');
-      // Route::post('/update/{id}', [OrderController::class, 'update'])->name('campaign.update');
+      Route::post('/update/{id}', [OrderController::class, 'update'])->name('order.update');
       // Route::get('/destroy/{id}', [OrderController::class, 'destroy'])->name('campaign.destroy');
       // Route::get('/trash-destroy/{id}', [OrderController::class, 'trashDestroy'])->name('campaign.trash-destroy');
    });
