@@ -13,7 +13,7 @@
                 <nav aria-label="breadcrumb" style="background: #FFF">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}" class="breadcrumb-link">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Update Blog</li>
+                        <li class="breadcrumb-item active" aria-current="page">Update Blog Category</li>
                     </ol>
                 </nav>
             </div>

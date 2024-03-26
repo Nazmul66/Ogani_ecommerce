@@ -15,6 +15,7 @@ use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\CampaignController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\BlogController;
+use App\Http\Controllers\Backend\CustomerController;
 // use Laravel\Socialite\Facades\Socialite;
  
 // Route::get('/auth/redirect', function () {
@@ -106,6 +107,11 @@ Route::group(['middleware' => ['auth', 'IsAdmin'], 'prefix' => '/admin'], functi
       Route::get('/trash-destroy/{id}', [BrandController::class, 'trashDestroy'])->name('brand.trash-destroy');
    });
 
+   // Customer
+   Route::group(['prefix' => '/customer'], function () {
+      Route::get('/manage', [CustomerController::class, 'manage'])->name('customer.manage');
+   });
+
 
    // Products
    Route::group(['prefix' => '/product'], function () {
@@ -149,13 +155,11 @@ Route::group(['middleware' => ['auth', 'IsAdmin'], 'prefix' => '/admin'], functi
    // Blogs
    Route::group(['prefix' => '/blog'], function () {
       Route::get('/manage', [BlogController::class, 'manage'])->name('blog.manage');
-      // Route::get('/trash-manage', [BlogController::class, 'trashManage'])->name('campaign.trash-manage');
       Route::get('/create', [BlogController::class, 'create'])->name('blog.create');
       Route::post('/store', [BlogController::class, 'store'])->name('blog.store');
       Route::get('/edit/{id}', [BlogController::class, 'edit'])->name('blog.edit');
       Route::post('/update/{id}', [BlogController::class, 'update'])->name('blog.update');
       Route::get('/destroy/{id}', [BlogController::class, 'destroy'])->name('blog.destroy');
-      // Route::get('/trash-destroy/{id}', [BlogController::class, 'trashDestroy'])->name('blog.trash-destroy');
    });
 
 

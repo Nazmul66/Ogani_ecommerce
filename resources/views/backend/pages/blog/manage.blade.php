@@ -26,8 +26,8 @@
             <div class="card">
                 <div class="d-flex justify-content-between align-items-center card-header ">
                     <h5 class="mb-0">Manage Blogs</h5>
-                    <a href="{{ route('brand.trash-manage') }}">
-                        <button class="btn btn-dark ">Manage Trash Folder</button>
+                    <a href="{{ route('blog.create') }}">
+                        <button class="btn btn-dark">Add Blogs</button>
                     </a>
                 </div>
                   <div class="card-body">
