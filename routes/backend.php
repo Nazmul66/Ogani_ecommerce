@@ -14,6 +14,17 @@ use App\Http\Controllers\Backend\PickupController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\CampaignController;
 use App\Http\Controllers\Backend\OrderController;
+// use Laravel\Socialite\Facades\Socialite;
+ 
+// Route::get('/auth/redirect', function () {
+//     return Socialite::driver('github')->redirect();
+// });
+
+// Route::get('/auth/callback', function () {
+//    $user = Socialite::driver('github')->user();
+
+//    // $user->token
+// });
 
 
 /*

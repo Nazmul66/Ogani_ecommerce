@@ -104,21 +104,11 @@
                 <li>
                     <a href="">Shop</a>
                 </li>
-                <li>
-                    <a href="#">Pages</a>
-                    <ul class="header__menu__dropdown">
-                        <li><a href="">Shop Details</a></li>
-                        <li><a href="">Shoping Cart</a></li>
-                        <li><a href="">Check Out</a></li>
-                        <li><a href="">Blog Details</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="">Blog</a>
-                </li>
-                <li>
-                    <a href="">Contact</a>
-                </li>
+                @foreach ($pages as $page)
+                  <li>
+                     <a href="{{ $page->page_url }}">{{ $page->page_name }}</a>
+                  </li>
+                @endforeach
             </ul>
         </nav>
 
@@ -225,16 +215,11 @@
                         <ul>
                             <li class="active"><a href="{{ route('homePage') }}">Home</a></li>
                             <li><a href="{{ route('shopPage') }}">Shop</a></li>
-                            <li><a href="#">Pages</a>
-                                <ul class="header__menu__dropdown">
-                                    <li><a href="./shop-details.html">Shop Details</a></li>
-                                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                                    <li><a href="./checkout.html">Check Out</a></li>
-                                    <li><a href="./blog-details.html">Blog Details</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="./blog.html">Blog</a></li>
-                            <li><a href="./contact.html">Contact</a></li>
+                            @foreach ($pages as $page)
+                                <li>
+                                    <a href="{{ route($page->page_url) }}">{{ $page->page_name }}</a>
+                                </li>
+                            @endforeach
                         </ul>
                     </nav>
                 </div>

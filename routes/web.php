@@ -53,6 +53,8 @@ require __DIR__.'/auth.php';
 // static pages
 Route::get('/', [HomeController::class, 'home'] )->name('homePage');
 Route::get('/blog', [HomeController::class, 'blogPage'] )->name('blogPage');
+Route::get('/contact', [HomeController::class, 'contactPage'] )->name('contactPage');
+Route::post('/contact/store', [HomeController::class, 'contactStore'] )->name('contact.store');
 
 // product details page
 Route::get('/product-details/{slug}', [HomeController::class, 'productDetails'] )->name('productDetails');

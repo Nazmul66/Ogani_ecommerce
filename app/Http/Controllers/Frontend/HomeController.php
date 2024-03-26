@@ -15,6 +15,7 @@ use App\Models\Setting;
 use App\Models\Review;
 use App\Models\User; 
 use App\Models\Newsletter; 
+use App\Models\Contact; 
 use App\Models\Wishlist;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -128,6 +129,34 @@ class HomeController extends Controller
     public function blogPage()
     {
        return view('frontend.pages.static.blog');
+    }
+
+    public function contactPage()
+    {
+       return view('frontend.pages.static.contact');
+    }
+
+    public function contactStore(Request $request)
+    {
+        $contact = new Contact();
+
+        if( !is_null($contact) ){
+            $contact->name       =    $request->user_name;
+            $contact->email      =    $request->user_email;
+            $contact->phone      =    $request->user_phone;
+            $contact->message    =    $request->message;
+            $contact->status     =    0;
+
+            $contact->save();
+
+            $notifications = [
+                "message"    => "Contact message is being saved",
+                'alert-type' => "success",
+            ];
+    
+            return redirect()->back()->with($notifications);
+        }
+
     }
 
     public function newsLetter(Request $request)
