@@ -14,6 +14,24 @@
                             <li class="nav-item ">
                                 <a class="nav-link active" href="{{ route('admin.dashboard') }}">Dashboard <span class="badge badge-success">6</span></a>
                             </li>
+
+                            <!-- Blog list  -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-9" aria-controls="submenu-9">
+                                    <i class="fas fa-fw fa-table"></i>Blog
+                                </a>
+
+                                <div id="submenu-9" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ route('blog.create') }}">Add Blogs</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ route('blog.manage') }}">Manage Blogs</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
                             
                             <!-- Category list  -->
                             <li class="nav-item">

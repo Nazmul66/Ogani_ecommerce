@@ -68,7 +68,7 @@ class PageController extends Controller
         if( !is_null($pages) ){
             $pages->page_position      = $request->page_position;
             $pages->page_name          = $request->page_name;
-            $pages->page_title         = $request->page_title;
+            $pages->page_url           = $request->page_url;
             $pages->page_description   = $request->page_description;
 
             $pages->save();

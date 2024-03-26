@@ -1,7 +1,7 @@
 @extends('backend.layout.template')
 
 @section('page-titles')
-    <title>Manage Pages | Admin Dashboard </title>
+    <title>Manage Blog Category | Admin Dashboard </title>
 @endsection
 
 @section('body-content')
@@ -12,7 +12,7 @@
                 <nav aria-label="breadcrumb" style="background: #FFF">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}" class="breadcrumb-link">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Manage Pages</li>
+                        <li class="breadcrumb-item active" aria-current="page">Manage Blog Category</li>
                     </ol>
                 </nav>
             </div>
@@ -25,43 +25,41 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="d-flex justify-content-between align-items-center card-header ">
-                    <h5 class="mb-0">Manage Pages</h5>
-                    <a href="{{ route('page.create') }}">
-                        <button class="btn btn-dark ">Add Pages</button>
+                    <h5 class="mb-0">Manage Blogs</h5>
+                    <a href="{{ route('brand.trash-manage') }}">
+                        <button class="btn btn-dark ">Manage Trash Folder</button>
                     </a>
                 </div>
                   <div class="card-body">
 
-                    @if ( $pages->count() == 0 )
+                    @if ( $blog_categories->count() == 0 )
                         <div class="alert alert-danger" role="alert">
-                           Oops! there is no category data here.
+                           Oops! there is no blog categories data here.
                         </div>
                     @else
                         <table class="table">
                             <thead>
                             <tr>
                                 <th scope="col">#Sl.</th>
-                                <th scope="col">Page Name</th>
-                                <th scope="col">Page URL</th>
-                                <th scope="col">Page Description</th>
+                                <th scope="col">Blog Category</th>
+                                <th scope="col">Blog Slug</th>
                                 <th scope="col">Action</th>
                             </tr>
                             </thead>
                             
                             <tbody>
-                                @foreach ( $pages as $key=>$page )
+                                @foreach ( $blog_categories as $key=>$blog_category)
                                     <tr>
                                         <th scope="row">{{ $key + 1 }}</th>
-                                        <td>{{ $page->page_name }}</td>
-                                        <td>{{ $page->page_url }}</td>
-                                        <td>{{ $taglessBody = strip_tags( $page->page_description ) }}</td>
+                                        <td>{{ $blog_category->category_name }}</td>
+                                        <td>{{ $blog_category->category_slug }}</td>
                                         <td>
                                             <ul class="action_list">
                                                 <li style="background: #157347;">
-                                                    <a href="{{ route('page.edit', $page->id) }}"><i class="far fa-edit"></i></a> 
+                                                    <a href="{{ route('blog.edit', $blog_category->id) }}"><i class="far fa-edit"></i></a> 
                                                 </li>
                                                 <li style="background: #BB2D3B;">
-                                                    <span data-toggle="modal" data-target="#page{{ $page->id }}"><i class="fas fa-trash"></i></span> 
+                                                    <span data-toggle="modal" data-target="#blog_category{{ $blog_category->id }}"><i class="fas fa-trash"></i></span> 
                                                 </li>
                                             </ul>
                                         </td>
@@ -69,11 +67,11 @@
 
 
                                     <!-- Modal start -->
-                                    <div class="modal fade" id="page{{ $page->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="blog_category{{ $blog_category->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Do you want to delete this data permanently!</h5>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Do you want to delete this data!</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
@@ -82,7 +80,7 @@
                                                 <div class="modal-body text-center">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                     
-                                                    <a href="{{ route('page.destroy', $page->id) }}" class="btn btn-primary">Confirm</a>
+                                                    <a href="{{ route('blog.destroy', $blog_category->id) }}" class="btn btn-primary">Confirm</a>
                                                 </div>
 
                                             </div>

@@ -51,8 +51,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="page_title" class="col-form-label">Page Title</label>
-                            <input id="page_title" type="text" name="page_title" value="{{ $pages->page_title }}" class="form-control" required autocomplete="off" placeholder="Page Title">
+                            <label for="page_url" class="col-form-label">Page Title</label>
+                            <input id="page_url" type="text" name="page_url" value="{{ $pages->page_url }}" class="form-control" required autocomplete="off" placeholder="Page Title">
                         </div>
 
                         @php $taglessBody = strip_tags( $pages->page_description ); @endphp

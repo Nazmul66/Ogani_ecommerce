@@ -14,6 +14,7 @@ use App\Http\Controllers\Backend\PickupController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\CampaignController;
 use App\Http\Controllers\Backend\OrderController;
+use App\Http\Controllers\Backend\BlogController;
 // use Laravel\Socialite\Facades\Socialite;
  
 // Route::get('/auth/redirect', function () {
@@ -143,6 +144,18 @@ Route::group(['middleware' => ['auth', 'IsAdmin'], 'prefix' => '/admin'], functi
       Route::post('/update/{id}', [CouponController::class, 'update'])->name('coupon.update');
       Route::get('/destroy/{id}', [CouponController::class, 'destroy'])->name('coupon.destroy');
       Route::get('/trash-destroy/{id}', [CouponController::class, 'trashDestroy'])->name('coupon.trash-destroy');
+   });
+
+   // Blogs
+   Route::group(['prefix' => '/blog'], function () {
+      Route::get('/manage', [BlogController::class, 'manage'])->name('blog.manage');
+      // Route::get('/trash-manage', [BlogController::class, 'trashManage'])->name('campaign.trash-manage');
+      Route::get('/create', [BlogController::class, 'create'])->name('blog.create');
+      Route::post('/store', [BlogController::class, 'store'])->name('blog.store');
+      Route::get('/edit/{id}', [BlogController::class, 'edit'])->name('blog.edit');
+      Route::post('/update/{id}', [BlogController::class, 'update'])->name('blog.update');
+      Route::get('/destroy/{id}', [BlogController::class, 'destroy'])->name('blog.destroy');
+      // Route::get('/trash-destroy/{id}', [BlogController::class, 'trashDestroy'])->name('blog.trash-destroy');
    });
 
 
