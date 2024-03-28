@@ -76,6 +76,9 @@
                                                 <li style="background: #157347;">
                                                     <a href="{{ route('campaign.edit', $campaign->id) }}"><i class="far fa-edit"></i></a> 
                                                 </li>
+                                                <li style="background: #17A2B8;">
+                                                    <a href="{{ route('campaign.product', $campaign->id) }}"><i class="fa fa-plus"></i></a> 
+                                                </li>
                                                 <li style="background: #BB2D3B;">
                                                     <span data-toggle="modal" data-target="#campaign{{ $campaign->id }}"><i class="fas fa-trash"></i></span> 
                                                 </li>
@@ -114,6 +117,7 @@
             </div>
         </div>
     </div>
+    <!-- body content start end -->
 
 
 @endsection

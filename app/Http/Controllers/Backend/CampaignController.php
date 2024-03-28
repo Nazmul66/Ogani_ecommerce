@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use App\Models\Campaign;
+use App\Models\Campaign_product;
+use App\Models\Product;
+use App\Models\SubCategory;
+use App\Models\Category;
+use App\Models\Brand;
+use Illuminate\Support\Facades\DB;
 
 class CampaignController extends Controller
 {
@@ -203,5 +209,71 @@ class CampaignController extends Controller
         ];
 
         return redirect()->back()->with($notifications);
+    }
+
+
+    public function campaignProduct(string $campaign_id)
+    {
+        $products = DB::table('products')->leftJoin('categories', 'products.category_id', 'categories.id')
+                ->leftJoin('sub_categories', 'products.subCategory_id', 'sub_categories.id')
+                ->leftJoin('brands', 'products.brand_id', 'brands.id')
+                ->select('products.*', 'categories.category_name', 'sub_categories.subcategory_name', 'brands.brand_name')
+                ->where('products.status', 1)
+                ->get();
+
+        return view('backend.pages.campaign_product.manage', compact('products', 'campaign_id'));
+    }
+
+    public function productAddToCampaign(string $id, $campaign_id)
+    {
+        $campaign = Campaign::where('id', $campaign_id)->first();
+        $product  = Product::where('id', $id)->first();
+
+        $discount_amount = $product->selling_price * $campaign->discount / 100;
+        $discount_price  = $product->selling_price - $discount_amount;
+        // echo $discount_price;
+
+        $campaign_product = new Campaign_product();
+
+        if( !is_null($campaign_product) ){
+            $campaign_product->campaign_id    = $campaign_id;
+            $campaign_product->product_id     = $id;
+            $campaign_product->price          = $discount_price;
+
+            $campaign_product->save();
+
+            $notifications = [
+                "message"    => "Product campaign Data inserted",
+                'alert-type' => "success"
+            ];
+    
+            return redirect()->back()->with($notifications);
+        }
+    }
+
+    public function campaignProductList(string $campaign_id)
+    {
+        $products = DB::table('campaign_products')->leftJoin('products', 'products.id', 'campaign_products.product_id')
+                    ->select('campaign_products.*', 'products.thumbnail', 'products.product_name', 'products.product_code', 'products.selling_price')
+                    ->where('campaign_products.campaign_id', $campaign_id)
+                    ->get();
+
+        return view('backend.pages.campaign_product.campaignList-manage', compact('products', 'campaign_id'));
+    }
+
+    public function destroyCampaignProduct(string $id)
+    {
+        $campaign_product = Campaign_product::find($id);
+
+        if( !is_null( $campaign_product ) ){
+            $campaign_product->delete();
+
+            $notifications = [
+                "message"    => "campaign data delete successfully",
+                'alert-type' => "error"
+            ];
+    
+            return redirect()->back()->with($notifications);
+        }
     }
 }

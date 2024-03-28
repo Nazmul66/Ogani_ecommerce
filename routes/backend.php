@@ -176,16 +176,20 @@ Route::group(['middleware' => ['auth', 'IsAdmin'], 'prefix' => '/admin'], functi
    });
 
 
+   // Campaigns Products
+   Route::group(['prefix' => '/campaign-product'], function () {
+      Route::get('/{campaign_id}', [CampaignController::class, 'campaignProduct'])->name('campaign.product');
+      Route::get('/add/{id}/{campaign_id}', [CampaignController::class, 'productAddToCampaign'])->name('add.product.to.campaign');
+      Route::get('/list/{campaign_id}', [CampaignController::class, 'campaignProductList'])->name('campaign.product.list');
+      Route::get('/remove/{id}', [CampaignController::class, 'destroyCampaignProduct'])->name('destroy.campaign.product');
+   });
+
+
    // Order
    Route::group(['prefix' => '/order'], function () {
       Route::get('/manage', [OrderController::class, 'manage'])->name('order.manage');
       Route::get('/edit/{id}', [OrderController::class, 'edit'])->name('order.edit');
-      // Route::get('/trash-manage', [OrderController::class, 'trashManage'])->name('campaign.trash-manage');
-      // Route::get('/create', [OrderController::class, 'create'])->name('campaign.create');
-      // Route::post('/store', [OrderController::class, 'store'])->name('campaign.store');
       Route::post('/update/{id}', [OrderController::class, 'update'])->name('order.update');
-      // Route::get('/destroy/{id}', [OrderController::class, 'destroy'])->name('campaign.destroy');
-      // Route::get('/trash-destroy/{id}', [OrderController::class, 'trashDestroy'])->name('campaign.trash-destroy');
    });
 
 

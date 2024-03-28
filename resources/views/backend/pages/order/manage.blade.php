@@ -43,8 +43,8 @@
                                 <th scope="col">Name</th>
                                 <th scope="col">Phone</th>
                                 <th scope="col">Email</th>
-                                <th scope="col">SubTotal</th>
-                                <th scope="col">Total</th>
+                                <th scope="col">SubTotal({{ $setting->currency }})</th>
+                                <th scope="col">Total({{ $setting->currency }})</th>
                                 <th scope="col">Payment Type</th>
                                 <th scope="col">Date</th>
                                 <th scope="col">Status</th>
@@ -103,3 +103,4 @@
     <!-- body content start end -->
 
 @endsection
+

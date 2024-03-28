@@ -189,6 +189,50 @@
                                 </div>
                             </li>
 
+                            
+
+                            <!-- Report list  -->
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="collapse" aria-expanded="false" data-target="#submenu-13" aria-controls="submenu-13">
+                                    <i class="fas fa-fw fa-table"></i>Reports
+                                </a>
+
+                                <div id="submenu-13" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="">Order Report</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="">Customer Report</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="">Stock Report</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="">Product Report</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                             <!-- User Role list  -->
+                             <li class="nav-item">
+                                <a class="nav-link" data-toggle="collapse" aria-expanded="false" data-target="#submenu-14" aria-controls="submenu-14">
+                                    <i class="fas fa-fw fa-table"></i>User Role
+                                </a>
+
+                                <div id="submenu-14" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="">Create New Role</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="">Manage Role</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
 
                             <li class="nav-divider">
                                 Option
