@@ -208,6 +208,24 @@
                                 </div>
                             </li>
 
+                            <!-- Division list  -->
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="collapse" aria-expanded="false" data-target="#submenu-15" aria-controls="submenu-15">
+                                    <i class="fas fa-fw fa-table"></i>Division
+                                </a>
+
+                                <div id="submenu-15" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ route('division.create') }}">Add Division</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ route('division.manage') }}">Manage Division</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
                              <!-- User Role list  -->
                              <li class="nav-item">
                                 <a class="nav-link" data-toggle="collapse" aria-expanded="false" data-target="#submenu-14" aria-controls="submenu-14">

@@ -17,6 +17,7 @@ use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\CustomerController;
 use App\Http\Controllers\Backend\CountryController;
+use App\Http\Controllers\Backend\DivisionController;
 // use Laravel\Socialite\Facades\Socialite;
  
 // Route::get('/auth/redirect', function () {
@@ -206,17 +207,27 @@ Route::group(['middleware' => ['auth', 'IsAdmin'], 'prefix' => '/admin'], functi
       Route::get('/trash-destroy/{id}', [PickupController::class, 'trashDestroy'])->name('pickup.trash-destroy');
    });
 
-      // Country
-      Route::group(['prefix' => '/country'], function () {
-         Route::get('/manage', [CountryController::class, 'manage'])->name('country.manage');
-         // Route::get('/trash-manage', [CountryController::class, 'trashManage'])->name('pickup.trash-manage');
-         Route::get('/create', [CountryController::class, 'create'])->name('country.create');
-         Route::post('/store', [CountryController::class, 'store'])->name('country.store');
-         Route::get('/edit/{id}', [CountryController::class, 'edit'])->name('country.edit');
-         Route::post('/update/{id}', [CountryController::class, 'update'])->name('country.update');
-         Route::get('/destroy/{id}', [CountryController::class, 'destroy'])->name('country.destroy');
-         // Route::get('/trash-destroy/{id}', [CountryController::class, 'trashDestroy'])->name('pickup.trash-destroy');
-      });
+   // Country
+   Route::group(['prefix' => '/country'], function () {
+      Route::get('/manage', [CountryController::class, 'manage'])->name('country.manage');
+      Route::get('/create', [CountryController::class, 'create'])->name('country.create');
+      Route::post('/store', [CountryController::class, 'store'])->name('country.store');
+      Route::get('/edit/{id}', [CountryController::class, 'edit'])->name('country.edit');
+      Route::post('/update/{id}', [CountryController::class, 'update'])->name('country.update');
+      Route::get('/destroy/{id}', [CountryController::class, 'destroy'])->name('country.destroy');
+   });
+
+   // Division
+   Route::group(['prefix' => '/division'], function () {
+      Route::get('/manage', [DivisionController::class, 'manage'])->name('division.manage');
+      Route::get('/trash-manage', [DivisionController::class, 'trashManage'])->name('division.trash-manage');
+      Route::get('/create', [DivisionController::class, 'create'])->name('division.create');
+      Route::post('/store', [DivisionController::class, 'store'])->name('division.store');
+      Route::get('/edit/{id}', [DivisionController::class, 'edit'])->name('division.edit');
+      Route::post('/update/{id}', [DivisionController::class, 'update'])->name('division.update');
+      Route::get('/destroy/{id}', [DivisionController::class, 'destroy'])->name('division.destroy');
+      Route::get('/trash-destroy/{id}', [DivisionController::class, 'trashDestroy'])->name('division.trash-destroy');
+   });
 
 
    // Setting
