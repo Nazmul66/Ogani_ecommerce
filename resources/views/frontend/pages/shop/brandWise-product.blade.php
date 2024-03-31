@@ -270,11 +270,11 @@
                     <div class="filter__item">
                         <div class="row">
                             <div class="col-lg-4 col-md-5">
-                                <div class="filter__sort">
+                                <div class="d-flex">
                                     <span>Sort By</span>
-                                    <select>
-                                        <option value="0">Default</option>
-                                        <option value="0">Default</option>
+                                    <select class="form-control">
+                                        <option value="higest" selected>Higest Rated</option>
+                                        <option value="lowest">Lowest Rated</option>
                                     </select>
                                 </div>
                             </div>

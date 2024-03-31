@@ -17,7 +17,7 @@ use App\Models\User;
 use App\Models\Newsletter; 
 use App\Models\Contact; 
 use App\Models\Wishlist;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Campaign;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -36,7 +36,8 @@ class HomeController extends Controller
         $trendy_product    = Product::where('trendy', 1)->where('status', 1)->limit(10)->get();
         $brand_logos       = Brand::where('status', 1)->where('front_page', 1)->inRandomOrder()->limit(12)->get();
         $home_category     = DB::table('categories')->where('home_page', 1)->orderBy('category_name', 'asc')->get();
-        return view('frontend.home', compact('product', 'featured_product', 'popular_product', 'trendy_product', 'home_category', 'brand_logos', 'random_products', 'setting', 'cartSummary'));
+        $campaigns         = Campaign::orderBy('title', 'asc')->where('status', 1)->get();
+        return view('frontend.home', compact('product', 'featured_product', 'popular_product', 'trendy_product', 'home_category', 'brand_logos', 'random_products', 'setting', 'cartSummary', 'campaigns'));
     }
 
     /**
@@ -187,6 +188,36 @@ class HomeController extends Controller
                 return redirect()->back()->with($notifications);
             }
         }
+    }
+
+    public function campaignProducts(string $campaign_id)
+    {
+        $products = DB::table('campaign_products')->leftJoin('products', 'products.id', 'campaign_products.product_id')
+                    ->select('campaign_products.*', 'campaign_products.price', 'products.category_id', 'products.thumbnail', 'products.product_name', 'products.product_code', 'products.selling_price', 'products.slug')
+                    ->where('campaign_products.campaign_id', $campaign_id)
+                    ->get();
+
+        return view('frontend.pages.campaign.product_list', compact('products'));
+    }
+
+    public function campaignProductsDetails(string $slug)
+    {
+        $products          =  DB::table('campaign_products')->leftJoin('products', 'products.id', 'campaign_products.product_id')
+                              ->select('campaign_products.*', 'products.*')
+                              ->where('slug', $slug)
+                              ->first();
+                              Product::where('slug', $slug)->increment('product_view');   
+        $category          =  Category::where('id', $products->category_id)->first();
+        $brand             =  Brand::where('id', $products->brand_id)->first();
+        $pickup_point      =  Pickup_point::where('id', $products->	pickup_point_id)->first();
+        $productImg        =  ProductImage::where('product_id', $products->id)->get();              
+        $related_product   =  DB::table('campaign_products')->leftJoin('products', 'products.id', 'campaign_products.product_id')
+                              ->select('campaign_products.*', 'products.*')
+                              ->inRandomOrder()
+                              ->get();
+        $review_products   =  Review::orderBy('id', 'desc')->where('product_id', $products->id)->get();
+
+        return view('frontend.pages.campaign.product-details', compact('products', 'related_product', 'review_products', 'brand', 'category', 'productImg', 'pickup_point'));
     }
 
 

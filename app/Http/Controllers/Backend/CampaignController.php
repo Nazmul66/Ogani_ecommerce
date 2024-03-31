@@ -219,6 +219,8 @@ class CampaignController extends Controller
                 ->leftJoin('brands', 'products.brand_id', 'brands.id')
                 ->select('products.*', 'categories.category_name', 'sub_categories.subcategory_name', 'brands.brand_name')
                 ->where('products.status', 1)
+                // ->where('products.discount_price', NULL)
+                // ->whereNotNull('products.selling_price')
                 ->get();
 
         return view('backend.pages.campaign_product.manage', compact('products', 'campaign_id'));

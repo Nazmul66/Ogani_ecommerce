@@ -27,6 +27,39 @@
         </section>
         <!-- Banner Section End -->
 
+        <!-- Campaign Section Begin -->
+               <div class="banner campaign_products">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="section-title">
+                                    <h2>Campaign Products</h2>
+                                </div>
+                            </div>
+
+                            @foreach ($campaigns as $campaign)
+                                @php
+                                    $today = strtotime(date('Y-m-d'));
+                                    $campaign_star = strtotime($campaign->start_date);
+                                    $campaign_end  = strtotime($campaign->end_date);
+                                @endphp
+
+                                @if ( $today >= $campaign_star && $today <= $campaign_end )
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="banner__pic">
+                                            <a href="{{ route('campaign.products', $campaign->id) }}">
+                                                <img src="{{ asset('backend/uploads/campaigns/' . $campaign->image) }}" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                @endif
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            
+        <!-- Campaign Section Begin -->
+
         <!-- Brand Logo Section Begin -->
         <section class="brand_logo">
             <div class="container">

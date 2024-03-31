@@ -190,26 +190,19 @@
                             </li>
 
                             
-
-                            <!-- Report list  -->
+                            <!-- Country list  -->
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="collapse" aria-expanded="false" data-target="#submenu-13" aria-controls="submenu-13">
-                                    <i class="fas fa-fw fa-table"></i>Reports
+                                    <i class="fas fa-fw fa-table"></i>Country
                                 </a>
 
                                 <div id="submenu-13" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="">Order Report</a>
+                                            <a class="nav-link" href="{{ route('country.create') }}">Add Country</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="">Customer Report</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="">Stock Report</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="">Product Report</a>
+                                            <a class="nav-link" href="{{ route('country.manage') }}">Manage Country</a>
                                         </li>
                                     </ul>
                                 </div>

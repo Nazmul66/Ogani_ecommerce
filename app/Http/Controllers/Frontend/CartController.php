@@ -99,8 +99,6 @@ class CartController extends Controller
                 $carts->product_id   =  $request->prdct_id;
                 $carts->ip_address   =  $request->ip();
                 $carts->product_qty  =  $request->quantity ?? 1;
-                $carts->color        =  $request->color;
-                $carts->size         =  $request->size ;
 
                 $carts->save();
 

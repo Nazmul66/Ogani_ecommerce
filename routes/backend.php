@@ -16,6 +16,7 @@ use App\Http\Controllers\Backend\CampaignController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\CustomerController;
+use App\Http\Controllers\Backend\CountryController;
 // use Laravel\Socialite\Facades\Socialite;
  
 // Route::get('/auth/redirect', function () {
@@ -204,6 +205,18 @@ Route::group(['middleware' => ['auth', 'IsAdmin'], 'prefix' => '/admin'], functi
       Route::get('/destroy/{id}', [PickupController::class, 'destroy'])->name('pickup.destroy');
       Route::get('/trash-destroy/{id}', [PickupController::class, 'trashDestroy'])->name('pickup.trash-destroy');
    });
+
+      // Country
+      Route::group(['prefix' => '/country'], function () {
+         Route::get('/manage', [CountryController::class, 'manage'])->name('country.manage');
+         // Route::get('/trash-manage', [CountryController::class, 'trashManage'])->name('pickup.trash-manage');
+         Route::get('/create', [CountryController::class, 'create'])->name('country.create');
+         Route::post('/store', [CountryController::class, 'store'])->name('country.store');
+         Route::get('/edit/{id}', [CountryController::class, 'edit'])->name('country.edit');
+         Route::post('/update/{id}', [CountryController::class, 'update'])->name('country.update');
+         Route::get('/destroy/{id}', [CountryController::class, 'destroy'])->name('country.destroy');
+         // Route::get('/trash-destroy/{id}', [CountryController::class, 'trashDestroy'])->name('pickup.trash-destroy');
+      });
 
 
    // Setting

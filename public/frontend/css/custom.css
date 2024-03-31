@@ -404,3 +404,28 @@ del{
        max-width: 720px;
     }
 }
+
+.campaign_products{
+    padding-top: 80px;
+    padding-bottom: 40px;
+}
+@media screen and (min-width: 576px) {
+    .campaign_products{
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+}
+.filtering{
+    width: 180px;
+    padding: 11px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+.total_count h6{
+    color: #b2b2b2;
+    font-weight: 400;
+}
+.total_count h6 span{
+    color: #1c1c1c;
+}
