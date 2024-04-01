@@ -132,19 +132,35 @@
                             </div>
 
                             <div class="checkout__input">
+                                <p>Country<span>*</span></p>
+                                <select class="form-control" name="c_division">
+                                    <option value="" selected disabled>Please Select the Country</option>
+                                      @foreach ($countries as $country)
+                                        <option value="{{ $country->id }}" @if( $country->id == $users->country_id ) selected @endif>{{ $country->name }}</option>
+                                      @endforeach
+                                </select>
+                            </div>
+
+                            <div class="checkout__input">
                                 <p>Division<span>*</span></p>
-                                <input type="text"  name="c_division" autocomplete="off">
+                                <select class="form-control" name="c_division">
+                                    <option value="" selected disabled>Please Select the Division</option>
+                                      @foreach ($divisions as $division)
+                                        <option value="{{ $division->id }}" @if( $division->id == $users->division_id ) selected @endif>{{ $division->division_name }}</option>
+                                      @endforeach
+                                </select>
                             </div>
 
                             <div class="checkout__input">
                                 <p>District<span>*</span></p>
-                                <input type="text"  name="c_district" autocomplete="off">
+                                <select class="form-control" name="c_district">
+                                    <option value="" selected disabled>Please Select the District</option>
+                                      @foreach ($districts as $district)
+                                        <option value="{{ $district->id }}" @if( $district->id == $users->district_id ) selected @endif>{{ $district->district_name }}</option>
+                                      @endforeach
+                                </select>
                             </div>
-
-                            <div class="checkout__input">
-                                <p>Town/City<span>*</span></p>
-                                <input type="text" name="c_city" autocomplete="off">
-                            </div>
+                            
                             <div class="checkout__input">
                                 <p>Postcode / ZIP<span>*</span></p>
                                 <input type="text" name="c_zipCode" 
@@ -198,24 +214,16 @@
                                    <div class="checkout__order__total">Total <span>{{ $setting->currency }}{{ $subTotal + $tax }}</span></div>
                                 @endif
 
-                                {{-- payment method --}}
-                                {{-- <div class="form-check mb-2">
-                                    <input class="form-check-input" type="radio" name="payment_type" id="payment_type2" value="aamerPay" checked>
-                                    <label class="form-check-label" for="payment_type2" style="cursor: pointer;">
-                                        aamerPay
-                                    </label>
-                                </div> --}}
-
                                 <div class="form-check mb-2">
-                                    <input class="form-check-input" type="radio" name="payment_type" id="payment_type3" value="ssl_Commerze" checked>
-                                    <label class="form-check-label" for="payment_type3" style="cursor: pointer;">
+                                    <input class="form-check-input" type="radio" name="payment_type" id="payment_type1" value="ssl_Commerze" checked>
+                                    <label class="form-check-label" for="payment_type1" style="cursor: pointer;">
                                         Ssl_Commerze
                                     </label>
                                 </div>
 
                                 <div class="form-check mb-2">
-                                    <input class="form-check-input" type="radio" name="payment_type" id="payment_type1" value="hand_cash">
-                                    <label class="form-check-label" for="payment_type1" style="cursor: pointer;">
+                                    <input class="form-check-input" type="radio" name="payment_type" id="payment_type2" value="hand_cash">
+                                    <label class="form-check-label" for="payment_type2" style="cursor: pointer;">
                                       Hand Cash
                                     </label>
                                 </div>
@@ -235,6 +243,7 @@
 
 
 @section('scripts')
+
 <script>
     (function (window, document) {
         var loader = function () {
@@ -245,5 +254,19 @@
     
         window.addEventListener ? window.addEventListener("load", loader, false) : window.attachEvent("onload", loader);
     })(window, document);
+
+    // hide the shipping cost
+    let ssl_commerz  = document.getElementById("payment_type1");
+    let hand_cash    = document.getElementById("payment_type2");
+    let shippment    = document.querySelector(".checkout__order__shipping");
+
+    hand_cash.addEventListener("click", function(){
+        shippment.style.display = "none";
+    })
+
+    ssl_commerz.addEventListener("click", function(){
+        shippment.style.display = "block";
+    })
 </script>
+
 @endsection

@@ -126,29 +126,32 @@
                         </div>
 
                         <div class="col-md-4">
+                            <label for="review">Country *</label>
+                            <select class="form-control" name="country_id" style="height: 56px;">
+                                <option value="" disabled selected>select this country</option>
+                                @foreach ($countries as $country)
+                                   <option value="{{ $country->id }}" @if( $country->id == $usersData->country_id ) selected @endif>{{ $country->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="col-md-4">
                             <label for="email">Division *</label>
-                            <select class="custom_select_form" name="division_id" style="height: 56px;">
+                            <select class="form-control" name="division_id" style="height: 56px;">
                                 <option value="" disabled selected>select this division</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
+                                    @foreach ($divisions as $division)
+                                        <option value="{{ $division->id }}" @if( $division->id == $usersData->division_id ) selected @endif>{{ $division->division_name }}</option>
+                                    @endforeach
                             </select>
                         </div>
 
                         <div class="col-lg-4">
                             <label for="email">District *</label>
-                            <select class="custom_select_form" name="district_id" style="height: 56px;">
+                            <select class="form-control" name="district_id" style="height: 56px;">
                                 <option value="" disabled selected>select this state/division</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="review">City *</label>
-                            <select class="custom_select_form" name="city_id" style="height: 56px;">
-                                <option value="" disabled selected>select this city</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
+                                    @foreach ($districts as $district)
+                                        <option value="{{ $district->id }}" @if( $district->id == $usersData->district_id ) selected @endif>{{ $district->district_name }}</option>
+                                    @endforeach
                             </select>
                         </div>
 

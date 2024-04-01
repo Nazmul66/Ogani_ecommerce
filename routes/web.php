@@ -71,11 +71,13 @@ Route::post('/write/review', [ReviewController::class, 'writeReview'] )->name('w
 //__Newsletter for frontend customer__//
 Route::post('/store/newsletter', [HomeController::class, 'newsLetter'] )->name('store.newsletter');
 
+
 //__Wishlist__//
 Route::get('/wishlist', [WishlistController::class, 'wishlist'] )->name('wishlist');
 Route::get('/add/wishlist/{id}', [WishlistController::class, 'addWishlist'] )->name('add.wishlist');
 Route::get('/clear/wishlist', [WishlistController::class, 'clearWishlist'] )->name('clear.wishlist');
 Route::get('/wishlist/destroy/{id}', [WishlistController::class, 'destroy'] )->name('wishlist.destroy');
+
 
 //__Category wise product__//
 Route::get('/shop-page', [HomeController::class, 'shopPage'] )->name('shopPage');
@@ -83,6 +85,7 @@ Route::get('/category/product/{id}', [HomeController::class, 'categoryWiseProduc
 Route::get('/subCategory/product/{id}', [HomeController::class, 'subCategoryWiseProduct'] )->name('subCategoryWise.product');
 Route::get('/childCategory/product/{id}', [HomeController::class, 'childCategoryWise'] )->name('childCategoryWise.product');
 Route::get('/brand/product/{id}', [HomeController::class, 'brandWiseProduct'] )->name('brandwise.product');
+
 
 //__Customer profile__//
 Route::get('/customer-profile', [CustomerController::class, 'customerProfile'] )->middleware(['auth', 'verified'])->name('customer.profile');
@@ -92,6 +95,7 @@ Route::post('/user-shippingInfo/{id}', [CustomerController::class, 'userShipping
 Route::get('/customer-invoice/{transaction_id}', [CustomerController::class, 'customerInvoice'] )->name('customer.invoice');
 Route::post('/store/ticket', [CustomerController::class, 'storeTicket'] )->name('store.ticket');
 Route::post('/show/ticket/{id}', [CustomerController::class, 'showTicket'] )->name('show.ticket');
+
 
 //__CartList__//
 Route::group(['prefix' => '/cart'], function (){

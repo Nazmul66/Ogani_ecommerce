@@ -97,7 +97,7 @@
                                   <div class="category_slides">
                                     <img src="{{  asset('backend/uploads/category/' . $home_cat->icon) }}" alt="" class="cat_icons">
                                     <h5>
-                                        <a href="#">{{ $home_cat->category_name }}</a>
+                                        <a href="{{ route('categoryWise.product', $home_cat->id) }}">{{ $home_cat->category_name }}</a>
                                     </h5>
                                   </div>
                               </div>

@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Cart;
 use App\Models\User;
 use App\Models\Order;
+use App\Models\Division;
+use App\Models\Country;
+use App\Models\District;
 use App\Models\Product;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Mail;
@@ -21,9 +24,12 @@ class SslCommerzPaymentController extends Controller
     public function checkoutPage()
     {
         if( Auth::check() ){
-            $carts = Cart::where('user_id', Auth::user()->id)->where('order_id', NULL)->get();
-            $users = User::where('id', Auth::user()->id)->first();
-            return view('frontend.pages.cart.checkout', compact('carts', 'users'));
+            $carts      = Cart::where('user_id', Auth::user()->id)->where('order_id', NULL)->get();
+            $users      = User::where('id', Auth::user()->id)->first();
+            $divisions  = Division::orderBy('id', 'ASC')->get();
+            $districts  = District::orderBy('id', 'ASC')->get();
+            $countries  = Country::orderBy('id', 'ASC')->get();
+            return view('frontend.pages.cart.checkout', compact('carts', 'users', 'divisions', 'districts', 'countries'));
         }
         else{
             $notifications = [
@@ -147,7 +153,7 @@ class SslCommerzPaymentController extends Controller
 
             // session destroy for coupons after purchase
             if (Session::has('coupon')) {
-            Session::forget('coupon'); 
+                 Session::forget('coupon'); 
             }
 
             // sending mail information
@@ -160,7 +166,7 @@ class SslCommerzPaymentController extends Controller
             $customerMails = ['nh4647352@gmail.com', $request->c_email];
 
             foreach( $customerMails as $customerMail ){
-            Mail::to($customerMail)->send(new InvoiceMail($mailData));
+                 Mail::to($customerMail)->send(new InvoiceMail($mailData));
             }
         }
 

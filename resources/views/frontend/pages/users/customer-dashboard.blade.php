@@ -590,12 +590,50 @@
                                                    </li>
 
                                                    <li>
+                                                        <div class="details">
+                                                            <div class="left">
+                                                                <h6>zip_code</h6>
+                                                            </div>
+                                                            <div class="right">
+                                                                <h6>@if ( Auth::check() ) {{ Auth::user()->zipCode }} @endif</h6>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+
+                                                   <li>
+                                                        <div class="details">
+                                                            <div class="left">
+                                                                <h6>Country</h6>
+                                                            </div>
+                                                            <div class="right">
+                                                                <h6>
+                                                                    @if ( Auth::check() ) 
+                                                                        @foreach (App\Models\Country::all() as $row)
+                                                                            @if ( $row->id == Auth::user()->country_id)
+                                                                                {{ $row->name }} 
+                                                                            @endif
+                                                                        @endforeach
+                                                                    @endif
+                                                                </h6>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+
+                                                   <li>
                                                        <div class="details">
                                                            <div class="left">
                                                                <h6>Division</h6>
                                                            </div>
                                                            <div class="right">
-                                                               <h6>@if ( Auth::check() ) {{ Auth::user()->division_id }} @endif</h6>
+                                                              <h6>
+                                                                @if ( Auth::check() ) 
+                                                                   @foreach (App\Models\Division::all() as $row)
+                                                                       @if ( $row->id == Auth::user()->division_id)
+                                                                           {{ $row->division_name }} 
+                                                                       @endif
+                                                                   @endforeach
+                                                                @endif
+                                                              </h6>
                                                            </div>
                                                        </div>
                                                    </li>
@@ -606,32 +644,18 @@
                                                                 <h6>District</h6>
                                                             </div>
                                                             <div class="right">
-                                                                <h6>@if ( Auth::check() ) {{ Auth::user()->district_id }} @endif</h6>
+                                                                <h6>
+                                                                    @if ( Auth::check() ) 
+                                                                        @foreach (App\Models\District::all() as $row)
+                                                                            @if ( $row->id == Auth::user()->district_id)
+                                                                                {{ $row->district_name }} 
+                                                                            @endif
+                                                                        @endforeach
+                                                                    @endif
+                                                                </h6>
                                                             </div>
                                                         </div>
                                                     </li>
-
-                                                   <li>
-                                                       <div class="details">
-                                                           <div class="left">
-                                                               <h6>city/state</h6>
-                                                           </div>
-                                                           <div class="right">
-                                                               <h6>@if ( Auth::check() ) {{ Auth::user()->country_id }} @endif</h6>
-                                                           </div>
-                                                       </div>
-                                                   </li>
-
-                                                   <li>
-                                                       <div class="details">
-                                                           <div class="left">
-                                                               <h6>zip</h6>
-                                                           </div>
-                                                           <div class="right">
-                                                               <h6>@if ( Auth::check() ) {{ Auth::user()->zipCode }} @endif</h6>
-                                                           </div>
-                                                       </div>
-                                                   </li>
                                                </ul>
                                            </div>
                                            <div class="dashboard-title mt-lg-5 mt-3">

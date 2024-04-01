@@ -9,6 +9,9 @@ use App\Models\Cart;
 use App\Models\Wishlist;
 use App\Models\User;
 use App\Models\Ticket;
+use App\Models\Division;
+use App\Models\District;
+use App\Models\Country;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
@@ -20,8 +23,11 @@ class CustomerController extends Controller
      */
     public function customerProfile()
     {
-        $usersData = User::where("id", Auth::user()->id)->first();
-        return view('frontend.pages.users.customer-profile', compact('usersData'));
+        $usersData  =  User::where("id", Auth::user()->id)->first();
+        $divisions  =  Division::orderBy('id', 'asc')->get();
+        $districts  =  District::orderBy('id', 'asc')->get();
+        $countries  =  Country::orderBy('id', 'asc')->get();
+        return view('frontend.pages.users.customer-profile', compact('usersData', 'divisions', 'districts', 'countries'));
     }
 
     public function customerInvoice(string $transaction_id)
@@ -104,7 +110,7 @@ class CustomerController extends Controller
            $userInfo->address_Line2    = $request->address_Line2;
            $userInfo->division_id      = $request->division_id;
            $userInfo->district_id      = $request->district_id;
-           $userInfo->country_id       = $request->city_id;
+           $userInfo->country_id       = $request->country_id;
            $userInfo->zipCode          = $request->zipCode;
         }
 

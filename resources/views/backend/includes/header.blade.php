@@ -7,9 +7,11 @@
                 <a class="navbar-brand" href="{{ route('admin.dashboard') }}">
                     <img src="{{ asset('backend/uploads/website_setting/' . $setting->logo) }}" alt="" style="width: 110px; height: 50px;">
                 </a>
+
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="collapse navbar-collapse " id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto navbar-right-top">
                         <li class="nav-item">
@@ -68,6 +70,7 @@
                                 </li>
                             </ul>
                         </li>
+
                         <li class="nav-item dropdown connection">
                             <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-fw fa-th"></i> </a>
                             <ul class="dropdown-menu dropdown-menu-right connection-dropdown">
@@ -100,12 +103,18 @@
                                 </li>
                             </ul>
                         </li>
+
                         <li class="nav-item dropdown nav-user">
-                            <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{ asset('backend/assets/images/avatar-1.jpg') }}" alt="" class="user-avatar-md rounded-circle">
+                            <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @if ( Auth::check() )
+                                  <img src="{{ asset('frontend/img/customer-images/' . Auth::user()->image) }}" alt="" class="user-avatar-md rounded-circle">
+                                @else
+                                  <img src="{{ asset('backend/assets/images/avatar-1.jpg') }}" alt="" class="user-avatar-md rounded-circle">
+                                @endif
                             </a>
                             <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
                                 <div class="nav-user-info">
-                                    <h5 class="mb-0 text-white nav-user-name">John Abraham </h5>
+                                    <h5 class="mb-0 text-white nav-user-name">@if( Auth::check() ) {{ Auth::user()->name }} @endif</h5>
                                     <span class="status"></span><span class="ml-2">Available</span>
                                 </div>
                                 <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
