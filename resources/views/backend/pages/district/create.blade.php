@@ -1,7 +1,7 @@
 @extends('backend.layout.template')
 
 @section('page-titles')
-    <title>Add Division | Admin Dashboard </title>
+    <title>Add District | Admin Dashboard </title>
 @endsection
 
 @section('body-content')
@@ -13,11 +13,11 @@
                     <ol class="breadcrumb justify-content-between align-items-center">
                         <div class="d-flex">
                             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}" class="breadcrumb-link">Dashboard</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Add Division</li>
+                            <li class="breadcrumb-item active" aria-current="page">Add District</li>
                         </div>
 
-                        <a href="{{ route('division.manage') }}">
-                            <button class="btn btn-dark">Manage Division</button>
+                        <a href="{{ route('district.manage') }}">
+                            <button class="btn btn-dark">Manage District</button>
                         </a>
                     </ol>
                 </nav>
@@ -31,9 +31,9 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
-                <h5 class="card-header">Add Division</h5>
+                <h5 class="card-header">Add District</h5>
                   <div class="card-body">
-                    <form method="POST" action="{{ route('division.store') }}">
+                    <form method="POST" action="{{ route('district.store') }}">
 
                         @csrf
 
@@ -48,8 +48,23 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="division_name" class="col-form-label">Division Name*</label>
-                            <input id="division_name" type="text" name="name" value="{{ old('name') }}" class="form-control" autocomplete="off" required>
+                            <label for="input-select">Division Name*</label>
+                            <select class="form-control" id="input-select" name="division_id">
+                                <option value="" selected disabled>Select the division name</option>
+                                @foreach ( $divisions as $division )
+                                     <option value="{{ $division->id }}">{{ $division->division_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="division_name" class="col-form-label">District Name*</label>
+                            <input id="division_name" type="text" name="district_name" value="{{ old('district_name') }}" class="form-control" autocomplete="off" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="shipping_cost" class="col-form-label">Shipping Cost</label>
+                            <input id="shipping_cost" type="text" name="shipping_cost" value="{{ old('shipping_cost') }}" class="form-control" autocomplete="off" required>
                         </div>
 
                         <div class="form-group">

@@ -57,7 +57,7 @@
                             <select class="form-control" id="input-select" name="status">
                                 <option value="" selected disabled>Select the status name</option>
                                 <option value="1" @if($division->status === 1) selected @endif>Active</option>
-                                <option value="2" @if($division->status === 2) selected @endif>Inactive</option>
+                                <option value="2" @if($division->status === 2district) selected @endif>Inactive</option>
                             </select>
                         </div>
 

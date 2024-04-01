@@ -226,6 +226,24 @@
                                 </div>
                             </li>
 
+                            <!-- District list  -->
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="collapse" aria-expanded="false" data-target="#submenu-16" aria-controls="submenu-16">
+                                    <i class="fas fa-fw fa-table"></i>District
+                                </a>
+
+                                <div id="submenu-16" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ route('district.create') }}">Add District</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ route('district.manage') }}">Manage District</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
                              <!-- User Role list  -->
                              <li class="nav-item">
                                 <a class="nav-link" data-toggle="collapse" aria-expanded="false" data-target="#submenu-14" aria-controls="submenu-14">

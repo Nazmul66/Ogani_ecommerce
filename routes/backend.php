@@ -18,6 +18,7 @@ use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\CustomerController;
 use App\Http\Controllers\Backend\CountryController;
 use App\Http\Controllers\Backend\DivisionController;
+use App\Http\Controllers\Backend\DistrictController;
 // use Laravel\Socialite\Facades\Socialite;
  
 // Route::get('/auth/redirect', function () {
@@ -227,6 +228,18 @@ Route::group(['middleware' => ['auth', 'IsAdmin'], 'prefix' => '/admin'], functi
       Route::post('/update/{id}', [DivisionController::class, 'update'])->name('division.update');
       Route::get('/destroy/{id}', [DivisionController::class, 'destroy'])->name('division.destroy');
       Route::get('/trash-destroy/{id}', [DivisionController::class, 'trashDestroy'])->name('division.trash-destroy');
+   });
+
+   // District
+   Route::group(['prefix' => '/district'], function () {
+      Route::get('/manage', [DistrictController::class, 'manage'])->name('district.manage');
+      Route::get('/trash-manage', [DistrictController::class, 'trashManage'])->name('district.trash-manage');
+      Route::get('/create', [DistrictController::class, 'create'])->name('district.create');
+      Route::post('/store', [DistrictController::class, 'store'])->name('district.store');
+      Route::get('/edit/{id}', [DistrictController::class, 'edit'])->name('district.edit');
+      Route::post('/update/{id}', [DistrictController::class, 'update'])->name('district.update');
+      Route::get('/destroy/{id}', [DistrictController::class, 'destroy'])->name('district.destroy');
+      Route::get('/trash-destroy/{id}', [DistrictController::class, 'trashDestroy'])->name('district.trash-destroy');
    });
 
 
